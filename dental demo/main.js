@@ -1,50 +1,18 @@
-// Celestia Smiles - Interactive Web Application with Reverse Ping-Pong Video Loop
+// Celestia Smiles - Interactive Web Application with Native Boomerang Video Loop
 document.addEventListener('DOMContentLoaded', () => {
   const toothVideo = document.getElementById('tooth-video');
   const videoWrapper = document.getElementById('video-wrapper');
   const watermarkBg = document.getElementById('hero-watermark');
   const scheduleBtn = document.getElementById('btn-schedule');
 
-  // Ping-Pong Video Playback (Play Forward -> Play Reverse -> Repeat)
+  // Video Autoplay setup
   if (toothVideo) {
-    let isReversing = false;
-    let lastTime = performance.now();
-
     toothVideo.play().catch(err => {
       console.log('Autoplay muted playback active:', err);
     });
-
-    function handlePingPongPlayback(now) {
-      const delta = Math.min((now - lastTime) / 1000, 0.1); // time step in seconds
-      lastTime = now;
-
-      if (toothVideo.duration && !isNaN(toothVideo.duration)) {
-        // Switch to reverse when forward playback reaches the end
-        if (!isReversing && (toothVideo.currentTime >= toothVideo.duration - 0.08 || toothVideo.ended)) {
-          isReversing = true;
-          toothVideo.pause();
-        }
-
-        // Stepping backward when reversing
-        if (isReversing) {
-          const nextTime = toothVideo.currentTime - delta;
-          if (nextTime <= 0.05) {
-            isReversing = false;
-            toothVideo.currentTime = 0;
-            toothVideo.play().catch(err => console.log('Forward play error:', err));
-          } else {
-            toothVideo.currentTime = nextTime;
-          }
-        }
-      }
-
-      requestAnimationFrame(handlePingPongPlayback);
-    }
-
-    requestAnimationFrame(handlePingPongPlayback);
   }
 
-  // Mouse 3D Parallax Effect with -30 degree rotation and refined size
+  // Mouse 3D Parallax Effect with -30 degree rotation and refined size over expanded left text
   if (videoWrapper && watermarkBg) {
     let mouseX = 0;
     let mouseY = 0;

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-BG Remover Script - Video White/Red Background to Transparent WebM
-Converts MP4/MOV videos with solid Red or White background into transparent WebM videos (VP8 with alpha channel yuva420p).
+BG Remover Script - Video White/Red Background to Transparent WebM with Ping-Pong Loop
+Converts MP4/MOV videos with solid Red or White background into a seamless boomerang transparent WebM video.
 """
 
 import os
@@ -17,6 +17,7 @@ def convert_video_to_transparent_webm(input_path, output_path):
     - Automatic Red & White background chroma detection
     - Contour silhouette hole-filling to preserve 100% of 3D glass tooth details & reflections
     - Border erosion & chroma despill to eliminate background color halos
+    - Generates a 100% seamless Forward + Reverse boomerang loop in the video file itself
     - Encodes to VP8 WebM with yuva420p alpha channel
     """
     if not os.path.exists(input_path):
@@ -58,8 +59,11 @@ def convert_video_to_transparent_webm(input_path, output_path):
 
     close_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
     erode_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+
+    processed_frames = []
     frame_count = 0
 
+    print("Step 1: Processing forward frames...")
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -101,16 +105,28 @@ def convert_video_to_transparent_webm(input_path, output_path):
         rgba = np.dstack([r_clean, g, b, alpha_smooth])
         rgba_bytes = np.ascontiguousarray(rgba, dtype=np.uint8).tobytes()
 
-        # Write frame to FFmpeg pipe
+        # Pipe forward frame to FFmpeg & cache for reverse ping-pong
         proc.stdin.write(rgba_bytes)
+        processed_frames.append(rgba_bytes)
+
         frame_count += 1
         if frame_count % 30 == 0:
-            print(f"Processed {frame_count} frames...")
+            print(f"Processed forward frame {frame_count}...")
 
     cap.release()
+
+    print(f"Step 2: Piping reverse frames (total {len(processed_frames)} frames)...")
+    # Exclude the very last and very first frame to prevent stutter at loop points
+    reverse_frames = processed_frames[-2:0:-1]
+    for idx, r_bytes in enumerate(reverse_frames):
+        proc.stdin.write(r_bytes)
+        if (idx + 1) % 30 == 0:
+            print(f"Piped reverse frame {idx + 1}...")
+
     proc.stdin.close()
     proc.wait()
-    print(f"Successfully converted {frame_count} frames! Output saved to {output_path}")
+    total_pingpong_frames = len(processed_frames) + len(reverse_frames)
+    print(f"Successfully generated boomerang WebM video ({total_pingpong_frames} frames)! Saved to {output_path}")
 
 if __name__ == "__main__":
     inp = "../video.mp4"
