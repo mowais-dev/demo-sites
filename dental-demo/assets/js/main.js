@@ -30,14 +30,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     2. Smooth Scroll Helper
+     2. Full-Page 1-Gesture Section Switcher (One Wheel / Swipe = One Section)
      ========================================================================== */
+  const sectionList = Array.from(document.querySelectorAll('.hero-container, .about-us-section, .services-section, .specialists-section, .testimonials-section, .booking-section, .footer'));
+  let currentSectionIdx = 0;
+  let isSectionScrolling = false;
+  const SCROLL_LOCK_MS = 850;
+
+  function goToSection(index) {
+    if (index < 0 || index >= sectionList.length) return;
+    currentSectionIdx = index;
+    isSectionScrolling = true;
+
+    sectionList[currentSectionIdx].scrollIntoView({ behavior: 'smooth' });
+
+    setTimeout(() => {
+      isSectionScrolling = false;
+    }, SCROLL_LOCK_MS);
+  }
+
   window.scrollToSection = function(selector) {
     const el = document.querySelector(selector);
     if (el) {
-      const offset = 70;
-      const topPos = el.getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({ top: topPos, behavior: 'smooth' });
+      const idx = sectionList.indexOf(el);
+      if (idx !== -1) {
+        goToSection(idx);
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -53,6 +73,80 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Sync active section index when scrolled
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+        const idx = sectionList.indexOf(entry.target);
+        if (idx !== -1 && !isSectionScrolling) {
+          currentSectionIdx = idx;
+        }
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sectionList.forEach(sec => sectionObserver.observe(sec));
+
+  // Wheel listener: 1 wheel gesture = 1 full section transition
+  window.addEventListener('wheel', (e) => {
+    if (document.querySelector('.modal-overlay.active')) return;
+
+    e.preventDefault();
+    if (isSectionScrolling) return;
+
+    if (e.deltaY > 0) {
+      if (currentSectionIdx < sectionList.length - 1) {
+        goToSection(currentSectionIdx + 1);
+      }
+    } else if (e.deltaY < 0) {
+      if (currentSectionIdx > 0) {
+        goToSection(currentSectionIdx - 1);
+      }
+    }
+  }, { passive: false });
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (document.querySelector('.modal-overlay.active')) return;
+    const activeTag = document.activeElement ? document.activeElement.tagName : '';
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(activeTag)) return;
+
+    if (['ArrowDown', 'PageDown'].includes(e.key)) {
+      e.preventDefault();
+      if (!isSectionScrolling && currentSectionIdx < sectionList.length - 1) {
+        goToSection(currentSectionIdx + 1);
+      }
+    } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
+      e.preventDefault();
+      if (!isSectionScrolling && currentSectionIdx > 0) {
+        goToSection(currentSectionIdx - 1);
+      }
+    }
+  });
+
+  // Touch Swipe for mobile
+  let touchStartY = 0;
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    if (document.querySelector('.modal-overlay.active')) return;
+    const activeTag = document.activeElement ? document.activeElement.tagName : '';
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(activeTag)) return;
+
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffY = touchStartY - touchEndY;
+
+    if (Math.abs(diffY) > 40 && !isSectionScrolling) {
+      if (diffY > 0 && currentSectionIdx < sectionList.length - 1) {
+        goToSection(currentSectionIdx + 1);
+      } else if (diffY < 0 && currentSectionIdx > 0) {
+        goToSection(currentSectionIdx - 1);
+      }
+    }
+  }, { passive: true });
 
   /* ==========================================================================
      3. 3D Mouse Parallax on Hero 3D Video & Watermark
@@ -145,11 +239,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const servicesAccordion = document.getElementById('services-accordion');
 
   serviceCards.forEach(card => {
+    // Desktop hover expansion
     card.addEventListener('mouseenter', () => {
-      serviceCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
+      if (window.matchMedia('(hover: hover)').matches) {
+        serviceCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+      }
     });
 
+    // Arrow button direct booking
     const arrowBtn = card.querySelector('.hover-arrow-circle');
     if (arrowBtn) {
       arrowBtn.addEventListener('click', (e) => {
@@ -163,24 +261,24 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Direct 1-click open on tap/click
     card.addEventListener('click', () => {
-      const isCurrentlyActive = card.classList.contains('active');
       serviceCards.forEach(c => c.classList.remove('active'));
-      if (!isCurrentlyActive) {
-        card.classList.add('active');
-      }
+      card.classList.add('active');
     });
   });
 
-  // Automatically close all cards when cursor leaves the services container
+  // Automatically close all cards when cursor leaves the services container on desktop hover
   if (servicesAccordion) {
     servicesAccordion.addEventListener('mouseleave', () => {
-      serviceCards.forEach(c => c.classList.remove('active'));
+      if (window.matchMedia('(hover: hover)').matches) {
+        serviceCards.forEach(c => c.classList.remove('active'));
+      }
     });
   }
 
   /* ==========================================================================
-     6. Specialists Section: Horizontal Carousel Slider & View All
+     6. Specialists Section: Continuous Smooth Marquee & View All
      ========================================================================== */
   const specialistsTrack = document.getElementById('specialists-track');
   const btnPrev = document.getElementById('slider-prev');
@@ -188,117 +286,209 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentSlideEl = document.getElementById('current-slide');
   const totalSlidesEl = document.getElementById('total-slides');
   const btnViewAll = document.getElementById('btn-view-all');
-  const doctorCards = document.querySelectorAll('.doctor-card');
-  const totalCards = doctorCards.length;
-  let currentIndex = 0;
+  const originalCards = document.querySelectorAll('.doctor-card');
+  const totalCards = originalCards.length;
   let isGridView = false;
+  let isPaused = false;
+  let scrollX = 0;
+  let rafId = null;
+  let pauseTimeout = null;
 
   if (totalSlidesEl) {
     totalSlidesEl.textContent = totalCards < 10 ? `0${totalCards}` : totalCards;
   }
 
-  function updateSlider() {
-    if (!specialistsTrack || !doctorCards.length) return;
-    if (isGridView) return;
-
-    const cardWidth = doctorCards[0].offsetWidth || 300;
-    const computedGap = parseFloat(window.getComputedStyle(specialistsTrack).gap) || 20;
-    const step = cardWidth + computedGap;
-    const maxIndex = Math.max(0, totalCards - 1);
-
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-    if (currentIndex < 0) currentIndex = 0;
-
-    const offset = currentIndex * step;
-    specialistsTrack.style.transform = `translateX(-${offset}px)`;
-
-    if (currentSlideEl) {
-      const activeNum = currentIndex + 1;
-      currentSlideEl.textContent = activeNum < 10 ? `0${activeNum}` : activeNum;
-    }
-
-    if (btnPrev) {
-      btnPrev.disabled = currentIndex === 0;
-      btnPrev.classList.toggle('active', currentIndex > 0);
-    }
-    if (btnNext) {
-      btnNext.disabled = currentIndex >= maxIndex;
-      btnNext.classList.toggle('active', currentIndex < maxIndex);
-    }
+  // Clone original cards to create seamless infinite loop
+  if (specialistsTrack && originalCards.length) {
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.classList.add('clone-card');
+      specialistsTrack.appendChild(clone);
+    });
   }
 
+  function getStepSize() {
+    if (!specialistsTrack || !originalCards.length) return 320;
+    const cardWidth = originalCards[0].offsetWidth || 300;
+    const gap = parseFloat(window.getComputedStyle(specialistsTrack).gap) || 20;
+    return cardWidth + gap;
+  }
+
+  function getSingleSetWidth() {
+    return getStepSize() * totalCards;
+  }
+
+  function updateCounter() {
+    if (!currentSlideEl) return;
+    const step = getStepSize();
+    const singleSet = getSingleSetWidth();
+    if (singleSet <= 0) return;
+    const normalizedX = ((scrollX % singleSet) + singleSet) % singleSet;
+    const idx = Math.floor(normalizedX / step) % totalCards;
+    const num = idx + 1;
+    currentSlideEl.textContent = num < 10 ? `0${num}` : num;
+  }
+
+  // Smooth continuous animation loop
+  const scrollSpeed = 0.85; // Pixels per frame
+
+  function marqueeLoop() {
+    if (!isGridView && !isPaused && specialistsTrack) {
+      scrollX += scrollSpeed;
+      const singleSet = getSingleSetWidth();
+      if (singleSet > 0 && scrollX >= singleSet) {
+        scrollX -= singleSet;
+      }
+      specialistsTrack.style.transform = `translate3d(-${scrollX}px, 0, 0)`;
+      updateCounter();
+    }
+    rafId = requestAnimationFrame(marqueeLoop);
+  }
+
+  // Start continuous loop
+  rafId = requestAnimationFrame(marqueeLoop);
+
+  // Pause continuous marquee on mouse hover, resume on mouse leave
+  const specialistsSliderWrapper = document.querySelector('.specialists-slider-wrapper');
+  if (specialistsSliderWrapper) {
+    specialistsSliderWrapper.addEventListener('mouseenter', () => {
+      isPaused = true;
+    });
+    specialistsSliderWrapper.addEventListener('mouseleave', () => {
+      if (!isGridView) isPaused = false;
+    });
+  }
+
+  // Manual Next Button (Step smoothly forward)
   if (btnNext) {
     btnNext.addEventListener('click', () => {
-      if (currentIndex < totalCards - 1) {
-        currentIndex++;
-        updateSlider();
-      }
+      if (isGridView || !specialistsTrack) return;
+      isPaused = true;
+      if (pauseTimeout) clearTimeout(pauseTimeout);
+
+      const step = getStepSize();
+      const singleSet = getSingleSetWidth();
+      specialistsTrack.classList.add('with-transition');
+      scrollX += step;
+      specialistsTrack.style.transform = `translate3d(-${scrollX}px, 0, 0)`;
+      updateCounter();
+
+      setTimeout(() => {
+        if (specialistsTrack) {
+          specialistsTrack.classList.remove('with-transition');
+          if (singleSet > 0 && scrollX >= singleSet) {
+            scrollX -= singleSet;
+            specialistsTrack.style.transform = `translate3d(-${scrollX}px, 0, 0)`;
+          }
+        }
+      }, 460);
+
+      pauseTimeout = setTimeout(() => {
+        if (!isGridView) isPaused = false;
+      }, 3500);
     });
   }
 
+  // Manual Prev Button (Step smoothly backward)
   if (btnPrev) {
     btnPrev.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateSlider();
+      if (isGridView || !specialistsTrack) return;
+      isPaused = true;
+      if (pauseTimeout) clearTimeout(pauseTimeout);
+
+      const step = getStepSize();
+      const singleSet = getSingleSetWidth();
+      specialistsTrack.classList.add('with-transition');
+      scrollX -= step;
+      if (scrollX < 0) {
+        scrollX += singleSet;
       }
+      specialistsTrack.style.transform = `translate3d(-${scrollX}px, 0, 0)`;
+      updateCounter();
+
+      setTimeout(() => {
+        if (specialistsTrack) {
+          specialistsTrack.classList.remove('with-transition');
+        }
+      }, 460);
+
+      pauseTimeout = setTimeout(() => {
+        if (!isGridView) isPaused = false;
+      }, 3500);
     });
   }
 
+  // View All / Show Carousel Toggle
   if (btnViewAll) {
     btnViewAll.addEventListener('click', () => {
       isGridView = !isGridView;
       if (isGridView) {
+        isPaused = true;
         specialistsTrack.classList.add('grid-view');
+        specialistsTrack.style.transform = 'none';
         btnViewAll.classList.add('active');
         btnViewAll.innerHTML = `<span>Show carousel</span> <span class="arrow-right">←</span>`;
       } else {
         specialistsTrack.classList.remove('grid-view');
+        specialistsTrack.style.transform = `translate3d(-${scrollX}px, 0, 0)`;
         btnViewAll.classList.remove('active');
         btnViewAll.innerHTML = `<span>View all specialists</span> <span class="arrow-right">→</span>`;
-        updateSlider();
+        isPaused = false;
       }
     });
   }
 
-  // Touch swipe support for mobile & tablet
-  const sliderWrapper = document.querySelector('.specialists-slider-wrapper');
-  let touchStartX = 0;
-  if (sliderWrapper) {
-    sliderWrapper.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].pageX;
+  // Touch Drag Support for mobile & tablet
+  let isDragging = false;
+  let startX = 0;
+  let lastX = 0;
+
+  if (specialistsSliderWrapper) {
+    specialistsSliderWrapper.addEventListener('touchstart', (e) => {
+      if (isGridView) return;
+      isPaused = true;
+      isDragging = true;
+      startX = e.touches[0].pageX;
+      lastX = startX;
     }, { passive: true });
 
-    sliderWrapper.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].pageX;
-      const diff = touchStartX - touchEndX;
-      if (diff > 45 && currentIndex < totalCards - 1) {
-        currentIndex++;
-        updateSlider();
-      } else if (diff < -45 && currentIndex > 0) {
-        currentIndex--;
-        updateSlider();
+    specialistsSliderWrapper.addEventListener('touchmove', (e) => {
+      if (!isDragging || isGridView) return;
+      const currentX = e.touches[0].pageX;
+      const delta = lastX - currentX;
+      lastX = currentX;
+      scrollX += delta;
+      const singleSet = getSingleSetWidth();
+      if (singleSet > 0) {
+        if (scrollX >= singleSet) scrollX -= singleSet;
+        if (scrollX < 0) scrollX += singleSet;
       }
+      specialistsTrack.style.transform = `translate3d(-${scrollX}px, 0, 0)`;
+      updateCounter();
+    }, { passive: true });
+
+    specialistsSliderWrapper.addEventListener('touchend', () => {
+      isDragging = false;
+      if (pauseTimeout) clearTimeout(pauseTimeout);
+      pauseTimeout = setTimeout(() => {
+        if (!isGridView) isPaused = false;
+      }, 2500);
     }, { passive: true });
   }
 
-  // Clicking doctor card scrolls to booking
-  doctorCards.forEach(card => {
-    card.addEventListener('click', () => {
+  // Clicking doctor card scrolls to booking (delegated for original + cloned cards)
+  if (specialistsTrack) {
+    specialistsTrack.addEventListener('click', (e) => {
+      const card = e.target.closest('.doctor-card');
+      if (!card) return;
       const docName = card.getAttribute('data-doc');
-      const messageField = document.getElementById('consultation-notes');
-      if (messageField && docName) {
-        messageField.value = `Requesting consultation with ${docName}`;
+      const notesEl = document.getElementById('notes');
+      if (notesEl && docName) {
+        notesEl.value = `Requesting consultation with ${docName}`;
       }
       window.scrollToSection('#booking');
     });
-  });
-
-  window.addEventListener('resize', () => {
-    if (!isGridView) updateSlider();
-  }, { passive: true });
-
-  updateSlider();
+  }
 
   /* ==========================================================================
      7. Virtual Treatment Calculator
@@ -466,45 +656,54 @@ document.addEventListener('DOMContentLoaded', () => {
       const treatSelect = document.getElementById('treatment-select');
       const dateInput = document.getElementById('booking-date');
 
+      // Helper to toggle error
+      const toggleError = (input, hasError) => {
+        if (!input || input.type === 'hidden') return;
+        const container = input.closest('.form-group-minimal') || input.parentElement;
+        if (container) {
+          container.classList.toggle('has-error', hasError);
+        }
+      };
+
       // Validate Full Name
       if (!nameInput || nameInput.value.trim().length < 2) {
-        nameInput.parentElement.classList.add('has-error');
+        toggleError(nameInput, true);
         isValid = false;
       } else {
-        nameInput.parentElement.classList.remove('has-error');
+        toggleError(nameInput, false);
       }
 
-      // Validate Email
+      // Validate Email (if visible)
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailInput || !emailRegex.test(emailInput.value.trim())) {
-        emailInput.parentElement.classList.add('has-error');
+      if (emailInput && emailInput.type !== 'hidden' && !emailRegex.test(emailInput.value.trim())) {
+        toggleError(emailInput, true);
         isValid = false;
-      } else {
-        emailInput.parentElement.classList.remove('has-error');
+      } else if (emailInput) {
+        toggleError(emailInput, false);
       }
 
       // Validate Phone
       if (!phoneInput || phoneInput.value.trim().length < 7) {
-        phoneInput.parentElement.classList.add('has-error');
+        toggleError(phoneInput, true);
         isValid = false;
       } else {
-        phoneInput.parentElement.classList.remove('has-error');
+        toggleError(phoneInput, false);
       }
 
       // Validate Treatment
       if (!treatSelect || !treatSelect.value) {
-        treatSelect.parentElement.classList.add('has-error');
+        toggleError(treatSelect, true);
         isValid = false;
       } else {
-        treatSelect.parentElement.classList.remove('has-error');
+        toggleError(treatSelect, false);
       }
 
       // Validate Date
       if (!dateInput || !dateInput.value) {
-        dateInput.parentElement.classList.add('has-error');
+        toggleError(dateInput, true);
         isValid = false;
       } else {
-        dateInput.parentElement.classList.remove('has-error');
+        toggleError(dateInput, false);
       }
 
       if (!isValid) return;
@@ -541,4 +740,122 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ==========================================================================
+     Testimonials: Tabs + Slide Nav + Before/After Slider
+     ========================================================================== */
+
+  const testiTabs    = document.querySelectorAll('.testi-tab');
+  const testiSlides  = document.querySelectorAll('.testi-slide');
+  const testiPrev    = document.getElementById('testi-prev');
+  const testiNext    = document.getElementById('testi-next');
+  const testiCounter = document.getElementById('testi-counter');
+  const testiSection = document.querySelector('.testimonials-section');
+
+  const categories = ['aesthetic', 'orthodontics', 'implantology', 'whitening'];
+  let currentIdx = 0;
+  let autoPlayTimer = null;
+  let resumeTimer = null;
+  const AUTO_INTERVAL = 5000;   // 5s between slides
+  const RESUME_DELAY  = 8000;   // 8s after manual interaction before resuming
+
+  function showSlide(idx) {
+    currentIdx = (idx + categories.length) % categories.length;
+    const cat = categories[currentIdx];
+
+    // Update tabs
+    testiTabs.forEach(t => {
+      const isActive = t.dataset.category === cat;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Update slides
+    testiSlides.forEach(s => {
+      s.classList.toggle('active', s.dataset.category === cat);
+    });
+
+    // Update counter
+    if (testiCounter) {
+      testiCounter.textContent = String(currentIdx + 1).padStart(2, '0') + '/' + String(categories.length).padStart(2, '0');
+    }
+  }
+
+  // ── Auto-play ────────────────────────────────────────────────
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayTimer = setInterval(() => showSlide(currentIdx + 1), AUTO_INTERVAL);
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayTimer) { clearInterval(autoPlayTimer); autoPlayTimer = null; }
+  }
+
+  function pauseAndResume() {
+    stopAutoPlay();
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(startAutoPlay, RESUME_DELAY);
+  }
+
+  // Pause on hover
+  if (testiSection) {
+    testiSection.addEventListener('mouseenter', stopAutoPlay);
+    testiSection.addEventListener('mouseleave', startAutoPlay);
+  }
+
+  // Tab clicks — pause then resume
+  testiTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = categories.indexOf(tab.dataset.category);
+      if (idx !== -1) { showSlide(idx); pauseAndResume(); }
+    });
+  });
+
+  // Prev / Next — pause then resume
+  if (testiPrev) testiPrev.addEventListener('click', () => { showSlide(currentIdx - 1); pauseAndResume(); });
+  if (testiNext) testiNext.addEventListener('click', () => { showSlide(currentIdx + 1); pauseAndResume(); });
+
+  // Kick off auto-play
+  startAutoPlay();
+
+  // Before / After drag sliders
+  document.querySelectorAll('.before-after-container').forEach(container => {
+    const afterEl   = container.querySelector('.ba-after-img');
+    const dividerEl = container.querySelector('.ba-divider');
+
+    let isDragging = false;
+
+    function setPosition(clientX) {
+      const rect = container.getBoundingClientRect();
+      let pct = (clientX - rect.left) / rect.width;
+      pct = Math.max(0.02, Math.min(0.98, pct));
+      const pctStr = (pct * 100).toFixed(2) + '%';
+      afterEl.style.width   = pctStr;
+      dividerEl.style.left  = pctStr;
+    }
+
+    // Mouse
+    container.addEventListener('mousedown', e => {
+      isDragging = true;
+      setPosition(e.clientX);
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      setPosition(e.clientX);
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    // Touch
+    container.addEventListener('touchstart', e => {
+      isDragging = true;
+      setPosition(e.touches[0].clientX);
+    }, { passive: true });
+    container.addEventListener('touchmove', e => {
+      if (!isDragging) return;
+      setPosition(e.touches[0].clientX);
+    }, { passive: true });
+    container.addEventListener('touchend', () => { isDragging = false; });
+  });
+
 });
+
