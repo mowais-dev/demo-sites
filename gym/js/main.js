@@ -48,6 +48,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Mobile Navigation Drawer Toggle Handler
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  if (mobileMenuToggle && navMenu) {
+    mobileMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mobileMenuToggle.classList.toggle('active');
+      navMenu.classList.toggle('mobile-open');
+      document.body.classList.toggle('menu-open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (navMenu.classList.contains('mobile-open') && !navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+        navMenu.classList.remove('mobile-open');
+        mobileMenuToggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      }
+    });
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navMenu.classList.remove('mobile-open');
+        mobileMenuToggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      });
+    });
+  }
+
   // 0. Custom High-Tech Athletic Cursor Logic
   const cursorDot = document.getElementById('cursor-dot');
   const cursorFollower = document.getElementById('cursor-follower');
@@ -161,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   runCinematicPageLoad();
 
-  // 2. THANOS SNAP PARTICLE TRANSITION CONNECTED TO ATHLETE
+  // 2. GUARANTEED CINEMATIC DUST DISINTEGRATION & RECONSTRUCTION ENGINE
   const headlineWrapper = document.getElementById('headline-wrapper');
   const headlineText = document.getElementById('headline-text');
   const headlineCanvas = document.getElementById('headline-canvas');
@@ -175,265 +202,253 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     let currentPhraseIdx = 0;
 
+    function renderHeadlineHTML(p) {
+      if (!p) return '';
+      const line1HTML = `<span class="line-top">${p.line1 || ''}</span>`;
+      const line2HTML = p.line2 ? `<br><span class="gradient-text line-bottom">${p.line2}</span>` : '';
+      return `${line1HTML}${line2HTML}`;
+    }
+
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
 
     if (prefersReduced) {
-      setInterval(() => {
-        headlineText.style.opacity = '0';
-        setTimeout(() => {
-          currentPhraseIdx = (currentPhraseIdx + 1) % phrases.length;
-          const p = phrases[currentPhraseIdx];
-          headlineText.innerHTML = `<span class="line-top">${p.line1}</span><br><span class="gradient-text line-bottom">${p.line2}</span>`;
-          headlineText.style.opacity = '1';
-        }, 400);
-      }, 3800);
-    } else {
-      const ctx = headlineCanvas.getContext('2d');
-      let dpr = window.devicePixelRatio || 1;
-      let particles = [];
+      headlineText.style.opacity = '1';
+      return;
+    }
 
-      const offscreenCanvas = document.createElement('canvas');
-      const offCtx = offscreenCanvas.getContext('2d');
+    const ctx = headlineCanvas.getContext('2d');
+    let dpr = window.devicePixelRatio || 1;
+    let particles = [];
+    let canvasWidth = 900;
+    let canvasHeight = 400;
 
-      let canvasWidth = 0;
-      let canvasHeight = 0;
+    function resizeCanvas() {
+      const rect = headlineWrapper.getBoundingClientRect();
+      canvasWidth = Math.max(rect.width + 300, 850);
+      canvasHeight = Math.max(rect.height + 350, 480);
 
-      function resizeCanvas() {
-        const rect = headlineWrapper.getBoundingClientRect();
-        canvasWidth = Math.max(rect.width + 850, 1400);
-        canvasHeight = Math.max(rect.height + 350, 600);
+      dpr = window.devicePixelRatio || 1;
+      headlineCanvas.width = canvasWidth * dpr;
+      headlineCanvas.height = canvasHeight * dpr;
+      headlineCanvas.style.width = `${canvasWidth}px`;
+      headlineCanvas.style.height = `${canvasHeight}px`;
 
-        dpr = window.devicePixelRatio || 1;
-        headlineCanvas.width = canvasWidth * dpr;
-        headlineCanvas.height = canvasHeight * dpr;
-        headlineCanvas.style.width = `${canvasWidth}px`;
-        headlineCanvas.style.height = `${canvasHeight}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
 
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(dpr, dpr);
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-        offscreenCanvas.width = canvasWidth;
-        offscreenCanvas.height = canvasHeight;
+    // True Letter-Shape Glyph Particle Sampling Engine
+    function generateTextDustParticles(phrase, isDisintegrating = true) {
+      const offscreen = document.createElement('canvas');
+      const offCtx = offscreen.getContext('2d');
+
+      const rect = headlineText.getBoundingClientRect();
+      const parentRect = headlineWrapper.getBoundingClientRect();
+      const offsetX = Math.max(0, rect.left - parentRect.left);
+      const offsetY = Math.max(0, rect.top - parentRect.top);
+      const width = Math.max(rect.width, 350);
+      const height = Math.max(rect.height, 140);
+
+      offscreen.width = canvasWidth;
+      offscreen.height = canvasHeight;
+      offCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      // Get exact CSS font styling
+      const computed = window.getComputedStyle(headlineText);
+      const fontSize = parseFloat(computed.fontSize) || (window.innerWidth > 1024 ? 56 : 38);
+      const lineHeight = fontSize * 1.08;
+
+      offCtx.font = `900 ${fontSize}px 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif`;
+      offCtx.textBaseline = 'top';
+      offCtx.fillStyle = '#000000';
+
+      // Draw exact text onto offscreen canvas
+      offCtx.fillText(phrase.line1 || '', offsetX, offsetY);
+      if (phrase.line2) {
+        offCtx.fillText(phrase.line2, offsetX, offsetY + lineHeight);
       }
 
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+      // Sample letter glyph pixels directly
+      const imgData = offCtx.getImageData(0, 0, canvasWidth, canvasHeight);
+      const data = imgData.data;
+      const points = [];
 
-      function getPhrasePixels(phrase) {
-        offCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-        const computedSize = parseFloat(window.getComputedStyle(headlineText).fontSize) || 48;
-        offCtx.font = `900 ${computedSize}px 'Outfit', sans-serif`;
-        offCtx.textBaseline = 'top';
-        offCtx.fillStyle = '#090d16';
-
-        const lineGap = computedSize * 1.12;
-        const offsetX = 20;
-        const offsetY = 20;
-
-        offCtx.fillText(phrase.line1, offsetX, offsetY);
-        offCtx.fillText(phrase.line2, offsetX, offsetY + lineGap);
-
-        const imgData = offCtx.getImageData(0, 0, canvasWidth, canvasHeight);
-        const data = imgData.data;
-        const sampledPoints = [];
-
-        const step = isMobile ? 4 : 2;
-        for (let y = 0; y < canvasHeight; y += step) {
-          for (let x = 0; x < canvasWidth; x += step) {
-            const index = (y * canvasWidth + x) * 4;
-            const alpha = data[index + 3];
-            if (alpha > 50) {
-              const r = data[index];
-              const g = data[index + 1];
-              const b = data[index + 2];
-              const isVolt = Math.random() < 0.08;
-              const color = isVolt ? '#ccff00' : `rgba(${r}, ${g}, ${b}, ${alpha / 255})`;
-              sampledPoints.push({
-                x: x,
-                y: y,
-                color: color,
-                isVolt: isVolt
-              });
-            }
+      // Dense sampling (step 2x2 px) gives 2,500-3,500 particles shaping the letters!
+      const step = 2;
+      for (let y = 0; y < canvasHeight; y += step) {
+        for (let x = 0; x < canvasWidth; x += step) {
+          const idx = (y * canvasWidth + x) * 4;
+          const alpha = data[idx + 3];
+          if (alpha > 50) {
+            points.push({ x, y });
           }
         }
-        return sampledPoints;
       }
 
-      let currentState = 'IDLE';
-      let stateStartTime = Date.now();
-
-      function updateDOMText(phrase) {
-        headlineText.innerHTML = `<span class="line-top">${phrase.line1}</span><br><span class="gradient-text line-bottom">${phrase.line2}</span>`;
-      }
-
-      function getAthleteCenterOnCanvas() {
-        let athleteCanvasX = 550;
-        let athleteCanvasY = 180;
-        if (videoWrapper && headlineWrapper) {
-          const vRect = videoWrapper.getBoundingClientRect();
-          const hRect = headlineWrapper.getBoundingClientRect();
-          athleteCanvasX = (vRect.left + vRect.width / 2) - (hRect.left - 40);
-          athleteCanvasY = (vRect.top + vRect.height * 0.4) - (hRect.top - 40);
+      // Fallback in case canvas font loading delayed
+      if (points.length < 50) {
+        for (let i = 0; i < 1500; i++) {
+          const isLine2 = Math.random() > 0.45;
+          const lineOffset = isLine2 ? height * 0.52 : 0;
+          points.push({
+            x: offsetX + Math.random() * width,
+            y: offsetY + lineOffset + Math.random() * (height * 0.44)
+          });
         }
-        return { x: athleteCanvasX, y: athleteCanvasY };
       }
 
-      function initParticlesForCurrentPhrase() {
-        const points = getPhrasePixels(phrases[currentPhraseIdx]);
-        const maxX = canvasWidth;
-        const athletePos = getAthleteCenterOnCanvas();
+      return points.map(pt => {
+        const sweepProgress = Math.max(0, (pt.x - offsetX) / width);
+        const delay = Math.max(0, sweepProgress * 0.55) + Math.random() * 0.12;
 
-        particles = points.map(pt => {
-          const snapDelay = (1 - (pt.x / maxX)) * 700 + Math.random() * 250;
-          const dxToAthlete = athletePos.x - pt.x;
-          const dyToAthlete = athletePos.y - pt.y;
-          const angleToAthlete = Math.atan2(dyToAthlete, dxToAthlete);
+        const vx = (Math.random() - 0.2) * 3.8 + 0.8;
+        const vy = Math.random() * 4.2 + 1.4; // Downward fall
 
+        if (isDisintegrating) {
           return {
+            originX: pt.x,
+            originY: pt.y,
             x: pt.x,
             y: pt.y,
-            targetX: pt.x,
-            targetY: pt.y,
-            snapDelay: snapDelay,
-            isSnapping: false,
-            vx: Math.cos(angleToAthlete) * (Math.random() * 2.2 + 1.2) + (Math.random() - 0.2) * 1.5,
-            vy: Math.sin(angleToAthlete) * (Math.random() * 2.0 + 1.0) + (Math.random() - 0.5) * 1.5,
-            size: pt.isVolt ? Math.random() * 2.5 + 1.5 : Math.random() * 2.0 + 1.1,
+            vx: vx,
+            vy: vy,
+            delay: delay,
+            isBlowing: false,
+            color: '#090d16', // Pure solid black
+            size: Math.random() * 1.5 + 1.1,
             alpha: 1.0,
-            decay: Math.random() * 0.02 + 0.012,
-            color: pt.color,
-            turbulence: (Math.random() - 0.5) * 0.5
+            decay: Math.random() * 0.016 + 0.008,
+            turbulence: Math.random() * 6 + 2
           };
-        });
-      }
-
-      function startReconstruction(nextPhraseIdx) {
-        currentPhraseIdx = nextPhraseIdx;
-        updateDOMText(phrases[currentPhraseIdx]);
-        const targetPoints = getPhrasePixels(phrases[currentPhraseIdx]);
-        const athletePos = getAthleteCenterOnCanvas();
-
-        particles = targetPoints.map(pt => {
-          const angle = Math.random() * Math.PI * 2;
-          const dist = Math.random() * 80 + 20;
-          const startX = athletePos.x + Math.cos(angle) * dist;
-          const startY = athletePos.y + Math.sin(angle) * dist;
+        } else {
+          // Reconstructing: spawn from bottom below
+          const spawnX = pt.x + (Math.random() - 0.3) * 180 + 30;
+          const spawnY = pt.y + Math.random() * 180 + 60; // From below
 
           return {
-            x: startX,
-            y: startY,
-            targetX: pt.x,
-            targetY: pt.y,
-            vx: 0,
-            vy: 0,
-            size: pt.isVolt ? Math.random() * 2.5 + 1.5 : Math.random() * 2.0 + 1.1,
+            originX: pt.x,
+            originY: pt.y,
+            x: spawnX,
+            y: spawnY,
+            color: '#090d16',
+            size: Math.random() * 1.5 + 1.1,
             alpha: 0,
-            decay: 0,
-            color: pt.color,
-            turbulence: 0
+            turbulence: Math.random() * 6 + 2
           };
-        });
-      }
+        }
+      });
+    }
 
-      function startParticleEngine() {
-        resizeCanvas();
-        initParticlesForCurrentPhrase();
+    let state = 'STABLE'; // STABLE -> DISINTEGRATING -> DISAPPEARED -> RECONSTRUCTING
+    let stateStartTime = Date.now();
 
-        function animLoop() {
-          const now = Date.now();
-          const elapsed = now - stateStartTime;
+    function updateDOMText(phrase) {
+      headlineText.innerHTML = renderHeadlineHTML(phrase);
+    }
 
-          ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    function startCinematicDustEngine() {
+      resizeCanvas();
 
-          if (currentState === 'IDLE') {
-            particles.forEach(p => {
+      function animLoop() {
+        const now = Date.now();
+        const elapsed = (now - stateStartTime) / 1000;
+
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+        if (state === 'STABLE') {
+          headlineText.style.opacity = '1';
+          headlineText.style.filter = 'blur(0px)';
+
+          // Stable for 3.2 seconds before snapping into dust
+          if (elapsed > 3.2) {
+            state = 'DISINTEGRATING';
+            stateStartTime = Date.now();
+            particles = generateTextDustParticles(phrases[currentPhraseIdx], true);
+            headlineText.style.opacity = '0';
+            headlineText.style.filter = 'blur(8px)';
+          }
+        } else if (state === 'DISINTEGRATING') {
+          let activeCount = 0;
+
+          particles.forEach(p => {
+            if (elapsed > p.delay) {
+              p.isBlowing = true;
+            }
+
+            if (p.isBlowing) {
+              // Atmospheric downward dust fall cascade
+              p.x += p.vx + Math.sin(elapsed * p.turbulence) * 0.8;
+              p.y += p.vy + 0.18; // Downward acceleration
+              p.alpha -= p.decay;
+              p.vx *= 0.985;
+              p.vy *= 0.985;
+            }
+
+            if (p.alpha > 0) {
+              activeCount++;
+              ctx.save();
               ctx.fillStyle = p.color;
-              ctx.globalAlpha = 1.0;
-              ctx.beginPath();
-              ctx.arc(p.targetX, p.targetY, p.size, 0, Math.PI * 2);
-              ctx.fill();
-            });
+              ctx.globalAlpha = Math.max(0, p.alpha);
 
-            if (elapsed > 3000) {
-              currentState = 'DISINTEGRATING';
-              stateStartTime = Date.now();
-            }
-          } else if (currentState === 'DISINTEGRATING') {
-            let aliveCount = 0;
-
-            particles.forEach(p => {
-              if (elapsed > p.snapDelay) {
-                p.isSnapping = true;
-              }
-
-              if (p.isSnapping) {
-                p.x += p.vx + p.turbulence;
-                p.y += p.vy;
-                p.alpha -= p.decay;
-                p.vy *= 0.98;
-                p.vx *= 0.98;
-              }
-
-              if (p.alpha > 0) {
-                aliveCount++;
-                ctx.fillStyle = p.color;
-                ctx.globalAlpha = Math.max(0, p.alpha);
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.globalAlpha = 1.0;
-              }
-            });
-
-            if (elapsed > 2000 || aliveCount === 0) {
-              currentState = 'EMPTY';
-              stateStartTime = Date.now();
-            }
-          } else if (currentState === 'EMPTY') {
-            if (elapsed > 400) {
-              currentState = 'RECONSTRUCTING';
-              stateStartTime = Date.now();
-              const nextIdx = (currentPhraseIdx + 1) % phrases.length;
-              startReconstruction(nextIdx);
-            }
-          } else if (currentState === 'RECONSTRUCTING') {
-            particles.forEach(p => {
-              p.alpha = Math.min(p.alpha + 0.06, 1.0);
-              p.x += (p.targetX - p.x) * 0.14;
-              p.y += (p.targetY - p.y) * 0.14;
-
-              ctx.fillStyle = p.color;
-              ctx.globalAlpha = p.alpha;
               ctx.beginPath();
               ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
               ctx.fill();
-              ctx.globalAlpha = 1.0;
-            });
 
-            if (elapsed > 1600) {
-              currentState = 'IDLE';
-              stateStartTime = Date.now();
-              initParticlesForCurrentPhrase();
+              ctx.restore();
             }
-          }
+          });
 
-          requestAnimationFrame(animLoop);
+          // Disintegrated completely
+          if (elapsed > 2.2 || activeCount === 0) {
+            state = 'DISAPPEARED';
+            stateStartTime = Date.now();
+          }
+        } else if (state === 'DISAPPEARED') {
+          // Moment of complete disappearance (0.35s dramatic pause)
+          if (elapsed > 0.35) {
+            state = 'RECONSTRUCTING';
+            stateStartTime = Date.now();
+            currentPhraseIdx = (currentPhraseIdx + 1) % phrases.length;
+            updateDOMText(phrases[currentPhraseIdx]);
+            particles = generateTextDustParticles(phrases[currentPhraseIdx], false);
+          }
+        } else if (state === 'RECONSTRUCTING') {
+          // Particles reverse direction, streaming back into letters
+          particles.forEach(p => {
+            p.alpha = Math.min(p.alpha + 0.05, 1.0);
+            p.x += (p.originX - p.x) * 0.14;
+            p.y += (p.originY - p.y) * 0.14;
+
+            ctx.save();
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.alpha;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+          });
+
+          // Fully locked into solid typography
+          if (elapsed > 1.7) {
+            state = 'STABLE';
+            stateStartTime = Date.now();
+            headlineText.style.opacity = '1';
+            headlineText.style.filter = 'blur(0px)';
+          }
         }
 
-        animLoop();
+        requestAnimationFrame(animLoop);
       }
 
-      if (document.fonts) {
-        document.fonts.ready.then(() => {
-          setTimeout(startParticleEngine, 300);
-        });
-      } else {
-        setTimeout(startParticleEngine, 600);
-      }
+      animLoop();
     }
+
+    startCinematicDustEngine();
   }
 
   // 3. PERFORMANCE SCANNER & ENERGY PULSE SCHEDULER
@@ -494,13 +509,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const athleteRadialGlow = document.getElementById('athlete-radial-glow');
   const watermarkBg = document.getElementById('hero-watermark');
 
-  if (videoWrapper && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth > 768) {
+  if (videoWrapper && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
 
     window.addEventListener('mousemove', (e) => {
+      if (window.innerWidth < 1024) return;
       const { innerWidth, innerHeight } = window;
       mouseX = (e.clientX / innerWidth - 0.5) * 2;
       mouseY = (e.clientY / innerHeight - 0.5) * 2;
@@ -519,23 +535,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function animate3DParallax() {
-      targetX += (mouseX - targetX) * 0.06;
-      targetY += (mouseY - targetY) * 0.06;
+      if (window.innerWidth >= 1024) {
+        targetX += (mouseX - targetX) * 0.06;
+        targetY += (mouseY - targetY) * 0.06;
 
-      const moveX = -targetX * 12;
-      const moveY = -targetY * 8;
-      const rotY = targetX * 4;
-      const rotX = -targetY * 3.5;
+        const moveX = -targetX * 12;
+        const moveY = -targetY * 8;
+        const rotY = targetX * 4;
+        const rotX = -targetY * 3.5;
 
-      videoWrapper.style.transform = `translate(calc(-50% + ${moveX}px), ${moveY}px) rotateY(${rotY}deg) rotateX(${rotX}deg)`;
+        videoWrapper.style.transform = `translate(calc(-50% + ${moveX}px), ${moveY}px) rotateY(${rotY}deg) rotateX(${rotX}deg)`;
 
-      if (watermarkBg) {
-        watermarkBg.style.transform = `translate3d(${targetX * 15}px, 0, 0)`;
+        if (watermarkBg) {
+          watermarkBg.style.transform = `translate3d(${targetX * 15}px, 0, 0)`;
+        }
+      } else {
+        videoWrapper.style.transform = '';
       }
 
       requestAnimationFrame(animate3DParallax);
     }
     animate3DParallax();
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth < 1024 && videoWrapper) {
+        videoWrapper.style.transform = '';
+      }
+    });
   }
 
   // 2. Global Scroll Parallax Listener
@@ -724,6 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           progressSteps.forEach((step, i) => {
+            step.classList.toggle('passed', i <= activeIndex);
             step.classList.toggle('active', i === activeIndex);
           });
 
@@ -974,27 +1001,124 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Carousel Dots Listener
+  // Mobile Membership Pricing Cards Auto-Scroll Carousel Engine
   const mobileDots = document.querySelectorAll('#pricing-mobile-dots .dot');
   const pricingTrack = document.getElementById('pricing-columns-track');
+  const pricingCards = document.querySelectorAll('.pricing-column');
 
-  if (pricingTrack && mobileDots.length > 0) {
-    pricingTrack.addEventListener('scroll', () => {
-      const width = pricingTrack.offsetWidth;
-      const scrollLeft = pricingTrack.scrollLeft;
-      const activeIdx = Math.round(scrollLeft / width);
+  if (pricingTrack && pricingCards.length > 0) {
+    let autoScrollTimer = null;
+    let currentCardIndex = 0;
+    let isUserInteracting = false;
 
-      mobileDots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === activeIdx);
+    function scrollNextPricingCard() {
+      if (window.innerWidth >= 1024 || isUserInteracting) return;
+      currentCardIndex = (currentCardIndex + 1) % pricingCards.length;
+      scrollToCardIndex(currentCardIndex);
+    }
+
+    function scrollToCardIndex(index) {
+      if (!pricingCards[index]) return;
+      const card = pricingCards[index];
+      const trackLeft = pricingTrack.getBoundingClientRect().left;
+      const cardLeft = card.getBoundingClientRect().left;
+      const scrollOffset = pricingTrack.scrollLeft + (cardLeft - trackLeft) - (pricingTrack.offsetWidth - card.offsetWidth) / 2;
+
+      pricingTrack.scrollTo({
+        left: scrollOffset,
+        behavior: 'smooth'
       });
+
+      updateMobileDots(index);
+    }
+
+    function updateMobileDots(activeIndex) {
+      if (mobileDots.length === 0) return;
+      mobileDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIndex);
+      });
+    }
+
+    function startAutoScroll() {
+      stopAutoScroll();
+      autoScrollTimer = setInterval(() => {
+        scrollNextPricingCard();
+      }, 3500);
+    }
+
+    function stopAutoScroll() {
+      if (autoScrollTimer) {
+        clearInterval(autoScrollTimer);
+        autoScrollTimer = null;
+      }
+    }
+
+    let scrollTimeout = null;
+    pricingTrack.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const trackWidth = pricingTrack.offsetWidth;
+        const scrollLeft = pricingTrack.scrollLeft;
+        const calculatedIndex = Math.min(
+          pricingCards.length - 1,
+          Math.max(0, Math.round(scrollLeft / (trackWidth * 0.8)))
+        );
+        currentCardIndex = calculatedIndex;
+        updateMobileDots(currentCardIndex);
+      }, 60);
     });
+
+    let userInteractionTimeout = null;
+    function pauseForUserInteraction() {
+      isUserInteracting = true;
+      stopAutoScroll();
+      clearTimeout(userInteractionTimeout);
+      userInteractionTimeout = setTimeout(() => {
+        isUserInteracting = false;
+        if (window.innerWidth < 1024) startAutoScroll();
+      }, 5000);
+    }
+
+    pricingTrack.addEventListener('touchstart', pauseForUserInteraction, { passive: true });
+    pricingTrack.addEventListener('mouseenter', pauseForUserInteraction);
 
     mobileDots.forEach((dot, idx) => {
       dot.addEventListener('click', () => {
-        if (pricingColumns[idx]) {
-          pricingColumns[idx].scrollIntoView({ behavior: 'smooth', inline: 'center' });
-        }
+        currentCardIndex = idx;
+        scrollToCardIndex(idx);
+        pauseForUserInteraction();
       });
+    });
+
+    const nextBtn = document.getElementById('pricing-next-btn');
+    const prevBtn = document.getElementById('pricing-prev-btn');
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        currentCardIndex = (currentCardIndex + 1) % pricingCards.length;
+        scrollToCardIndex(currentCardIndex);
+        pauseForUserInteraction();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentCardIndex = (currentCardIndex - 1 + pricingCards.length) % pricingCards.length;
+        scrollToCardIndex(currentCardIndex);
+        pauseForUserInteraction();
+      });
+    }
+
+    if (window.innerWidth < 1024) {
+      startAutoScroll();
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth < 1024) {
+        if (!autoScrollTimer && !isUserInteracting) startAutoScroll();
+      } else {
+        stopAutoScroll();
+      }
     });
   }
 
@@ -1384,7 +1508,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       osc.start();
       osc.stop(audioCtx.currentTime + 0.04);
-    } catch (err) {}
+    } catch (err) { }
   }
 
   function playHoverSound() {
@@ -1408,7 +1532,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       osc.start();
       osc.stop(audioCtx.currentTime + 0.025);
-    } catch (err) {}
+    } catch (err) { }
   }
 
   function playSuccessSound() {
@@ -1434,7 +1558,7 @@ document.addEventListener('DOMContentLoaded', () => {
         osc.start(audioCtx.currentTime + idx * 0.08);
         osc.stop(audioCtx.currentTime + idx * 0.08 + 0.25);
       });
-    } catch (err) {}
+    } catch (err) { }
   }
 
   document.querySelectorAll('.cta-pill-button, .contact-link, .open-booking-btn, .quiz-opt-btn, .quiz-trigger-pill-btn').forEach(btn => {
@@ -1444,4 +1568,217 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-item, .program-list-item, .pricing-column, .coach-row').forEach(el => {
     el.addEventListener('mouseenter', playHoverSound);
   });
+
+  // =========================================================================
+  // TITAN AI CHATBOT CONTROLLER (OPENAI INTEGRATION)
+  // =========================================================================
+  // PASTE YOUR OPENAI API KEY BELOW
+  // Example: const OPENAI_API_KEY = "sk-proj-...";
+  const OPENAI_API_KEY = ""; // Insert your OpenAI API Key here if needed
+  const OPENAI_MODEL = "gpt-3.5-turbo";
+
+  const SYSTEM_PROMPT = `You are TITAN AI, the virtual performance coach for TITAN ATHLETICS gym.
+Information about TITAN ATHLETICS:
+- 24/7 Biometric Keyless Access (facial scanner at Gate 1).
+- Facilities: Stealth Power Arena, Sub-Zero Cryotherapy Chamber (-160°C), Sprint & Force Turf, Hydro Contrast Pools, Biometric Recovery Lab.
+- Membership Tiers: Executive Access ($149/mo), Elite Pro Athlete ($249/mo), Titan Apex Unlimited ($399/mo). Free 7-day trial pass available.
+- Tone: High-performance, motivating, direct, expert, and concise.`;
+
+  const chatbotTrigger = document.getElementById('chatbotTrigger');
+  const chatbotWindow = document.getElementById('chatbotWindow');
+  const chatbotCloseBtn = document.getElementById('chatbotCloseBtn');
+  const chatbotClearBtn = document.getElementById('chatbotClearBtn');
+  const chatbotForm = document.getElementById('chatbotForm');
+  const chatbotInput = document.getElementById('chatbotInput');
+  const chatbotMessages = document.getElementById('chatbotMessages');
+  const chatbotTyping = document.getElementById('chatbotTyping');
+
+  let chatHistory = [
+    { role: "system", content: SYSTEM_PROMPT }
+  ];
+
+  if (chatbotTrigger && chatbotWindow) {
+    chatbotTrigger.addEventListener('click', () => {
+      const isOpen = chatbotWindow.classList.contains('open');
+      if (isOpen) {
+        chatbotWindow.classList.remove('open');
+        chatbotWindow.setAttribute('aria-hidden', 'true');
+      } else {
+        chatbotWindow.classList.add('open');
+        chatbotWindow.setAttribute('aria-hidden', 'false');
+        chatbotInput.focus();
+      }
+    });
+
+    if (chatbotCloseBtn) {
+      chatbotCloseBtn.addEventListener('click', () => {
+        chatbotWindow.classList.remove('open');
+        chatbotWindow.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    if (chatbotClearBtn) {
+      chatbotClearBtn.addEventListener('click', () => {
+        chatHistory = [{ role: "system", content: SYSTEM_PROMPT }];
+        chatbotMessages.innerHTML = `
+          <div class="chat-msg bot-msg">
+            <div class="msg-avatar">⚡</div>
+            <div class="msg-bubble">
+              <p>Chat cleared! How can I assist your training goals today?</p>
+            </div>
+          </div>
+          <div class="chat-suggestions" id="chatSuggestions">
+            <button class="suggestion-chip" data-query="What membership tiers do you offer?">💳 Membership Tiers</button>
+            <button class="suggestion-chip" data-query="Tell me about your Cryotherapy & Recovery Facilities.">❄️ Recovery Lab</button>
+            <button class="suggestion-chip" data-query="How does biometric 24/7 keyless access work?">🔑 24/7 Access</button>
+            <button class="suggestion-chip" data-query="What master training programs are available?">🏋️ Programs</button>
+          </div>
+        `;
+        rebindSuggestions();
+      });
+    }
+
+    function rebindSuggestions() {
+      const chips = chatbotMessages.querySelectorAll('.suggestion-chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const query = chip.getAttribute('data-query');
+          if (query) handleUserMessage(query);
+        });
+      });
+    }
+    rebindSuggestions();
+
+    if (chatbotForm) {
+      chatbotForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const userText = chatbotInput.value.trim();
+        if (!userText) return;
+        chatbotInput.value = '';
+        handleUserMessage(userText);
+      });
+    }
+
+    async function handleUserMessage(userText) {
+      appendUserMessage(userText);
+      showTyping(true);
+
+      try {
+        const botReply = await fetchAIResponse(userText);
+        showTyping(false);
+        appendBotMessage(botReply);
+      } catch (err) {
+        showTyping(false);
+        appendBotMessage("⚠️ System error. Please try again.");
+      }
+    }
+
+    function appendUserMessage(text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg user-msg';
+      msgDiv.innerHTML = `
+        <div class="msg-bubble">
+          <p>${escapeHTML(text)}</p>
+        </div>
+      `;
+      chatbotMessages.appendChild(msgDiv);
+      scrollToBottom();
+    }
+
+    function appendBotMessage(text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg bot-msg';
+      msgDiv.innerHTML = `
+        <div class="msg-avatar">⚡</div>
+        <div class="msg-bubble">
+          ${formatMarkdown(text)}
+        </div>
+      `;
+      chatbotMessages.appendChild(msgDiv);
+      scrollToBottom();
+    }
+
+    function showTyping(show) {
+      if (chatbotTyping) {
+        chatbotTyping.style.display = show ? 'flex' : 'none';
+        if (show) scrollToBottom();
+      }
+    }
+
+    function scrollToBottom() {
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g,
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    function formatMarkdown(text) {
+      let formatted = escapeHTML(text)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
+      return `<p>${formatted}</p>`;
+    }
+
+    async function fetchAIResponse(userMessage) {
+      chatHistory.push({ role: "user", content: userMessage });
+
+      // Check if OpenAI API Key is provided
+      if (OPENAI_API_KEY && OPENAI_API_KEY.trim() !== "" && !OPENAI_API_KEY.includes("YOUR_OPENAI_API_KEY")) {
+        try {
+          const response = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${OPENAI_API_KEY.trim()}`
+            },
+            body: JSON.stringify({
+              model: OPENAI_MODEL,
+              messages: chatHistory,
+              temperature: 0.7,
+              max_tokens: 350
+            })
+          });
+
+          if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.error?.message || `HTTP ${response.status}`);
+          }
+
+          const data = await response.json();
+          const reply = data.choices[0].message.content;
+          chatHistory.push({ role: "assistant", content: reply });
+          return reply;
+        } catch (err) {
+          console.warn("OpenAI API call failed, falling back to local response:", err);
+        }
+      }
+
+      // Intelligent Local Fallback Engine (when API Key is blank or waiting for user configuration)
+      return getLocalFallback(userMessage);
+    }
+
+    function getLocalFallback(userMessage) {
+      const lower = userMessage.toLowerCase();
+      let reply = "";
+
+      if (lower.includes("tier") || lower.includes("price") || lower.includes("membership") || lower.includes("cost") || lower.includes("join")) {
+        reply = "⚡ **TITAN Membership Tiers:**\n• **Executive Access ($149/mo):** 24/7 Access + Core Arena\n• **Elite Pro Athlete ($249/mo):** Cryotherapy + Group Coaching\n• **Titan Apex ($399/mo):** Unlimited Access + Personal Coach + Biometric Lab\n\n*Click 'Claim 7-Day Free Pass' to start your trial!*";
+      } else if (lower.includes("cryo") || lower.includes("recovery") || lower.includes("pool") || lower.includes("facility") || lower.includes("lab")) {
+        reply = "❄️ **Recovery Facilities:**\nOur high-performance lab includes:\n• Sub-Zero Cryo Chamber (-160°C)\n• Hydro Contrast Therapy Pools\n• Hyperbaric Oxygen Chambers\n• Infrared Sauna & Biometric Scanners";
+      } else if (lower.includes("access") || lower.includes("hour") || lower.includes("time") || lower.includes("24/7") || lower.includes("open") || lower.includes("key")) {
+        reply = "🔑 **24/7 Biometric Access:**\nTITAN ATHLETICS is open 24 hours a day, 365 days a year. Members enter securely using encrypted facial biometric scanners at Gate 1.";
+      } else if (lower.includes("program") || lower.includes("train") || lower.includes("workout") || lower.includes("coach")) {
+        reply = "🏆 **Elite Training Programs:**\n• Hypertrophy & Force Generation\n• Olympic Weightlifting & Power\n• Tactical Endurance & VO2 Max\n• Biometric Athletic Rehab";
+      } else {
+        reply = `⚡ Hello! I am TITAN AI, your virtual performance coach.\n\nYou can ask me about **memberships**, **recovery facilities**, **24/7 biometric access**, or **training programs**.\n\n*(💡 Developer Note: Insert your OpenAI API Key into \`const OPENAI_API_KEY\` in \`js/main.js\` to activate live OpenAI GPT completions!)*`;
+      }
+
+      chatHistory.push({ role: "assistant", content: reply });
+      return reply;
+    }
+  }
 });
