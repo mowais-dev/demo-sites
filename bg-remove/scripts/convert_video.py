@@ -38,9 +38,17 @@ def convert_video_to_transparent_webm(input_path, output_path):
 
     print(f"Video specs: {width}x{height} @ {fps} FPS")
 
+    # Find ffmpeg binary
+    ffmpeg_exe = "ffmpeg"
+    try:
+        import imageio_ffmpeg
+        ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        pass
+
     # Start ffmpeg process for WebM with VP8 + yuva420p alpha channel
     ffmpeg_cmd = [
-        "ffmpeg",
+        ffmpeg_exe,
         "-y",
         "-f", "rawvideo",
         "-vcodec", "rawvideo",
@@ -48,10 +56,13 @@ def convert_video_to_transparent_webm(input_path, output_path):
         "-pix_fmt", "rgba",
         "-r", str(fps),
         "-i", "-", # stdin pipe
-        "-c:v", "libvpx",
+        "-c:v", "libvpx-vp9",
         "-pix_fmt", "yuva420p",
         "-auto-alt-ref", "0",
-        "-b:v", "6M",
+        "-b:v", "4M",
+        "-deadline", "realtime",
+        "-cpu-used", "8",
+        "-threads", "8",
         output_path
     ]
 

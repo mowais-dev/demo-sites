@@ -1,77 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TITAN ATHLETICS | Elite Gym & Performance Club</title>
-  <meta name="description" content="Unleash your full athletic potential with elite personal training, recovery science, and 24/7 premium facilities.">
-  <link rel="stylesheet" href="styles.css">
+  <title>TITAN ATHLETICS | Next-Gen Performance & Elite Club</title>
+  <meta name="description"
+    content="Unleash your full athletic potential with high-performance coaching, biometric tracking, and 24/7 hyper-recovery facilities.">
+  <link rel="icon" type="image/png" href="assets/logo/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo/logo.png">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-  <!-- Full Width Clean White Gym Hero Section -->
-  <div class="hero-container">
+  <!-- Custom High-Tech Athletic Cursor Elements -->
+  <div class="custom-cursor-dot" id="cursor-dot"></div>
+  <div class="custom-cursor-follower" id="cursor-follower"></div>
+
+  <!-- Full Width Stealth Dark Gym Hero Container -->
+  <div class="hero-container" id="hero-container">
+
+    <!-- Ambient Lighting, Cyber Grid, Distortion & Energy Pulse Background Layers -->
+    <div class="ambient-glow" data-parallax-speed="0.2"></div>
+    <div class="cyber-grid" data-parallax-speed="0.05"></div>
+    <div class="grid-energy-field" id="grid-energy-field"></div>
+    <div class="hero-energy-pulse" id="hero-energy-pulse"></div>
+    <div class="athlete-radial-glow" id="athlete-radial-glow"></div>
 
     <!-- Header / Navbar -->
-    <header class="header">
-      <div class="logo">
-        <div class="logo-badge">⚡</div>
-        <div class="logo-text">
-          <span class="logo-name">TITAN</span>
-          <span class="logo-sub">ATHLETICS</span>
-        </div>
+    <header class="header" id="main-header">
+      <div class="logo-wrapper">
+        <a href="#" class="logo">
+          <img src="assets/logo/logo.png" alt="Titan Athletics Logo" class="brand-logo-img">
+        </a>
       </div>
 
-      <nav class="nav-menu">
-        <a href="#programs" class="nav-item">Programs</a>
+      <nav class="nav-menu" id="nav-menu">
+        <div class="nav-indicator-pill" id="nav-indicator"></div>
+        <a href="#programs" class="nav-item active">Programs</a>
         <a href="#facilities" class="nav-item">Facilities</a>
         <a href="#coaches" class="nav-item">Coaches</a>
         <a href="#pricing" class="nav-item">Membership</a>
+        <button class="nav-item nav-quiz-trigger" id="nav-quiz-btn"
+          style="background:none;border:none;cursor:pointer;font-family:inherit;">🎯 Tier Quiz</button>
         <a href="#reviews" class="nav-item">Results</a>
       </nav>
 
-      <a href="#join" class="contact-link">Join Club</a>
+      <div class="header-action-group">
+        <button class="sound-toggle-btn" id="sound-toggle-btn" aria-label="Toggle Sound Effects">
+          <span class="sound-icon" id="sound-icon">🔊</span>
+          <span class="sound-label" id="sound-label">SOUND: ON</span>
+        </button>
+
+        <a href="#join" class="contact-link">
+          <span>Join Club</span>
+          <span class="btn-arrow">→</span>
+        </a>
+
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Mobile Navigation">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
     </header>
 
-    <!-- Unified Hero Section -->
+    <!-- Main Gym Hero Section -->
     <main class="hero-section">
 
-      <!-- Layer 1: Watermark Background Text Running Along Bottom -->
-      <div class="watermark-bg" id="hero-watermark">
-        TITAN ATHLETICS – FORGE YOUR LEGEND.
+      <!-- Layer 1: High Tech Kinetic Watermark Text -->
+      <div class="watermark-bg" id="hero-watermark" data-parallax-speed="0.15">
+        TITAN ATHLETICS ⚡ FORGE YOUR LEGEND.
       </div>
 
-      <!-- Layer 2: Main Text Section (Unified Left & Right Text Layout) -->
+      <!-- Layer 2: Main Text Content Section -->
       <div class="hero-text-content">
         <!-- Left Side Text Block -->
-        <div class="text-left-block">
-          <h1 class="main-headline">
-            UNLEASH YOUR<br>
-            FULL POTENTIAL,<br>
-            NO LIMITS
-          </h1>
-          <p class="hero-subtext">
-            Elite athletic coaching, state-of-the-art strength technology, and personalized performance science tailored to your goals.
-          </p>
+        <div class="text-left-block" id="text-left-block">
+          <div class="headline-particle-wrapper" id="headline-wrapper">
+            <h1 class="main-headline" id="headline-text">
+              <span class="line-top">DOMINATE YOUR</span><br>
+              <span class="gradient-text line-bottom">PHYSICAL LIMITS.</span>
+            </h1>
+            <canvas id="headline-canvas" class="headline-particle-canvas"></canvas>
+          </div>
+
+          <div class="hero-cta-group">
+            <button class="cta-pill-button" id="btn-join">
+              <span class="btn-icon">⚡</span>
+              <span>Claim 7-Day Free Pass</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Right Side Text Block -->
-        <div class="text-right-block">
-          <h2 class="right-headline">
-            PEAK PERFORMANCE.<br>
-            MADE EVERYDAY.
-          </h2>
-          <button class="cta-pill-button" id="btn-join">
-            <span class="btn-icon">⚡</span>
-            <span>Claim 7-Day Free Pass</span>
-          </button>
+        <!-- Right Side Stats (Clean Inline Typography with Counters) -->
+        <div class="text-right-block" id="text-right-block">
+          <div class="stats-inline">
+            <div class="stat-item">
+              <span class="stat-num" id="stat-num-1" data-target="99.4" data-decimals="1" data-suffix="%">0.0%</span>
+              <span class="stat-label">Athlete Goal Success</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-num" id="stat-num-2" data-target="24" data-suffix="/7">0/7</span>
+              <span class="stat-label">Biometric Keyless Access</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-num" id="stat-num-3" data-target="50" data-suffix="+">0+</span>
+              <span class="stat-label">Master Performance Coaches</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Layer 3: Transparent 3D Gym Video Overlay Stacked ON TOP -->
+      <!-- Layer 3: Transparent 3D Gym Video & Telemetry Overlay -->
       <div class="video-overlay-wrapper" id="video-wrapper">
-        <video class="athlete-video" id="athlete-video" autoplay loop muted playsinline>
-          <source src="hero.webm" type="video/webm">
+        <!-- Performance Scan Line -->
+        <div class="athlete-scan-line" id="athlete-scan-line"></div>
+
+        <!-- HUD Telemetry Labels -->
+        <div class="hud-label hud-power" id="hud-power">
+          <span class="hud-key">POWER</span>
+          <span class="hud-val">97%</span>
+        </div>
+        <div class="hud-label hud-strength" id="hud-strength">
+          <span class="hud-key">STRENGTH</span>
+          <span class="hud-val">94%</span>
+        </div>
+        <div class="hud-label hud-speed" id="hud-speed">
+          <span class="hud-key">SPEED</span>
+          <span class="hud-val">98%</span>
+        </div>
+        <div class="hud-label hud-recovery" id="hud-recovery">
+          <span class="hud-key">RECOVERY</span>
+          <span class="hud-val">91%</span>
+        </div>
+
+        <!-- Hover Performance Overlay -->
+        <div class="athlete-hover-overlay" id="athlete-hover-overlay">
+          <div class="hover-hud-row"><span>POWER</span><strong>97%</strong></div>
+          <div class="hover-hud-row"><span>STRENGTH</span><strong>94%</strong></div>
+          <div class="hover-hud-row"><span>SPEED</span><strong>98%</strong></div>
+          <div class="hover-hud-row"><span>RECOVERY</span><strong>91%</strong></div>
+        </div>
+
+        <video class="athlete-video" id="athlete-video" autoplay muted playsinline>
+          <source src="assets/videos/hero.webm" type="video/webm">
+          <source src="assets/videos/hero.mp4" type="video/mp4">
           Your browser does not support WebM video.
         </video>
       </div>
@@ -79,6 +156,932 @@
     </main>
   </div>
 
-  <script src="main.js"></script>
+  <!-- Live Performance Ticker Section -->
+  <section class="ticker-bar">
+    <div class="ticker-track">
+      <div class="ticker-item">⚡ 24/7 BIOMETRIC KEYLESS ACCESS</div>
+      <div class="ticker-item">🔥 1,450+ ACTIVE ELITE ATHLETES</div>
+      <div class="ticker-item">🏆 350+ PRO CHAMPIONSHIP TITLES WON</div>
+      <div class="ticker-item">🧊 CRYOTHERAPY & HYPERBARIC RECOVERY</div>
+      <div class="ticker-item">⚡ 24/7 BIOMETRIC KEYLESS ACCESS</div>
+      <div class="ticker-item">🔥 1,450+ ACTIVE ELITE ATHLETES</div>
+      <div class="ticker-item">🏆 350+ PRO CHAMPIONSHIP TITLES WON</div>
+      <div class="ticker-item">🧊 CRYOTHERAPY & HYPERBARIC RECOVERY</div>
+    </div>
+  </section>
+
+  <!-- Section 2: Interactive Split Program Showcase -->
+  <section class="section-container" id="programs">
+    <div class="section-watermark" data-parallax-speed="0.25">PROGRAMS</div>
+
+    <div class="section-header">
+      <span class="section-tag">⚡ ELITE TRAINING SYSTEMS</span>
+      <h2 class="section-title">ENGINEERED FOR <span class="gradient-text">PEAK PERFORMANCE</span></h2>
+    </div>
+
+    <!-- Split Interactive List & Detail Display -->
+    <div class="split-program-container">
+      <!-- Left: Interactive Program List -->
+      <div class="program-list">
+        <div class="program-list-item active" data-index="0">
+          <span class="item-num">01</span>
+          <div class="item-text">
+            <span class="item-title">TITAN HYPER-LOAD 500</span>
+            <span class="item-category">PRO HYPERTROPHY & POWER</span>
+          </div>
+        </div>
+
+        <div class="program-list-item" data-index="1">
+          <span class="item-num">02</span>
+          <div class="item-text">
+            <span class="item-title">VO2 MAX ACCELERATOR</span>
+            <span class="item-category">ATHLETIC CONDITIONING</span>
+          </div>
+        </div>
+
+        <div class="program-list-item" data-index="2">
+          <span class="item-num">03</span>
+          <div class="item-text">
+            <span class="item-title">APEX COMBAT CONDITIONING</span>
+            <span class="item-category">COMBAT & MMA STRENGTH</span>
+          </div>
+        </div>
+
+        <div class="program-list-item" data-index="3">
+          <span class="item-num">04</span>
+          <div class="item-text">
+            <span class="item-title">BIOMETRIC REGEN LAB</span>
+            <span class="item-category">HYPER-RECOVERY SCIENCE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Clean Detail Showcase -->
+      <div class="program-detail-display">
+        <div class="detail-badge" id="detail-tag">PRO HYPERTROPHY</div>
+        <h3 class="detail-title" id="detail-title">TITAN HYPER-LOAD 500</h3>
+        <p class="detail-desc" id="detail-desc">High-density mechanical tension protocols designed for rapid muscular
+          volume and maximum neural drive.</p>
+
+        <div class="detail-stats-row">
+          <div class="d-stat">
+            <span class="d-val" id="d-val-1">60 MIN</span>
+            <span class="d-key">Duration</span>
+          </div>
+          <div class="d-stat">
+            <span class="d-val" id="d-val-2">1,200+</span>
+            <span class="d-key">Avg Cal Burn</span>
+          </div>
+          <div class="d-stat">
+            <span class="d-val" id="d-val-3">5 DAYS/WK</span>
+            <span class="d-key">Frequency</span>
+          </div>
+        </div>
+
+        <button class="cta-pill-button open-modal-btn" id="detail-cta">
+          <span>Claim Pass to Unlock Program →</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Interactive Next-Gen Facilities & Labs Showcase -->
+  <section class="section-container dark-alt" id="facilities">
+    <div class="section-watermark right" data-parallax-speed="0.2">FACILITIES</div>
+
+    <div class="section-header">
+      <span class="section-tag">🏆 WORLD-CLASS ARCHITECTURE</span>
+      <h2 class="section-title">NEXT-GEN <span class="gradient-text">FACILITIES & LABS</span></h2>
+    </div>
+
+    <div class="facilities-interactive-wrapper">
+      <!-- Vertical Scroll Progress Indicator Navigation -->
+      <div class="facility-progress-nav" id="fac-progress-nav">
+        <div class="fac-progress-line-bg">
+          <div class="fac-progress-line-fill" id="fac-progress-fill"></div>
+        </div>
+        <div class="fac-progress-step active" data-step="0">
+          <span class="step-dot"></span>
+          <span class="step-lbl">01</span>
+        </div>
+        <div class="fac-progress-step" data-step="1">
+          <span class="step-dot"></span>
+          <span class="step-lbl">02</span>
+        </div>
+        <div class="fac-progress-step" data-step="2">
+          <span class="step-dot"></span>
+          <span class="step-lbl">03</span>
+        </div>
+        <div class="fac-progress-step" data-step="3">
+          <span class="step-dot"></span>
+          <span class="step-lbl">04</span>
+        </div>
+      </div>
+
+      <div class="facility-visual-rows">
+        <!-- Facility Item 1 -->
+        <div class="facility-row-visual active" data-facility-id="0">
+          <div class="facility-img-frame">
+            <img src="assets/images/facility_power_arena.jpg" alt="Stealth Power Arena" class="facility-img"
+              loading="lazy">
+            <div class="facility-hover-overlay">
+              <span class="explore-badge">EXPLORE FACILITY →</span>
+            </div>
+          </div>
+          <div class="facility-row-content">
+            <span class="facility-num">01</span>
+            <h3 class="f-title">Stealth Power Arena</h3>
+            <p class="f-desc">Calibrated Eleiko competition platforms, custom laser-cut power cages, and automated bar
+              speed tracking sensors.</p>
+            <div class="facility-pills">
+              <span class="pill">Eleiko Certified</span>
+              <span class="pill">Smart Speed Sensors</span>
+              <span class="pill">Chalk Bar Station</span>
+            </div>
+            <button class="facility-explore-btn">Explore Facility Details →</button>
+          </div>
+        </div>
+
+        <!-- Facility Item 2 -->
+        <div class="facility-row-visual reverse" data-facility-id="1">
+          <div class="facility-img-frame">
+            <img src="assets/images/facility_cryo_chamber.jpg" alt="Sub-Zero Cryo Chamber" class="facility-img"
+              loading="lazy">
+            <div class="facility-hover-overlay">
+              <span class="explore-badge">EXPLORE FACILITY →</span>
+            </div>
+          </div>
+          <div class="facility-row-content">
+            <span class="facility-num">02</span>
+            <h3 class="f-title">Sub-Zero Cryo Chamber</h3>
+            <p class="f-desc">Whole-body nitrogen cryotherapy unit operating at -160°C to accelerate muscular cellular
+              repair and release endorphins.</p>
+            <div class="facility-pills">
+              <span class="pill">-160°C Cryo</span>
+              <span class="pill">Infrared Saunas</span>
+              <span class="pill">Normatec Sleeves</span>
+            </div>
+            <button class="facility-explore-btn">Explore Facility Details →</button>
+          </div>
+        </div>
+
+        <!-- Facility Item 3 -->
+        <div class="facility-row-visual" data-facility-id="2">
+          <div class="facility-img-frame">
+            <img src="assets/images/facility_sprint_turf.jpg" alt="Sprint & Biometric Turf" class="facility-img"
+              loading="lazy">
+            <div class="facility-hover-overlay">
+              <span class="explore-badge">EXPLORE FACILITY →</span>
+            </div>
+          </div>
+          <div class="facility-row-content">
+            <span class="facility-num">03</span>
+            <h3 class="f-title">Sprint & Biometric Turf</h3>
+            <p class="f-desc">60-meter high-density sled turf equipped with optical velocity timers and kinetic force
+              measurement plates.</p>
+            <div class="facility-pills">
+              <span class="pill">60m Sprint Track</span>
+              <span class="pill">Force Plates</span>
+              <span class="pill">Weighted Sleds</span>
+            </div>
+            <button class="facility-explore-btn">Explore Facility Details →</button>
+          </div>
+        </div>
+
+        <!-- Facility Item 4 -->
+        <div class="facility-row-visual reverse" data-facility-id="3">
+          <div class="facility-img-frame">
+            <img src="assets/images/facility_hydro_pool.jpg" alt="Hydro-Therapy Contrast Pools" class="facility-img"
+              loading="lazy">
+            <div class="facility-hover-overlay">
+              <span class="explore-badge">EXPLORE FACILITY →</span>
+            </div>
+          </div>
+          <div class="facility-row-content">
+            <span class="facility-num">04</span>
+            <h3 class="f-title">Hydro-Therapy Contrast Pools</h3>
+            <p class="f-desc">Dual hot and ice contrast immersion pools engineered with active water filtration and
+              mineral oxygenation.</p>
+            <div class="facility-pills">
+              <span class="pill">Ice Bath (4°C)</span>
+              <span class="pill">Thermal Spa (40°C)</span>
+              <span class="pill">Oxygenated Water</span>
+            </div>
+            <button class="facility-explore-btn">Explore Facility Details →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Master Coach Roster -->
+  <section class="coaches-section-wrapper" id="coaches">
+    <div class="section-container">
+      <div class="section-watermark" data-parallax-speed="0.2">COACHES</div>
+
+      <div class="section-header center">
+        <span class="section-tag">⚡ WORLD-CLASS MENTORS</span>
+        <h2 class="section-title">MEET THE <span class="gradient-text">PERFORMANCE COACHES</span></h2>
+      </div>
+
+      <div class="coaches-list-container">
+        <!-- Coach 1 -->
+        <div class="coach-row">
+          <div class="coach-avatar-frame">
+            <img src="assets/images/coach_marcus.jpg" alt="Marcus Vance" class="coach-avatar-img">
+          </div>
+          <div class="coach-meta">
+            <h3 class="c-name">Marcus Vance</h3>
+            <span class="c-role">Head of Strength & Conditioning</span>
+            <p class="c-bio">Former Olympic weightlifting coach with 14+ years training NFL linebackers and UFC light
+              heavyweights.</p>
+          </div>
+          <div class="coach-highlight">
+            <span class="h-val">14+ YRS EXP</span>
+            <span class="h-sub">350+ Pros Trained</span>
+          </div>
+          <button class="secondary-btn open-booking-btn" data-coach="Marcus Vance">Book Session →</button>
+        </div>
+
+        <!-- Coach 2 -->
+        <div class="coach-row">
+          <div class="coach-avatar-frame">
+            <img src="assets/images/coach_elena.jpg" alt="Dr. Elena Sterling" class="coach-avatar-img">
+          </div>
+          <div class="coach-meta">
+            <h3 class="c-name">Dr. Elena Sterling</h3>
+            <span class="c-role">Biometric & Longevity Director</span>
+            <p class="c-bio">PhD in Human Performance & Biomechanics specializing in metabolic optimization and injury
+              prevention science.</p>
+          </div>
+          <div class="coach-highlight">
+            <span class="h-val">PhD BIOMECHANICS</span>
+            <span class="h-sub">99.8% Client Regen</span>
+          </div>
+          <button class="secondary-btn open-booking-btn" data-coach="Dr. Elena Sterling">Book Session →</button>
+        </div>
+
+        <!-- Coach 3 -->
+        <div class="coach-row">
+          <div class="coach-avatar-frame">
+            <img src="assets/images/coach_tariq.jpg" alt="Tariq Thorne" class="coach-avatar-img">
+          </div>
+          <div class="coach-meta">
+            <h3 class="c-name">Tariq Thorne</h3>
+            <span class="c-role">Master Combat & MetCon Coach</span>
+            <p class="c-bio">3x National Strike Champion specializing in anaerobic power threshold development and
+              fighter
+              conditioning.</p>
+          </div>
+          <div class="coach-highlight">
+            <span class="h-val">3x NATIONAL CHAMP</span>
+            <span class="h-sub">1,400+ Cal Burn</span>
+          </div>
+          <button class="secondary-btn open-booking-btn" data-coach="Tariq Thorne">Book Session →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Interactive Membership Pricing Experience -->
+  <section class="section-container dark-alt" id="pricing">
+    <div class="section-header center">
+      <span class="section-tag">⚡ MEMBERSHIP ACCESS</span>
+      <h2 class="section-title">CHOOSE YOUR <span class="gradient-text">TITAN TIER</span></h2>
+      <button class="quiz-trigger-pill-btn" id="open-quiz-btn">
+        <span class="quiz-spark">⚡</span>
+        <span>Unsure which tier matches your goals? Take 30-Sec VIP Quiz →</span>
+      </button>
+    </div>
+
+    <!-- Pricing Columns Container -->
+    <div class="minimal-pricing-columns" id="pricing-columns-track">
+      <!-- Tier 1 -->
+      <div class="pricing-column" data-tier-index="0">
+        <div class="best-for-badge">Best for independent athletes</div>
+        <div class="tier-top">
+          <h3 class="tier-name">STEALTH PASS</h3>
+          <span class="tier-sub">Essential Gym & Turf Access</span>
+        </div>
+        <div class="price-amount">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="99" data-annual="79">99</span>
+          <span class="period" id="period-1">/month</span>
+        </div>
+        <ul class="clean-features">
+          <li>✓ 24/7 Biometric Keyless Access</li>
+          <li>✓ Full Eleiko Barbell & Dumbbell Arena</li>
+          <li>✓ Locker Room & Mineral Showers</li>
+          <li>✓ Titan Performance App Tracking</li>
+        </ul>
+        <ul class="clean-features expandable-features" id="extra-features-1" style="display: none;">
+          <li>✓ OptoJump Bar Velocity Telemetry</li>
+          <li>✓ Hydration & Electrolyte Lounge</li>
+          <li>✓ Free Guest Pass (1/Month)</li>
+        </ul>
+        <button class="expand-benefits-btn" data-target="extra-features-1">View All Benefits ↓</button>
+
+        <div class="plan-cta-wrapper">
+          <button class="secondary-btn btn-select-tier" data-tier="Stealth Pass">
+            <span class="btn-text">Claim Pass →</span>
+          </button>
+          <a href="#join" class="secondary-btn btn-continue-action" style="display: none;">Continue to Registration
+            →</a>
+        </div>
+      </div>
+
+      <!-- Tier 2 (Featured Active Recommended) -->
+      <div class="pricing-column featured" data-tier-index="1">
+        <div class="popular-tag">MOST POPULAR</div>
+        <div class="best-for-badge">Best for serious performance training</div>
+        <div class="tier-top">
+          <h3 class="tier-name">TITAN ELITE</h3>
+          <span class="tier-sub">Complete Training & Recovery</span>
+        </div>
+        <div class="price-amount">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="169" data-annual="135">169</span>
+          <span class="period" id="period-2">/month</span>
+        </div>
+        <ul class="clean-features">
+          <li>✓ 24/7 Global Access (All Locations)</li>
+          <li>✓ Unlimited Cryotherapy & Sauna Lab</li>
+          <li>✓ Hydro Contrast Pools & Spa</li>
+          <li>✓ Biometric VO2 & Body Scan/Mo</li>
+          <li>✓ 2 Monthly 1-on-1 Coaching Sessions</li>
+        </ul>
+        <ul class="clean-features expandable-features" id="extra-features-2" style="display: none;">
+          <li>✓ Unlimited Normatec Compression Sleeves</li>
+          <li>✓ Priority Performance Lab Reservations</li>
+          <li>✓ Complimentary Protein Shake Daily</li>
+        </ul>
+        <button class="expand-benefits-btn" data-target="extra-features-2">View All Benefits ↓</button>
+
+        <div class="plan-cta-wrapper">
+          <button class="cta-pill-button btn-select-tier" data-tier="Titan Elite">
+            <span class="btn-text">Claim Titan Elite →</span>
+          </button>
+          <a href="#join" class="cta-pill-button btn-continue-action" style="display: none;">
+            <span>Continue to Registration →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tier 3 -->
+      <div class="pricing-column" data-tier-index="2">
+        <div class="best-for-badge">Best for competitive athletes</div>
+        <div class="tier-top">
+          <h3 class="tier-name">PRO ATHLETE</h3>
+          <span class="tier-sub">VIP Coaching & Programming</span>
+        </div>
+        <div class="price-amount">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="299" data-annual="239">299</span>
+          <span class="period" id="period-3">/month</span>
+        </div>
+        <ul class="clean-features">
+          <li>✓ Unlimited 24/7 VIP Access & Locker</li>
+          <li>✓ Weekly 1-on-1 Master Coach Training</li>
+          <li>✓ Daily Unlimited Cryo & Recovery Lab</li>
+          <li>✓ Custom Nutrition & Biometric Blueprint</li>
+        </ul>
+        <ul class="clean-features expandable-features" id="extra-features-3" style="display: none;">
+          <li>✓ Private Executive Locker & Towel Service</li>
+          <li>✓ Dedicated Master Strength Coach Direct Line</li>
+          <li>✓ Quarterly Blood Marker Analysis</li>
+        </ul>
+        <button class="expand-benefits-btn" data-target="extra-features-3">View All Benefits ↓</button>
+
+        <div class="plan-cta-wrapper">
+          <button class="secondary-btn btn-select-tier" data-tier="Pro Athlete">
+            <span class="btn-text">Claim Pro Pass →</span>
+          </button>
+          <a href="#join" class="secondary-btn btn-continue-action" style="display: none;">Continue to Registration
+            →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Pricing Carousel Pagination & Controls -->
+    <div class="pricing-bottom-controls">
+      <div class="pricing-nav-controls" id="pricing-nav-controls">
+        <button class="pricing-arrow-btn prev-btn" id="pricing-prev-btn" aria-label="Previous Tier">‹</button>
+        <div class="pricing-mobile-dots" id="pricing-mobile-dots">
+          <span class="dot active" data-step="0"></span>
+          <span class="dot" data-step="1"></span>
+          <span class="dot" data-step="2"></span>
+        </div>
+        <button class="pricing-arrow-btn next-btn" id="pricing-next-btn" aria-label="Next Tier">Next Tier →</button>
+      </div>
+
+      <button class="compare-plans-btn" id="open-compare-btn">
+        <span>Compare All Features & Specs →</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Detailed Compare Membership Features Modal -->
+  <div class="facility-modal-backdrop" id="compare-modal">
+    <div class="facility-modal-card compare-modal-card">
+      <button class="modal-close-btn" id="compare-modal-close" aria-label="Close modal">×</button>
+      <div class="compare-header">
+        <span class="section-tag">⚡ DETAILED SPEC COMPARISON</span>
+        <h3 class="modal-title">COMPARE MEMBERSHIP TIERS</h3>
+      </div>
+
+      <div class="compare-table-wrapper">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature System</th>
+              <th>Stealth Pass ($99)</th>
+              <th class="highlight">Titan Elite ($169)</th>
+              <th>Pro Athlete ($299)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>24/7 Keyless Access</td>
+              <td>✓ Standard</td>
+              <td class="highlight">✓ Global Locations</td>
+              <td>✓ VIP Private Locker</td>
+            </tr>
+            <tr>
+              <td>Eleiko Barbell & Dumbbell Arena</td>
+              <td>✓ Full Access</td>
+              <td class="highlight">✓ Full Access</td>
+              <td>✓ Full Access</td>
+            </tr>
+            <tr>
+              <td>Locker Room & Mineral Showers</td>
+              <td>✓ Included</td>
+              <td class="highlight">✓ Included</td>
+              <td>✓ Reserved Private Locker</td>
+            </tr>
+            <tr>
+              <td>Sub-Zero Cryotherapy Chamber</td>
+              <td>—</td>
+              <td class="highlight">✓ Unlimited</td>
+              <td>✓ Unlimited Daily</td>
+            </tr>
+            <tr>
+              <td>Hydro Contrast Immersion Pools</td>
+              <td>—</td>
+              <td class="highlight">✓ Full Access</td>
+              <td>✓ Full Access</td>
+            </tr>
+            <tr>
+              <td>Biometric VO2 & Body Scan</td>
+              <td>—</td>
+              <td class="highlight">1 Scan / Month</td>
+              <td>Weekly Scans</td>
+            </tr>
+            <tr>
+              <td>1-on-1 Master Coach Sessions</td>
+              <td>—</td>
+              <td class="highlight">2 Sessions / Month</td>
+              <td>4 Sessions / Month</td>
+            </tr>
+            <tr>
+              <td>Custom Nutrition & Recovery Blueprint</td>
+              <td>—</td>
+              <td class="highlight">—</td>
+              <td>✓ Full Blueprint Included</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="compare-footer-action">
+        <a href="#join" class="cta-pill-button" id="compare-modal-join-btn">
+          <span>⚡ Select Membership Tier Now →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Testimonials (Clean Focused Quote) -->
+  <section class="section-container" id="reviews">
+    <div class="section-watermark center" data-parallax-speed="0.2">RESULTS</div>
+
+    <div class="section-header center">
+      <span class="section-tag">🏆 VERIFIED ATHLETE PROOF</span>
+      <h2 class="section-title">REAL ATHLETES. <span class="gradient-text">UNSTOPPABLE RESULTS.</span></h2>
+    </div>
+
+    <div class="quote-testimonial-container">
+      <div class="quote-mark">“</div>
+      <p class="quote-text" id="quote-text">The biometric recovery lab alone is worth 10x the membership. My squat
+        jumped 65 lbs in 12 weeks while staying completely injury-free.</p>
+
+      <div class="quote-author-row">
+        <div class="author-avatar-circle" id="quote-avatar">JD</div>
+        <div class="author-details">
+          <span class="a-name" id="quote-name">Jason Drake</span>
+          <span class="a-meta" id="quote-meta">Competitive Powerlifter • Member 2 Yrs</span>
+        </div>
+        <div class="quote-stat" id="quote-stat">+65 lbs Squat PR</div>
+      </div>
+
+      <div class="quote-controls">
+        <button class="q-btn" id="q-prev">‹</button>
+        <div class="q-dots" id="q-dots"></div>
+        <button class="q-btn" id="q-next">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Interactive Membership Join Form -->
+  <section class="section-container dark-alt floating-assets-section" id="join">
+    <!-- Floating 3D Dumbbell Asset (Left Side) -->
+    <div class="floating-3d-asset left-asset">
+      <img src="assets/images/3d_dumbbell.png" alt="3D Dumbbell" class="asset-img floating-anim-left">
+    </div>
+
+    <!-- Floating 3D Kettlebell Asset (Right Side) -->
+    <div class="floating-3d-asset right-asset">
+      <img src="assets/images/3d_kettlebell.png" alt="3D 16KG Kettlebell" class="asset-img floating-anim-right">
+    </div>
+
+    <div class="join-clean-wrapper">
+      <div class="join-text-side">
+        <span class="section-tag">⚡ CLAIM YOUR PASS</span>
+        <h2 class="section-title">READY TO FORGE YOUR <span class="gradient-text">LEGEND?</span></h2>
+        <p class="section-subtitle">Get instant access to a 7-day all-inclusive free VIP pass. Experience peak
+          performance today.</p>
+      </div>
+
+      <form class="join-form-clean" id="membership-form">
+        <div class="form-group">
+          <label for="user-name">Full Name</label>
+          <input type="text" id="user-name" class="form-input" placeholder="e.g. Alex Mercer" required>
+        </div>
+        <div class="form-group">
+          <label for="user-email">Email Address</label>
+          <input type="email" id="user-email" class="form-input" placeholder="alex@performance.com" required>
+        </div>
+        <div class="form-group">
+          <label for="user-tier">Preferred Membership Tier</label>
+          <select id="user-tier" class="form-input">
+            <option value="7-Day Free VIP Pass">7-Day Free VIP Pass ($0)</option>
+            <option value="Stealth Pass">Stealth Pass ($99/mo)</option>
+            <option value="Titan Elite">Titan Elite ($169/mo)</option>
+            <option value="Pro Athlete">Pro Athlete ($299/mo)</option>
+          </select>
+        </div>
+        <button type="submit" class="cta-pill-button btn-full">
+          <span>⚡ Claim 7-Day Free Pass Now</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Interactive Facility Expand Modal -->
+  <div class="facility-modal-backdrop" id="facility-modal">
+    <div class="facility-modal-card">
+      <button class="modal-close-btn" id="fac-modal-close" aria-label="Close modal">×</button>
+      <div class="modal-body-grid">
+        <div class="modal-img-frame">
+          <img src="" id="fac-modal-img" alt="Facility Preview" class="modal-preview-img">
+        </div>
+        <div class="modal-info-col">
+          <span class="modal-tag" id="fac-modal-tag">01 • FEATURED FACILITY</span>
+          <h3 class="modal-title" id="fac-modal-title">Stealth Power Arena</h3>
+          <p class="modal-desc" id="fac-modal-desc"></p>
+
+          <div class="modal-section-heading">Key Equipment & Features</div>
+          <ul class="modal-bullets-list" id="fac-modal-bullets"></ul>
+
+          <div class="modal-pills" id="fac-modal-pills"></div>
+
+          <div class="modal-action-row">
+            <a href="#join" class="cta-pill-button" id="fac-modal-tour-btn">
+              <span>⚡ BOOK A TOUR →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Interactive "Find Your Titan Tier" VIP Assessment Quiz Modal -->
+  <div class="quiz-modal-backdrop" id="quiz-modal">
+    <div class="quiz-modal-card">
+      <button class="modal-close-btn" id="quiz-modal-close" aria-label="Close quiz">×</button>
+
+      <div class="quiz-header">
+        <span class="quiz-tag">🎯 VIP ATHLETE MATCH</span>
+        <h3 class="quiz-title">FIND YOUR TITAN TIER</h3>
+
+        <!-- Step Progress Bar -->
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        <div class="quiz-step-indicator" id="quiz-step-indicator">STEP 1 OF 3</div>
+      </div>
+
+      <div class="quiz-body">
+        <!-- Step 1: Goal -->
+        <div class="quiz-step-panel active" id="quiz-step-1">
+          <h4 class="step-question">What is your primary athletic objective?</h4>
+          <div class="quiz-options-grid">
+            <button class="quiz-opt-btn" data-goal="strength">
+              <span class="opt-icon">🏋️‍♂️</span>
+              <div class="opt-info">
+                <strong>Raw Strength & Muscle Gain</strong>
+                <span>Heavy lifts, powerlifting, muscular hypertrophy</span>
+              </div>
+            </button>
+            <button class="quiz-opt-btn" data-goal="speed">
+              <span class="opt-icon">⚡</span>
+              <div class="opt-info">
+                <strong>Explosive Speed & MetCon</strong>
+                <span>Sprinting, high-intensity conditioning, endurance</span>
+              </div>
+            </button>
+            <button class="quiz-opt-btn" data-goal="recovery">
+              <span class="opt-icon">🧊</span>
+              <div class="opt-info">
+                <strong>Biometric Recovery & Longevity</strong>
+                <span>Cryotherapy, infrared sauna, injury prevention</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Frequency -->
+        <div class="quiz-step-panel" id="quiz-step-2">
+          <h4 class="step-question">How many days per week do you plan to train?</h4>
+          <div class="quiz-options-grid">
+            <button class="quiz-opt-btn" data-freq="2-3">
+              <span class="opt-icon">🗓️</span>
+              <div class="opt-info">
+                <strong>2 – 3 Days / Week</strong>
+                <span>Targeted maintenance & key workouts</span>
+              </div>
+            </button>
+            <button class="quiz-opt-btn" data-freq="4-5">
+              <span class="opt-icon">🔥</span>
+              <div class="opt-info">
+                <strong>4 – 5 Days / Week</strong>
+                <span>Consistent athletic progression & recovery</span>
+              </div>
+            </button>
+            <button class="quiz-opt-btn" data-freq="6-7">
+              <span class="opt-icon">🏆</span>
+              <div class="opt-info">
+                <strong>6 – 7 Days (Daily Athlete)</strong>
+                <span>Full-immersion elite training & daily regen</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Recovery Needs -->
+        <div class="quiz-step-panel" id="quiz-step-3">
+          <h4 class="step-question">What level of recovery lab access do you require?</h4>
+          <div class="quiz-options-grid">
+            <button class="quiz-opt-btn" data-rec="basic">
+              <span class="opt-icon">🚿</span>
+              <div class="opt-info">
+                <strong>Basic Locker & Showers</strong>
+                <span>Standard gym amenities</span>
+              </div>
+            </button>
+            <button class="quiz-opt-btn" data-rec="full">
+              <span class="opt-icon">💧</span>
+              <div class="opt-info">
+                <strong>Weekly Cryo & Hydro Pools</strong>
+                <span>Sub-zero cryo + contrast pools</span>
+              </div>
+            </button>
+            <button class="quiz-opt-btn" data-rec="vip">
+              <span class="opt-icon">👑</span>
+              <div class="opt-info">
+                <strong>Unlimited Daily Cryo + Master Coaching</strong>
+                <span>Full access to recovery labs & 1-on-1 coaching</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Result Screen -->
+        <div class="quiz-step-panel" id="quiz-result-step">
+          <div class="result-card-inner">
+            <span class="result-match-badge" id="quiz-match-pct">98% PERFECT MATCH</span>
+            <h3 class="result-tier-name" id="quiz-tier-name">TITAN ELITE</h3>
+            <div class="result-price-tag" id="quiz-price-tag">$169 / month</div>
+            <p class="result-desc" id="quiz-result-desc">Based on your training frequency and recovery priorities, Titan
+              Elite delivers unlimited Cryo access, VO2 scans, and full strength arena privileges.</p>
+
+            <ul class="result-highlights" id="quiz-highlights">
+              <li>✓ Unlimited Sub-Zero Cryotherapy & Hydro Pools</li>
+              <li>✓ Monthly VO2 Max & Biometric Body Scans</li>
+              <li>✓ 2 Master Coach Sessions Included Per Month</li>
+            </ul>
+
+            <div class="result-action-row">
+              <button class="cta-pill-button btn-full" id="quiz-claim-btn">
+                <span>⚡ Claim 7-Day Free VIP Pass for Titan Elite →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- High-Tech Futuristic Footer Section -->
+  <footer class="footer">
+    <!-- Kinetic Watermark Background -->
+    <div class="footer-watermark">TITAN ATHLETICS</div>
+
+    <div class="footer-container">
+      <!-- Column 1: Brand, Status & VIP Briefing Newsletter -->
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <img src="assets/logo/logo.png" alt="Titan Athletics Logo" class="brand-logo-img">
+        </a>
+        <p class="footer-desc">
+          Titan Athletics is a world-class high-performance facility, elite strength laboratory, and 24/7 biometric
+          sports clinic.
+        </p>
+
+        <!-- Live System Status Badge -->
+        <div class="footer-status-box">
+          <span class="status-dot"></span>
+          <span class="status-text">SYSTEM OPERATIONAL • 24/7 BIOMETRIC ACCESS</span>
+        </div>
+
+        <!-- VIP Newsletter Subscribe Box -->
+        <div class="footer-newsletter">
+          <h5 class="newsletter-title">⚡ VIP ATHLETE BRIEFING</h5>
+          <form class="newsletter-form"
+            onsubmit="event.preventDefault(); alert('Subscribed to Titan Athlete Briefing!');">
+            <input type="email" class="newsletter-input" placeholder="Enter your email..." required>
+            <button type="submit" class="newsletter-btn">JOIN ⚡</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links / Navigation -->
+      <div class="footer-links">
+        <h4 class="footer-title">Navigation</h4>
+        <a href="#programs" class="f-link"><span class="f-arrow">→</span> Programs</a>
+        <a href="#facilities" class="f-link"><span class="f-arrow">→</span> Facilities</a>
+        <a href="#coaches" class="f-link"><span class="f-arrow">→</span> Master Coaches</a>
+        <a href="#pricing" class="f-link"><span class="f-arrow">→</span> Membership Tiers</a>
+        <a href="#reviews" class="f-link"><span class="f-arrow">→</span> Athlete Results</a>
+      </div>
+
+      <!-- Column 3: High-Tech Facilities -->
+      <div class="footer-links">
+        <h4 class="footer-title">Facilities</h4>
+        <a href="#facilities" class="f-link"><span class="f-arrow">→</span> Stealth Power Arena</a>
+        <a href="#facilities" class="f-link"><span class="f-arrow">→</span> Cryotherapy Chamber</a>
+        <a href="#facilities" class="f-link"><span class="f-arrow">→</span> Sprint & Force Turf</a>
+        <a href="#facilities" class="f-link"><span class="f-arrow">→</span> Hydro Contrast Pools</a>
+        <a href="#facilities" class="f-link"><span class="f-arrow">→</span> Biometric Recovery Lab</a>
+      </div>
+
+      <!-- Column 4: Club Headquarters & Social Hub -->
+      <div class="footer-contact">
+        <h4 class="footer-title">Club Headquarters</h4>
+        <div class="c-info-item">
+          <span class="c-icon">📍</span>
+          <span>850 Performance Way, Athletic District, NY</span>
+        </div>
+        <div class="c-info-item">
+          <span class="c-icon">📞</span>
+          <span>+1 (800) 555-TITAN</span>
+        </div>
+        <div class="c-info-item">
+          <span class="c-icon">✉️</span>
+          <span>support@titanathletics.com</span>
+        </div>
+
+        <h4 class="footer-title social-title">Connect Hub</h4>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="YouTube">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="X Twitter">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Discord">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar with Legal & Back-To-Top Button -->
+    <div class="footer-bottom-bar">
+      <div class="footer-bottom-container">
+        <p class="copyright-text">© 2026 TITAN ATHLETICS. All Rights Reserved. Engineered for Peak Performance.</p>
+        <div class="footer-legal-links">
+          <a href="#" class="legal-link">Privacy Policy</a>
+          <span class="legal-sep">•</span>
+          <a href="#" class="legal-link">Terms of Service</a>
+          <span class="legal-sep">•</span>
+          <a href="#" class="legal-link">Biometric Security</a>
+        </div>
+        <button class="back-to-top-btn" id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});"
+          aria-label="Back to Top">
+          <span>TOP</span>
+          <span class="top-arrow">↑</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TITAN AI Chatbot Floating Widget -->
+  <div class="chatbot-wrapper" id="chatbotWrapper">
+    <!-- Floating Trigger Button -->
+    <button class="chatbot-trigger" id="chatbotTrigger" aria-label="Open TITAN AI Assistant">
+      <span class="chatbot-trigger-icon">🤖</span>
+      <span class="chatbot-trigger-text">TITAN AI</span>
+      <span class="chatbot-pulse-dot"></span>
+    </button>
+
+    <!-- Floating Chat Window -->
+    <div class="chatbot-window" id="chatbotWindow" aria-hidden="true">
+      <!-- Chat Header -->
+      <div class="chatbot-header">
+        <div class="chatbot-header-info">
+          <div class="chatbot-avatar">⚡</div>
+          <div>
+            <h4 class="chatbot-name">TITAN AI Coach</h4>
+            <span class="chatbot-status"><span class="chatbot-online-dot"></span> Online • OpenAI Powered</span>
+          </div>
+        </div>
+        <div class="chatbot-header-actions">
+          <button class="chatbot-action-btn" id="chatbotClearBtn" title="Clear Chat History">🗑️</button>
+          <button class="chatbot-action-btn" id="chatbotCloseBtn" title="Close Chat">✕</button>
+        </div>
+      </div>
+
+      <!-- Chat Messages Container -->
+      <div class="chatbot-messages" id="chatbotMessages">
+        <!-- Initial Welcome Message -->
+        <div class="chat-msg bot-msg">
+          <div class="msg-avatar">⚡</div>
+          <div class="msg-bubble">
+            <p>Welcome to <strong>TITAN ATHLETICS</strong>! I am your AI Performance Coach.</p>
+            <p>How can I assist your athletic goals today?</p>
+          </div>
+        </div>
+
+        <!-- Quick Suggestion Chips -->
+        <div class="chat-suggestions" id="chatSuggestions">
+          <button class="suggestion-chip" data-query="What membership tiers do you offer?">💳 Membership Tiers</button>
+          <button class="suggestion-chip" data-query="Tell me about your Cryotherapy & Recovery Facilities.">❄️ Recovery
+            Lab</button>
+          <button class="suggestion-chip" data-query="How does biometric 24/7 keyless access work?">🔑 24/7
+            Access</button>
+          <button class="suggestion-chip" data-query="What master training programs are available?">🏋️
+            Programs</button>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="chatbot-typing" id="chatbotTyping" style="display: none;">
+        <div class="msg-avatar">⚡</div>
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <form class="chatbot-input-area" id="chatbotForm">
+        <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask TITAN AI anything..."
+          autocomplete="off" required>
+        <button type="submit" class="chatbot-send-btn" id="chatbotSendBtn" aria-label="Send Message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
 </body>
+
 </html>
