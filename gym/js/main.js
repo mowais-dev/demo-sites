@@ -188,17 +188,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   runCinematicPageLoad();
 
-  // 2. GUARANTEED CINEMATIC DUST DISINTEGRATION & RECONSTRUCTION ENGINE
+  // 2. GUARANTEED CINEMATIC PROGRESSIVE THANOS SNAP DISINTEGRATION & RECONSTRUCTION ENGINE
   const headlineWrapper = document.getElementById('headline-wrapper');
   const headlineText = document.getElementById('headline-text');
   const headlineCanvas = document.getElementById('headline-canvas');
 
   if (headlineWrapper && headlineText && headlineCanvas) {
     const phrases = [
-      { line1: "DOMINATE YOUR", line2: "PHYSICAL LIMITS." },
-      { line1: "FORGE YOUR", line2: "ATHLETIC LEGEND." },
-      { line1: "UNLEASH YOUR", line2: "INNER TITAN." },
-      { line1: "REDEFINE YOUR", line2: "PEAK PERFORMANCE." }
+      { line1: "NO", line2: "LIMITS." },
+      { line1: "PURE", line2: "POWER." },
+      { line1: "BE", line2: "TITAN." },
+      { line1: "STAY", line2: "ELITE." }
     ];
     let currentPhraseIdx = 0;
 
@@ -219,13 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = headlineCanvas.getContext('2d');
     let dpr = window.devicePixelRatio || 1;
     let particles = [];
-    let canvasWidth = 900;
-    let canvasHeight = 400;
+    let canvasWidth = 850;
+    let canvasHeight = 420;
 
     function resizeCanvas() {
       const rect = headlineWrapper.getBoundingClientRect();
-      canvasWidth = Math.max(rect.width + 300, 850);
-      canvasHeight = Math.max(rect.height + 350, 480);
+      canvasWidth = Math.max(Math.ceil(rect.width) + 200, 850);
+      canvasHeight = Math.max(Math.ceil(rect.height) + 250, 420);
 
       dpr = window.devicePixelRatio || 1;
       headlineCanvas.width = canvasWidth * dpr;
@@ -240,8 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // True Letter-Shape Glyph Particle Sampling Engine
-    function generateTextDustParticles(phrase, isDisintegrating = true) {
+    // True Pixel-Level Glyph Sampler (Guaranteed exact letter shape extraction)
+    function sampleHeadlinePixels(phrase) {
       const offscreen = document.createElement('canvas');
       const offCtx = offscreen.getContext('2d');
 
@@ -256,93 +256,83 @@ document.addEventListener('DOMContentLoaded', () => {
       offscreen.height = canvasHeight;
       offCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      // Get exact CSS font styling
       const computed = window.getComputedStyle(headlineText);
-      const fontSize = parseFloat(computed.fontSize) || (window.innerWidth > 1024 ? 56 : 38);
-      const lineHeight = fontSize * 1.08;
+      const fontSize = Math.round(parseFloat(computed.fontSize)) || (window.innerWidth > 1024 ? 56 : 38);
+      const lineHeight = fontSize * 1.06;
 
-      offCtx.font = `900 ${fontSize}px 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif`;
+      // Standard W3C font specification
+      offCtx.font = `900 ${fontSize}px 'Outfit', 'Inter', Arial, sans-serif`;
       offCtx.textBaseline = 'top';
-      offCtx.fillStyle = '#000000';
+      offCtx.fillStyle = '#090d16';
 
-      // Draw exact text onto offscreen canvas
-      offCtx.fillText(phrase.line1 || '', offsetX, offsetY);
-      if (phrase.line2) {
-        offCtx.fillText(phrase.line2, offsetX, offsetY + lineHeight);
+      // Draw exact uppercase typography onto offscreen canvas
+      const text1 = (phrase.line1 || '').toUpperCase();
+      const text2 = (phrase.line2 || '').toUpperCase();
+
+      offCtx.fillText(text1, offsetX, offsetY);
+      if (text2) {
+        offCtx.fillText(text2, offsetX, offsetY + lineHeight);
       }
 
-      // Sample letter glyph pixels directly
       const imgData = offCtx.getImageData(0, 0, canvasWidth, canvasHeight);
       const data = imgData.data;
       const points = [];
+      const step = 2; // Step 2x2 px captures exact letter contours and solid body
 
-      // Dense sampling (step 2x2 px) gives 2,500-3,500 particles shaping the letters!
-      const step = 2;
       for (let y = 0; y < canvasHeight; y += step) {
         for (let x = 0; x < canvasWidth; x += step) {
           const idx = (y * canvasWidth + x) * 4;
           const alpha = data[idx + 3];
-          if (alpha > 50) {
-            points.push({ x, y });
+          if (alpha > 25) {
+            points.push({
+              x: x,
+              y: y,
+              alpha: alpha / 255
+            });
           }
         }
       }
 
-      // Fallback in case canvas font loading delayed
-      if (points.length < 50) {
-        for (let i = 0; i < 1500; i++) {
-          const isLine2 = Math.random() > 0.45;
-          const lineOffset = isLine2 ? height * 0.52 : 0;
-          points.push({
-            x: offsetX + Math.random() * width,
-            y: offsetY + lineOffset + Math.random() * (height * 0.44)
-          });
-        }
-      }
-
-      return points.map(pt => {
-        const sweepProgress = Math.max(0, (pt.x - offsetX) / width);
-        const delay = Math.max(0, sweepProgress * 0.55) + Math.random() * 0.12;
-
-        const vx = (Math.random() - 0.2) * 3.8 + 0.8;
-        const vy = Math.random() * 4.2 + 1.4; // Downward fall
-
-        if (isDisintegrating) {
-          return {
-            originX: pt.x,
-            originY: pt.y,
-            x: pt.x,
-            y: pt.y,
-            vx: vx,
-            vy: vy,
-            delay: delay,
-            isBlowing: false,
-            color: '#090d16', // Pure solid black
-            size: Math.random() * 1.5 + 1.1,
-            alpha: 1.0,
-            decay: Math.random() * 0.016 + 0.008,
-            turbulence: Math.random() * 6 + 2
-          };
-        } else {
-          // Reconstructing: spawn from bottom below
-          const spawnX = pt.x + (Math.random() - 0.3) * 180 + 30;
-          const spawnY = pt.y + Math.random() * 180 + 60; // From below
-
-          return {
-            originX: pt.x,
-            originY: pt.y,
-            x: spawnX,
-            y: spawnY,
-            color: '#090d16',
-            size: Math.random() * 1.5 + 1.1,
-            alpha: 0,
-            turbulence: Math.random() * 6 + 2
-          };
-        }
-      });
+      return {
+        points: points,
+        offsetX: offsetX,
+        offsetY: offsetY,
+        width: width,
+        height: height
+      };
     }
 
-    let state = 'STABLE'; // STABLE -> DISINTEGRATING -> DISAPPEARED -> RECONSTRUCTING
+    class ThanosGymParticle {
+      constructor(x, y, alpha) {
+        this.x = x;
+        this.y = y;
+        this.originX = x;
+        this.originY = y;
+        this.startX = x;
+        this.startY = y;
+        this.targetX = x;
+        this.targetY = y;
+        this.color = '#090d16';
+        this.alpha = alpha !== undefined ? alpha : 1.0;
+        this.targetAlpha = 1.0;
+        this.vx = 0;
+        this.vy = 0;
+        this.size = Math.random() * 1.4 + 1.2;
+        this.isDissolved = false;
+        this.dissolveDelay = 0;
+        this.dissolveStartTime = 0;
+        this.assembleDelay = 0;
+        this.curlOffset = (Math.random() - 0.5) * 40;
+        this.noiseOffset = Math.random() * 1000;
+        this.decay = Math.random() * 0.016 + 0.008;
+        this.turbulence = Math.random() * 6 + 2;
+      }
+    }
+
+    let currentSample = sampleHeadlinePixels(phrases[currentPhraseIdx]);
+    particles = currentSample.points.map(pt => new ThanosGymParticle(pt.x, pt.y, pt.alpha));
+
+    let state = 'STABLE'; // STABLE -> DISINTEGRATING -> ASSEMBLING
     let stateStartTime = Date.now();
 
     function updateDOMText(phrase) {
@@ -359,90 +349,155 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         if (state === 'STABLE') {
-          headlineText.style.opacity = '1';
-          headlineText.style.filter = 'blur(0px)';
+          // Keep headlineText hidden so only the crisp assembled particle letters show with zero pop
+          headlineText.style.opacity = '0';
 
-          // Stable for 3.2 seconds before snapping into dust
-          if (elapsed > 3.2) {
+          // Render the assembled letter particles seamlessly during STABLE
+          ctx.fillStyle = '#090d16';
+          particles.forEach(p => {
+            ctx.globalAlpha = p.alpha;
+            ctx.fillRect(p.targetX - p.size * 0.5, p.targetY - p.size * 0.5, p.size, p.size);
+          });
+
+          // Stable for 2.8 seconds before Thanos snap initiates
+          if (elapsed > 2.8) {
             state = 'DISINTEGRATING';
             stateStartTime = Date.now();
-            particles = generateTextDustParticles(phrases[currentPhraseIdx], true);
-            headlineText.style.opacity = '0';
-            headlineText.style.filter = 'blur(8px)';
+
+            currentSample = sampleHeadlinePixels(phrases[currentPhraseIdx]);
+            const pts = currentSample.points;
+
+            while (particles.length < pts.length) {
+              particles.push(new ThanosGymParticle(pts[particles.length].x, pts[particles.length].y, pts[particles.length].alpha));
+            }
+            if (particles.length > pts.length) {
+              particles.length = pts.length;
+            }
+
+            // Left-to-right progressive sweep delay with organic edge
+            particles.forEach((p, i) => {
+              p.x = pts[i].x;
+              p.y = pts[i].y;
+              p.originX = pts[i].x;
+              p.originY = pts[i].y;
+              p.targetX = pts[i].x;
+              p.targetY = pts[i].y;
+              p.alpha = pts[i].alpha;
+              p.isDissolved = false;
+
+              const relX = Math.max(0, pts[i].x - currentSample.offsetX);
+              const sweepProgress = relX / currentSample.width;
+              p.dissolveDelay = sweepProgress * 0.75 + (Math.sin(pts[i].y * 0.08) * 0.1) + (Math.random() * 0.08);
+              p.vx = (Math.random() - 0.2) * 3.8 + 0.9; // Blowing rightward
+              p.vy = Math.random() * 4.0 + 1.2;          // Downward ash fall
+            });
           }
         } else if (state === 'DISINTEGRATING') {
-          let activeCount = 0;
+          // PROPER THANOS SNAP EFFECT:
+          // 1. Intact pixels ahead of the dissolution wave remain SOLID on screen.
+          // 2. Pixels reached by the wave break off into floating, swirling ash dust particles.
+          ctx.fillStyle = '#090d16';
 
           particles.forEach(p => {
-            if (elapsed > p.delay) {
-              p.isBlowing = true;
+            if (!p.isDissolved) {
+              if (elapsed >= p.dissolveDelay) {
+                p.isDissolved = true;
+                p.dissolveStartTime = elapsed;
+              } else {
+                // Intact solid letter pixel
+                ctx.globalAlpha = p.alpha;
+                ctx.fillRect(p.originX - p.size * 0.5, p.originY - p.size * 0.5, p.size, p.size);
+                return;
+              }
             }
 
-            if (p.isBlowing) {
-              // Atmospheric downward dust fall cascade
-              p.x += p.vx + Math.sin(elapsed * p.turbulence) * 0.8;
-              p.y += p.vy + 0.18; // Downward acceleration
-              p.alpha -= p.decay;
+            // Dissolved ash particle in flight
+            if (p.isDissolved) {
+              const dt = elapsed - p.dissolveStartTime;
               p.vx *= 0.985;
               p.vy *= 0.985;
-            }
+              p.x += p.vx + Math.sin(dt * p.turbulence + p.noiseOffset) * 0.8;
+              p.y += p.vy + 0.16; // Downward acceleration
+              p.alpha = Math.max(0.1, p.alpha - p.decay);
 
-            if (p.alpha > 0) {
-              activeCount++;
-              ctx.save();
-              ctx.fillStyle = p.color;
-              ctx.globalAlpha = Math.max(0, p.alpha);
-
-              ctx.beginPath();
-              ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-              ctx.fill();
-
-              ctx.restore();
+              ctx.globalAlpha = p.alpha;
+              ctx.fillRect(p.x - p.size * 0.5, p.y - p.size * 0.5, p.size, p.size);
             }
           });
 
-          // Disintegrated completely
-          if (elapsed > 2.2 || activeCount === 0) {
-            state = 'DISAPPEARED';
+          // Disintegration complete across the entire word -> morph directly into next phrase
+          if (elapsed > 1.9) {
+            state = 'ASSEMBLING';
             stateStartTime = Date.now();
+
+            const nextPhraseIdx = (currentPhraseIdx + 1) % phrases.length;
+            const nextSample = sampleHeadlinePixels(phrases[nextPhraseIdx]);
+            const nextPts = nextSample.points;
+            const targetCount = nextPts.length;
+
+            while (particles.length < targetCount) {
+              const randP = particles[Math.floor(Math.random() * particles.length)] || { x: nextSample.offsetX, y: nextSample.offsetY };
+              const newP = new ThanosGymParticle(randP.x + (Math.random() - 0.5) * 80, randP.y + (Math.random() - 0.5) * 80, 0.3);
+              particles.push(newP);
+            }
+
+            // Assign every airborne ash particle its EXACT destination coordinate in the new phrase!
+            particles.forEach((p, i) => {
+              const targetPt = nextPts[i % targetCount];
+              p.startX = p.x;
+              p.startY = p.y;
+              p.targetX = targetPt.x;
+              p.targetY = targetPt.y;
+              p.targetAlpha = targetPt.alpha;
+              p.curlOffset = (Math.random() - 0.5) * 45;
+              const relX = Math.max(0, targetPt.x - nextSample.offsetX);
+              p.assembleDelay = (relX / nextSample.width) * 0.35 + Math.random() * 0.08;
+            });
+
+            currentPhraseIdx = nextPhraseIdx;
           }
-        } else if (state === 'DISAPPEARED') {
-          // Moment of complete disappearance (0.35s dramatic pause)
-          if (elapsed > 0.35) {
-            state = 'RECONSTRUCTING';
-            stateStartTime = Date.now();
-            currentPhraseIdx = (currentPhraseIdx + 1) % phrases.length;
-            updateDOMText(phrases[currentPhraseIdx]);
-            particles = generateTextDustParticles(phrases[currentPhraseIdx], false);
-          }
-        } else if (state === 'RECONSTRUCTING') {
-          // Particles reverse direction, streaming back into letters
+        } else if (state === 'ASSEMBLING') {
+          // Dust particles fly from air and assemble the EXACT letters of the new phrase
+          ctx.fillStyle = '#090d16';
+
           particles.forEach(p => {
-            p.alpha = Math.min(p.alpha + 0.05, 1.0);
-            p.x += (p.originX - p.x) * 0.14;
-            p.y += (p.originY - p.y) * 0.14;
+            const pElapsed = Math.max(0, elapsed - p.assembleDelay);
+            const pProgress = Math.min(pElapsed / 1.15, 1.0);
+            // Smooth cubic ease out
+            const ease = 1 - Math.pow(1 - pProgress, 3);
 
-            ctx.save();
-            ctx.fillStyle = p.color;
+            p.x = p.startX + (p.targetX - p.startX) * ease + Math.sin((1 - ease) * Math.PI) * p.curlOffset;
+            p.y = p.startY + (p.targetY - p.startY) * ease + Math.cos((1 - ease) * Math.PI) * p.curlOffset;
+
+            if (pProgress >= 0.95) {
+              p.x = p.targetX;
+              p.y = p.targetY;
+              p.alpha = 1.0;
+            } else {
+              p.alpha = Math.min(1.0, 0.3 + ease * 0.7);
+            }
+
             ctx.globalAlpha = p.alpha;
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.restore();
+            ctx.fillRect(p.x - p.size * 0.5, p.y - p.size * 0.5, p.size, p.size);
           });
 
-          // Fully locked into solid typography
+          // Particles have 100% formed the complete letters! Stay in formed particle state
           if (elapsed > 1.7) {
             state = 'STABLE';
             stateStartTime = Date.now();
-            headlineText.style.opacity = '1';
-            headlineText.style.filter = 'blur(0px)';
+            updateDOMText(phrases[currentPhraseIdx]);
+            headlineText.style.opacity = '0';
           }
         }
 
         requestAnimationFrame(animLoop);
+      }
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          currentSample = sampleHeadlinePixels(phrases[currentPhraseIdx]);
+          particles = currentSample.points.map(pt => new ThanosGymParticle(pt.x, pt.y, pt.alpha));
+        });
       }
 
       animLoop();
@@ -733,37 +788,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  if (facilityRows.length > 0) {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-10% 0px -20% 0px',
-      threshold: 0.35
-    };
+  const facWrapper = document.querySelector('.facilities-interactive-wrapper');
 
-    const facObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const activeIndex = parseInt(entry.target.getAttribute('data-facility-id')) || 0;
+  function updateFacilityScroll() {
+    if (!facilityRows.length || !facWrapper) return;
 
-          facilityRows.forEach((row, i) => {
-            row.classList.toggle('active', i === activeIndex);
-          });
+    const windowHeight = window.innerHeight;
+    const viewportTarget = windowHeight * 0.45;
 
-          progressSteps.forEach((step, i) => {
-            step.classList.toggle('passed', i <= activeIndex);
-            step.classList.toggle('active', i === activeIndex);
-          });
+    let activeIndex = 0;
+    let minDistance = Infinity;
 
-          if (progressFill) {
-            const fillPercent = (activeIndex / (facilityRows.length - 1)) * 100;
-            progressFill.style.height = `${fillPercent}%`;
-          }
-        }
-      });
-    }, observerOptions);
+    facilityRows.forEach((row, i) => {
+      const rect = row.getBoundingClientRect();
+      const rowCenter = rect.top + rect.height * 0.4;
+      const distance = Math.abs(rowCenter - viewportTarget);
 
-    facilityRows.forEach(row => facObserver.observe(row));
+      if (distance < minDistance) {
+        minDistance = distance;
+        activeIndex = i;
+      }
+    });
+
+    facilityRows.forEach((row, i) => {
+      row.classList.toggle('active', i === activeIndex);
+    });
+
+    progressSteps.forEach((step, i) => {
+      step.classList.toggle('passed', i < activeIndex);
+      step.classList.toggle('active', i === activeIndex);
+    });
+
+    if (progressFill && progressSteps.length > 1) {
+      const firstRow = facilityRows[0].getBoundingClientRect();
+      const lastRow = facilityRows[facilityRows.length - 1].getBoundingClientRect();
+      const startY = firstRow.top + firstRow.height * 0.3;
+      const endY = lastRow.top + lastRow.height * 0.3;
+      const totalDist = endY - startY;
+
+      let progress = 0;
+      if (totalDist > 0) {
+        progress = (viewportTarget - startY) / totalDist;
+        progress = Math.max(0, Math.min(1, progress));
+      }
+
+      progressFill.style.height = `${(progress * 100).toFixed(1)}%`;
+    }
   }
+
+  let facScrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!facScrollTicking) {
+      requestAnimationFrame(() => {
+        updateFacilityScroll();
+        facScrollTicking = false;
+      });
+      facScrollTicking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', updateFacilityScroll);
+  updateFacilityScroll();
 
   progressSteps.forEach(step => {
     step.addEventListener('click', () => {
