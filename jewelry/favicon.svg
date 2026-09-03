@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Royal Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3C4"/>
+      <stop offset="35%" stop-color="#FFC71F"/>
+      <stop offset="70%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#8C6D1F"/>
+    </linearGradient>
+    
+    <!-- Obsidian Dark Background Gradient -->
+    <radialGradient id="bgGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#241E16"/>
+      <stop offset="60%" stop-color="#0E0C09"/>
+      <stop offset="100%" stop-color="#040302"/>
+    </radialGradient>
+    
+    <!-- Subtle Inner Glow -->
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(255, 199, 31, 0.35)"/>
+      <stop offset="100%" stop-color="rgba(255, 199, 31, 0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background Circle with Gold Border -->
+  <circle cx="32" cy="32" r="30" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="2.5" />
+  <circle cx="32" cy="32" r="26" fill="url(#glowGrad)" />
+
+  <!-- Center Luxury Fleur-de-lis / High Jewelry Monogram -->
+  <g transform="translate(32, 33) scale(1.15)">
+    <!-- Central Spear / Diamond Petal -->
+    <path d="M 0,-14 C 2,-9 5,-3 0,4 C -5,-3 -2,-9 0,-14 Z" fill="url(#goldGrad)" />
+    
+    <!-- Left Wing / Petal -->
+    <path d="M -2,-2 C -8,-7 -13,-2 -11,4 C -10,7 -6,7 -3,3 C -1,5 -3,8 -4,11 C -2,11 -1,7 0,5 C -2,3 -2,0 -2,-2 Z" fill="url(#goldGrad)" />
+    
+    <!-- Right Wing / Petal -->
+    <path d="M 2,-2 C 8,-7 13,-2 11,4 C 10,7 6,7 3,3 C 1,5 3,8 4,11 C 2,11 1,7 0,5 C 2,3 2,0 2,-2 Z" fill="url(#goldGrad)" />
+    
+    <!-- Horizontal Cross Tie / Gold Bar -->
+    <rect x="-7" y="3" width="14" height="2.2" rx="1.1" fill="url(#goldGrad)" />
+
+    <!-- Diamond Sparkle Accent on Top -->
+    <polygon points="0,-16 1.5,-13 0,-10 -1.5,-13" fill="#FFFFFF" opacity="0.95" />
+  </g>
+</svg>

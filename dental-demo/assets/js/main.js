@@ -257,7 +257,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (treatmentSelect && serviceKey) {
           treatmentSelect.value = serviceKey;
         }
-        window.scrollToSection('#booking');
+        if (typeof window.scrollToSection === 'function') {
+          window.scrollToSection('#booking');
+        }
+      });
+    }
+
+    // Schedule button inside card
+    const scheduleBtn = card.querySelector('.card-schedule-btn');
+    if (scheduleBtn) {
+      scheduleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const serviceKey = card.getAttribute('data-service');
+        const treatmentSelect = document.getElementById('treatment-select');
+        if (treatmentSelect && serviceKey) {
+          treatmentSelect.value = serviceKey;
+        }
+        if (typeof window.scrollToSection === 'function') {
+          window.scrollToSection('#booking');
+        }
       });
     }
 

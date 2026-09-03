@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeaderAndModals();
   initSearchSystem();
   initMasterpiecesCarousel();
-  initCaratSlider();
   initCraftsmanshipJourney();
   initMultiColumnParallax();
   initTestimonialsCarousel();
   initNewsletterAndForms();
   initAudioFeedback();
   initVideoPlayback();
+  initAuraChatbot();
 });
 
 /* ==========================================================================
@@ -567,171 +567,183 @@ function initMasterpiecesCarousel() {
   updateCarousel();
 }
 
-/* ==========================================================================
-   6. CARAT SLIDER SIMULATOR & LIVE DIAMOND VISUALIZER
-   ========================================================================== */
-function initCaratSlider() {
-  const slider = document.getElementById('carat-slider');
-  const display = document.getElementById('carat-display-value');
-  const diameterEl = document.getElementById('carat-diameter-val');
-  const estValEl = document.getElementById('carat-est-val');
-  const diamondRender = document.getElementById('carat-diamond-render');
-  const haloGlow = document.getElementById('carat-halo-glow');
-  const presetPills = document.querySelectorAll('.carat-preset-pill');
 
-  if (!slider || !display) return;
-
-  function updateCaratState(val) {
-    const num = parseFloat(val);
-    display.textContent = `${num.toFixed(2)} ct`;
-
-    // Estimate diameter: d = 6.5 * (ct)^(1/3)
-    const diameter = (6.5 * Math.cbrt(num)).toFixed(1);
-    if (diameterEl) diameterEl.textContent = `⌀ ${diameter} mm`;
-
-    // Estimate Valuation
-    let estPrice;
-    if (num <= 1.5) estPrice = Math.round(num * 38000);
-    else if (num <= 3.0) estPrice = Math.round(num * 52000);
-    else if (num <= 4.0) estPrice = 185000;
-    else if (num <= 6.0) estPrice = Math.round(num * 68000);
-    else estPrice = Math.round(num * 78000);
-
-    if (estValEl) estValEl.textContent = `$${estPrice.toLocaleString()} Est.`;
-
-    // Scale Diamond vector & ambient halo
-    const scaleFactor = 0.72 + (num / 8.0) * 0.95;
-    if (diamondRender) {
-      diamondRender.style.transform = `scale(${scaleFactor})`;
-    }
-    if (haloGlow) {
-      haloGlow.style.transform = `scale(${scaleFactor * 1.25})`;
-    }
-
-    // Sync active preset pill
-    presetPills.forEach(pill => {
-      const pCarat = parseFloat(pill.getAttribute('data-carat'));
-      if (Math.abs(pCarat - num) < 0.15) {
-        pill.classList.add('active');
-      } else {
-        pill.classList.remove('active');
-      }
-    });
-  }
-
-  slider.addEventListener('input', (e) => {
-    updateCaratState(e.target.value);
-    playAudioClick(500 + parseFloat(e.target.value) * 75);
-  });
-
-  presetPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const pVal = pill.getAttribute('data-carat');
-      slider.value = pVal;
-      updateCaratState(pVal);
-      playAudioClick(850 + parseFloat(pVal) * 60);
-    });
-  });
-
-  // Initialize with initial slider value
-  updateCaratState(slider.value);
-}
 
 /* ==========================================================================
-   6.5 OUR CRAFTSMANSHIP JOURNEY (5-STEP HORIZONTAL STRIPS & PARALLAX ENGINE)
+   6.5 SAVOIR-FAIRE & ATELIER MASTERCLASS (AUTO-ADVANCING DUAL STAGE)
    ========================================================================== */
 function initCraftsmanshipJourney() {
   const section = document.getElementById('craftsmanship-journey');
   if (!section) return;
 
-  const strips = Array.from(section.querySelectorAll('.craft-step-strip'));
-  const railBtns = Array.from(section.querySelectorAll('.rail-step-btn'));
-  const headerBgImg = document.getElementById('craft-header-bg-img');
-  const stripPhotos = Array.from(section.querySelectorAll('.craft-strip-photo'));
+  const stageWrapper = document.getElementById('atelier-stage-wrapper');
+  const slides = Array.from(section.querySelectorAll('.atelier-slide'));
+  const cards = Array.from(section.querySelectorAll('.milestone-card'));
+  const counterCurr = document.getElementById('atelier-counter-curr');
+  const progressFill = document.getElementById('atelier-progress-fill');
+  const progressTrack = section.querySelector('.atelier-progress-track');
+  const prevBtn = document.getElementById('btn-atelier-prev');
+  const nextBtn = document.getElementById('btn-atelier-next');
+  const visualPane = document.getElementById('atelier-visual-pane');
 
-  if (!strips.length) return;
+  if (!slides.length || !cards.length) return;
 
-  let activeIndex = 0;
+  const totalSteps = Math.min(slides.length, cards.length);
+  const STEP_DURATION = 5000; // 5 seconds per step
+
+  let currentIndex = 0;
+  let isPaused = false;
+  let isVisible = true;
+  let stepStartTime = performance.now();
+  let elapsedBeforePause = 0;
+  let animFrameId = null;
 
   function setActiveStep(index, triggerAudio = true) {
-    if (index < 0 || index >= strips.length) return;
-    activeIndex = index;
+    currentIndex = (index + totalSteps) % totalSteps;
 
-    strips.forEach((strip, i) => {
-      strip.classList.toggle('active', i === index);
+    // Update slides
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === currentIndex);
     });
 
-    railBtns.forEach((btn, i) => {
-      btn.classList.toggle('active', i === index);
+    // Update milestone accordion cards
+    cards.forEach((card, i) => {
+      card.classList.toggle('active', i === currentIndex);
     });
 
-    const targetHeroImg = strips[index].getAttribute('data-hero-img');
-    if (headerBgImg && targetHeroImg && headerBgImg.getAttribute('src') !== targetHeroImg) {
-      headerBgImg.style.opacity = '0.4';
-      headerBgImg.style.transform = 'scale(1.05)';
-      
-      setTimeout(() => {
-        headerBgImg.setAttribute('src', targetHeroImg);
-        headerBgImg.style.opacity = '1';
-        headerBgImg.style.transform = 'scale(1)';
-      }, 160);
+    // Update step counter text (e.g., '01', '02')
+    if (counterCurr) {
+      counterCurr.textContent = String(currentIndex + 1).padStart(2, '0');
     }
 
+    // Audio click feedback
     if (triggerAudio && typeof playAudioClick === 'function') {
-      playAudioClick(620 + index * 60);
+      playAudioClick(620 + currentIndex * 60);
+    }
+
+    // Reset progress tracking
+    stepStartTime = performance.now();
+    elapsedBeforePause = 0;
+    if (progressFill) {
+      progressFill.style.width = '0%';
     }
   }
 
-  // Strip click & hover events
-  strips.forEach((strip, index) => {
-    strip.addEventListener('click', () => {
-      setActiveStep(index, true);
-    });
+  // Animation frame loop for continuous, buttery-smooth progress bar & auto-advance
+  function tick(timestamp) {
+    if (!isPaused && isVisible) {
+      const elapsed = (timestamp - stepStartTime) + elapsedBeforePause;
+      const progressRatio = Math.min(1, elapsed / STEP_DURATION);
 
-    strip.addEventListener('mouseenter', () => {
-      setActiveStep(index, false);
-    });
-  });
+      if (progressFill) {
+        progressFill.style.width = `${(progressRatio * 100).toFixed(2)}%`;
+      }
 
-  // Rail buttons click
-  railBtns.forEach((btn, index) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      setActiveStep(index, true);
-      strips[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  });
-
-  // Scroll optical parallax
-  let isTicking = false;
-  function updateCraftParallax() {
-    const rect = section.getBoundingClientRect();
-    const vh = window.innerHeight;
-
-    if (rect.bottom > -100 && rect.top < vh + 100) {
-      const scrollProgress = (vh - rect.top) / (vh + rect.height);
-      const relativeOffset = (scrollProgress - 0.5) * 35;
-
-      stripPhotos.forEach((photo, i) => {
-        const factor = (i % 2 === 0 ? 1 : -0.8);
-        photo.style.transform = `translate3d(0, ${(relativeOffset * factor).toFixed(2)}px, 0)`;
-      });
-
-      if (headerBgImg) {
-        headerBgImg.style.transform = `translate3d(0, ${(relativeOffset * 0.7).toFixed(2)}px, 0)`;
+      if (elapsed >= STEP_DURATION) {
+        // Shift automatically to next card
+        setActiveStep(currentIndex + 1, false);
       }
     }
+
+    animFrameId = requestAnimationFrame(tick);
   }
 
-  window.addEventListener('scroll', () => {
-    if (!isTicking) {
-      window.requestAnimationFrame(() => {
-        updateCraftParallax();
-        isTicking = false;
+  // Start progress animation
+  stepStartTime = performance.now();
+  animFrameId = requestAnimationFrame(tick);
+
+  // Pause / Resume helpers
+  function pauseAutoAdvance() {
+    if (isPaused) return;
+    isPaused = true;
+    elapsedBeforePause += performance.now() - stepStartTime;
+  }
+
+  function resumeAutoAdvance() {
+    if (!isPaused) return;
+    isPaused = false;
+    stepStartTime = performance.now();
+  }
+
+  // Pause on hover over the stage wrapper, resume on mouse leave
+  if (stageWrapper) {
+    stageWrapper.addEventListener('mouseenter', pauseAutoAdvance);
+    stageWrapper.addEventListener('mouseleave', resumeAutoAdvance);
+  }
+
+  // Card click interaction
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      setActiveStep(index, true);
+    });
+  });
+
+  // Prev / Next button navigation
+  prevBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    setActiveStep(currentIndex - 1, true);
+  });
+
+  nextBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    setActiveStep(currentIndex + 1, true);
+  });
+
+  // Clicking the progress track advances to the next step
+  progressTrack?.addEventListener('click', () => {
+    setActiveStep(currentIndex + 1, true);
+  });
+
+  // Pause when section is scrolled out of view to save performance
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isVisible = entry.isIntersecting;
+        if (!isVisible) {
+          pauseAutoAdvance();
+        } else {
+          resumeAutoAdvance();
+        }
       });
-      isTicking = true;
-    }
-  }, { passive: true });
+    }, { threshold: 0.15 });
+
+    observer.observe(section);
+  }
+
+  // Touch Swipe Support for Mobile & Tablets on the Visual Pane
+  if (visualPane) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    visualPane.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      pauseAutoAdvance();
+    }, { passive: true });
+
+    visualPane.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      // Ensure horizontal swipe is dominant
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          // Swipe Left -> Next
+          setActiveStep(currentIndex + 1, true);
+        } else {
+          // Swipe Right -> Prev
+          setActiveStep(currentIndex - 1, true);
+        }
+      }
+
+      resumeAutoAdvance();
+    }, { passive: true });
+  }
+
+  // Initialize initial active state
+  setActiveStep(0, false);
 }
 
 /* ==========================================================================
@@ -759,8 +771,8 @@ function initMultiColumnParallax() {
   let isTicking = false;
 
   function updateColumnParallax() {
-    // Disable on small mobile devices to ensure native scrolling comfort
-    if (window.innerWidth <= 768) {
+    // Disable on mobile and tablets to keep images and columns completely still
+    if (window.innerWidth <= 1024) {
       cols.forEach(col => {
         col.style.transform = 'none';
       });
@@ -775,9 +787,10 @@ function initMultiColumnParallax() {
       const scrollProgress = (vh - rect.top) / (vh + rect.height); // 0 to 1
       const centerRelative = (scrollProgress - 0.5); // -0.5 to +0.5
 
-      cols.forEach(col => {
-        const speed = parseFloat(col.getAttribute('data-speed')) || 0.15;
-        const translateY = centerRelative * speed * 220; // in px
+      cols.forEach((col, idx) => {
+        const defaultSpeed = (idx % 2 === 0) ? 0.14 : -0.14;
+        const speed = parseFloat(col.getAttribute('data-speed')) || defaultSpeed;
+        const translateY = centerRelative * speed * 200; // in px
         col.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0)`;
       });
     }
@@ -1118,12 +1131,49 @@ function initHeaderAndModals() {
     }
   });
 
+  /* ---------------- Mobile Navigation Drawer ---------------- */
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const drawerBackdrop = document.getElementById('mobile-drawer-backdrop');
+  const drawerCloseBtn = document.getElementById('drawer-close-btn');
+  const drawerLinks = document.querySelectorAll('.drawer-nav-link, .btn-drawer-salon');
+
+  function openDrawer() {
+    playAudioClick(880);
+    mobileDrawer?.classList.add('active');
+    drawerBackdrop?.classList.add('active');
+    mobileDrawer?.setAttribute('aria-hidden', 'false');
+    drawerBackdrop?.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    playAudioClick(460);
+    mobileDrawer?.classList.remove('active');
+    drawerBackdrop?.classList.remove('active');
+    mobileDrawer?.setAttribute('aria-hidden', 'true');
+    drawerBackdrop?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  mobileMenuBtn?.addEventListener('click', openDrawer);
+  drawerCloseBtn?.addEventListener('click', closeDrawer);
+  drawerBackdrop?.addEventListener('click', closeDrawer);
+
+  drawerLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeDrawer();
+    });
+  });
+
+  /* ---------------- Atelier Booking Modal ---------------- */
   const modal = document.getElementById('atelier-booking-modal');
   const openBtns = [
     document.getElementById('btn-book-nav'),
+    document.getElementById('btn-drawer-salon'),
+    document.getElementById('btn-footer-salon'),
     document.getElementById('btn-salon-hero'),
     document.getElementById('btn-inquire-hero'),
-    document.getElementById('btn-commission-bespoke'),
     ...document.querySelectorAll('.btn-product-inquire')
   ].filter(Boolean);
   const closeBtn = document.getElementById('modal-close-btn');
@@ -1133,7 +1183,7 @@ function initHeaderAndModals() {
     btn.addEventListener('click', (e) => {
       const href = btn.getAttribute('href');
       if (href === '#salon' && !btn.classList.contains('btn-product-inquire')) {
-        // Let it scroll to salon or open modal
+        // Allow smooth scroll to salon or open modal
       }
       playAudioClick(850);
       modal?.classList.add('active');
@@ -1153,8 +1203,13 @@ function initHeaderAndModals() {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('active')) {
-      closeModal();
+    if (e.key === 'Escape') {
+      if (mobileDrawer?.classList.contains('active')) {
+        closeDrawer();
+      }
+      if (modal?.classList.contains('active')) {
+        closeModal();
+      }
     }
   });
 
@@ -1178,7 +1233,7 @@ function initHeaderAndModals() {
   });
 
   // Sound feedback on interactive buttons, cards & nav links
-  document.querySelectorAll('.nav-icon-btn, .thumb-card, .btn-360-toggle, .nav-link, .filter-tab-btn, .btn-product-inquire, .suggested-card, .handcrafted-pill').forEach(el => {
+  document.querySelectorAll('.nav-icon-btn, .mobile-menu-btn, .drawer-nav-link, .thumb-card, .btn-360-toggle, .nav-link, .filter-tab-btn, .btn-product-inquire, .suggested-card, .handcrafted-pill').forEach(el => {
     el.addEventListener('mouseenter', () => playAudioClick(900));
   });
 }
@@ -1457,4 +1512,224 @@ function initSearchSystem() {
     });
   }
 }
+
+/* ==========================================================================
+   15. MAISON AURA AI GEMOLOGICAL CONCIERGE CHATBOT
+   ========================================================================== */
+function initAuraChatbot() {
+  const triggerBtn = document.getElementById('chatbot-trigger-btn');
+  const chatWindow = document.getElementById('chatbot-window');
+  const closeBtn = document.getElementById('chatbot-close-btn');
+  const resetBtn = document.getElementById('chatbot-reset-btn');
+  const unreadDot = document.getElementById('chatbot-unread-dot');
+  const messagesContainer = document.getElementById('chatbot-messages');
+  const typingIndicator = document.getElementById('chatbot-typing-indicator');
+  const form = document.getElementById('chatbot-input-form');
+  const input = document.getElementById('chatbot-user-input');
+  const chipBtns = document.querySelectorAll('.chat-chip');
+
+  if (!triggerBtn || !chatWindow || !form || !input) return;
+
+  function toggleChatbot() {
+    playAudioClick(850);
+    const isOpen = chatWindow.classList.toggle('active');
+    if (isOpen) {
+      if (unreadDot) unreadDot.style.display = 'none';
+      input.focus();
+    }
+  }
+
+  function closeChatbot() {
+    playAudioClick(700);
+    chatWindow.classList.remove('active');
+  }
+
+  function resetChatbot() {
+    playAudioClick(750);
+    messagesContainer.innerHTML = `
+      <div class="chat-msg chat-msg-bot">
+        <div class="msg-avatar">⚜</div>
+        <div class="msg-bubble">
+          <p>Bonjour. Conversation refreshed. How may I guide your haute joaillerie journey today?</p>
+          <span class="msg-timestamp">Just now</span>
+        </div>
+      </div>
+    `;
+  }
+
+  triggerBtn.addEventListener('click', toggleChatbot);
+  closeBtn?.addEventListener('click', closeChatbot);
+  resetBtn?.addEventListener('click', resetChatbot);
+
+  // Quick Chips Click
+  chipBtns.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const prompt = chip.getAttribute('data-prompt');
+      if (prompt) {
+        input.value = prompt;
+        sendMessage(prompt);
+      }
+    });
+  });
+
+  // Handle Form Submit
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    sendMessage(text);
+  });
+
+  function formatTime() {
+    const d = new Date();
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function appendUserMessage(text) {
+    const msgEl = document.createElement('div');
+    msgEl.className = 'chat-msg chat-msg-user';
+    msgEl.innerHTML = `
+      <div class="msg-bubble">
+        <p>${escapeHtml(text)}</p>
+        <span class="msg-timestamp">${formatTime()}</span>
+      </div>
+    `;
+    messagesContainer.appendChild(msgEl);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function appendBotMessage(htmlContent) {
+    const msgEl = document.createElement('div');
+    msgEl.className = 'chat-msg chat-msg-bot';
+    msgEl.innerHTML = `
+      <div class="msg-avatar">⚜</div>
+      <div class="msg-bubble">
+        ${htmlContent}
+        <span class="msg-timestamp">${formatTime()}</span>
+      </div>
+    `;
+    messagesContainer.appendChild(msgEl);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    // Attach click listeners on dynamic action links in message
+    msgEl.querySelectorAll('.chat-salon-open-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeChatbot();
+        document.getElementById('btn-book-nav')?.click();
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function showTyping() {
+    if (typingIndicator) typingIndicator.style.display = 'flex';
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function hideTyping() {
+    if (typingIndicator) typingIndicator.style.display = 'none';
+  }
+
+  function sendMessage(userText) {
+    appendUserMessage(userText);
+    input.value = '';
+    playAudioClick(900);
+
+    showTyping();
+
+    // Natural bot response delay
+    const delay = Math.random() * 400 + 600;
+    setTimeout(() => {
+      hideTyping();
+      const responseHtml = generateConciergeResponse(userText);
+      appendBotMessage(responseHtml);
+      playAudioClick(1100);
+    }, delay);
+  }
+
+  function generateConciergeResponse(query) {
+    const q = query.toLowerCase();
+
+    // 1. 4Cs / Diamonds / Carat / Type IIa
+    if (q.includes('4c') || q.includes('carat') || q.includes('clarity') || q.includes('color') || q.includes('cut') || q.includes('type iia')) {
+      return `
+        <p>At Maison Aura, our solitaires strictly adhere to the highest <strong>Haute Joaillerie Protocol</strong>:</p>
+        <p>• <strong>Type IIa Diamonds</strong>: The purest 1–2% of natural diamonds with zero nitrogen impurities.<br>
+        • <strong>D-Flawless</strong>: Perfectly colorless and microscopically clean.<br>
+        • <strong>Triple Excellent Cut</strong>: Engineered for maximum optical dispersion and rainbow fire.</p>
+        <a href="#craftsmanship-journey" class="chat-action-link">✦ Explore Place Vendôme Atelier →</a>
+      `;
+    }
+
+    // 2. Bespoke Commission / Custom
+    if (q.includes('bespoke') || q.includes('custom') || q.includes('commission') || q.includes('design') || q.includes('create') || q.includes('sketch')) {
+      return `
+        <p>Our <strong>Haute Couture Bespoke Experience</strong> takes 6 to 8 weeks in our Place Vendôme atelier:</p>
+        <p>1. 1-on-1 consultation & gouache watercolor sketching<br>
+        2. Mine-to-finger gemological stone scouting<br>
+        3. Master Parisian wax carving & micro-pavé hand setting<br>
+        4. French Eagle hallmark & insured global delivery</p>
+        <a href="#salon" class="chat-action-link chat-salon-open-btn">⚜ Inquire with Private Salon →</a>
+      `;
+    }
+
+    // 3. Salon Appointment / Visit / Flagships / Paris / Geneva / London
+    if (q.includes('salon') || q.includes('appointment') || q.includes('book') || q.includes('visit') || q.includes('paris') || q.includes('geneva') || q.includes('london') || q.includes('dubai') || q.includes('location')) {
+      return `
+        <p>Private appointments are available in our global VIP salons:</p>
+        <p>📍 <strong>Place Vendôme, Paris</strong> • <strong>Geneva</strong> • <strong>London</strong> • <strong>Dubai</strong>, or via our <strong>Encrypted 4K Video Suite</strong>.</p>
+        <a href="#salon" class="chat-action-link chat-salon-open-btn">📅 Reserve Private Salon →</a>
+      `;
+    }
+
+    // 4. Solitaire Rings / Products / Recommendations / Emerald / Necklace
+    if (q.includes('ring') || q.includes('solitaire') || q.includes('necklace') || q.includes('emerald') || q.includes('earring') || q.includes('recommend') || q.includes('collection') || q.includes('buy') || q.includes('shop')) {
+      return `
+        <p>Our featured masterpiece is <strong>La Couronne d'Or</strong> (5.20ct Type IIa D-Flawless solitaire in 18K Royal Ethical Gold).</p>
+        <p>We also feature the <strong>Muzo Emerald Royale</strong> (6.40ct untreated Colombian emerald) and the <strong>Prismatic Luminescence Collar</strong>.</p>
+        <a href="#high-jewelry" class="chat-action-link">✨ View Curated Masterpieces →</a>
+      `;
+    }
+
+    // 5. Pricing / Cost / Investment
+    if (q.includes('price') || q.includes('cost') || q.includes('worth') || q.includes('invest') || q.includes('euro') || q.includes('dollar') || q.includes('eur')) {
+      return `
+        <p>Maison Aura pieces are heirloom investment-grade assets:</p>
+        <p>Solitaire rings start from <strong>€48,000</strong>, high jewelry suites from <strong>€140,000</strong>, and bespoke commissions are tailored to your private capital allocation.</p>
+        <p>Each piece is accompanied by full GIA and Swiss Gemmological Institute dossiers.</p>
+      `;
+    }
+
+    // 6. Ethical Gold / Kimberley Process / Sustainability / Warranty
+    if (q.includes('ethical') || q.includes('gold') || q.includes('kimberley') || q.includes('clean') || q.includes('warranty') || q.includes('care') || q.includes('repair')) {
+      return `
+        <p>Every creation is backed by our <strong>Lifetime Maison Warranty</strong>:</p>
+        <p>• 100% certified Fairmined recycled 18K Royal Ethical Gold.<br>
+        • 100% Kimberley Process compliant, audited conflict-free diamonds.<br>
+        • Complimentary annual ultrasonic cleaning & insured valuation updates.</p>
+        <a href="#heritage" class="chat-action-link">🏛️ Learn About Maison Heritage →</a>
+      `;
+    }
+
+    // 7. Greetings
+    if (q.includes('bonjour') || q.includes('hello') || q.includes('hi') || q.includes('hey') || q.includes('good morning') || q.includes('good evening')) {
+      return `
+        <p>Bonjour! It is a pleasure to welcome you to Maison Aura Jewels Paris.</p>
+        <p>Are you exploring engagement solitaires, high jewelry necklaces, or considering a bespoke commission for an upcoming celebration?</p>
+      `;
+    }
+
+    // Default Fallback
+    return `
+      <p>Thank you for inquiring with Maison Aura. Our Master Gemologist can prepare a private gemological dossier for you.</p>
+      <p>Would you like to reserve a private salon viewing or explore our current curated vault?</p>
+      <a href="#salon" class="chat-action-link chat-salon-open-btn">✦ Connect with Concierge →</a>
+    `;
+  }
+}
+
 

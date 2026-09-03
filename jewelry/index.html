@@ -13,6 +13,11 @@
     content="luxury jewelry, noir haute joaillerie, diamond solitaire ring, black luxury theme, GIA certified diamond, Paris atelier, 18k royal gold, bespoke jewelry">
   <meta name="theme-color" content="#070605">
 
+  <!-- Luxury Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
   <!-- Google Fonts: Cinzel, Cormorant Garamond, Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,7 +74,7 @@
         </div>
       </a>
 
-      <!-- Center: Clean Floating Navigation Links with Gold Underline -->
+      <!-- Center: Refined Floating Navigation Links with Gold Underline -->
       <div class="nav-center">
         <ul class="nav-links">
           <li>
@@ -79,20 +84,8 @@
             </a>
           </li>
           <li>
-            <a href="#solitaires" class="nav-link">
-              <span>SOLITAIRES</span>
-              <span class="nav-gold-underline"></span>
-            </a>
-          </li>
-          <li>
-            <a href="#bespoke" class="nav-link">
-              <span>BESPOKE ATELIER</span>
-              <span class="nav-gold-underline"></span>
-            </a>
-          </li>
-          <li>
             <a href="#craftsmanship-journey" class="nav-link">
-              <span>CRAFTSMANSHIP</span>
+              <span>SAVOIR-FAIRE</span>
               <span class="nav-gold-underline"></span>
             </a>
           </li>
@@ -168,13 +161,62 @@
 
         <!-- Mobile Menu Toggle Button -->
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu">
-          ☰
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="7" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
 
       </div>
 
     </nav>
   </header>
+
+  <!-- =========================================================================
+       LUXURY MOBILE / TABLET NAVIGATION DRAWER & BACKDROP
+       ========================================================================= -->
+  <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" aria-hidden="true"></div>
+  <aside class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation" aria-hidden="true">
+    <div class="drawer-inner">
+      <div class="drawer-header">
+        <div class="drawer-brand">
+          <span class="drawer-brand-main">A U R A</span>
+          <span class="drawer-brand-sub">JEWELS • PARIS</span>
+        </div>
+        <button class="drawer-close-btn" id="drawer-close-btn" aria-label="Close Navigation Menu">&times;</button>
+      </div>
+
+      <nav class="drawer-nav-list">
+        <a href="#high-jewelry" class="drawer-nav-link">
+          <span class="drawer-nav-num">01</span>
+          <span class="drawer-nav-text">HIGH JEWELRY</span>
+        </a>
+        <a href="#craftsmanship-journey" class="drawer-nav-link">
+          <span class="drawer-nav-num">02</span>
+          <span class="drawer-nav-text">SAVOIR-FAIRE</span>
+        </a>
+        <a href="#editorial-gallery" class="drawer-nav-link">
+          <span class="drawer-nav-num">03</span>
+          <span class="drawer-nav-text">EDITORIAL</span>
+        </a>
+        <a href="#heritage" class="drawer-nav-link">
+          <span class="drawer-nav-num">04</span>
+          <span class="drawer-nav-text">HERITAGE</span>
+        </a>
+      </nav>
+
+      <div class="drawer-footer">
+        <a href="#salon" class="btn-drawer-salon" id="btn-drawer-salon">
+          <span>RESERVE PRIVATE SALON</span>
+        </a>
+        <div class="drawer-salon-info">
+          <p class="drawer-salon-location">Place Vendôme • Paris VIII</p>
+          <p class="drawer-salon-hours">By Appointment Only • Monday – Saturday</p>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <!-- =========================================================================
        3. FULLSCREEN IMMERSIVE NOIR HERO GALLERY STAGE
@@ -513,343 +555,289 @@
     <div class="carousel-pagination" id="carousel-pagination"></div>
   </section>
 
-  <!-- =========================================================================
-       5. INTERACTIVE DIAMANTERIE STUDIO (THE 4CS & CARAT SLIDER)
-       ========================================================================= -->
-  <section class="section-container diamaterie-section" id="solitaires">
-    <div class="diamaterie-glass-card">
-      <div class="diamaterie-content">
-        <span class="section-pretitle">HAUTE DIAMANTERIE PROTOCOL</span>
-        <h2 class="section-title">The Art of the D-Flawless Solitaire</h2>
-        <div class="title-gold-divider"></div>
-        <p class="section-subtitle">
-          Less than 0.001% of the world’s diamonds qualify for the Maison Aura benchmark. Every solitary gem is Type IIa
-          certified for absolute optical purity, chemically free of nitrogen, and precision-cut to unlock maximum
-          chromatic dispersion.
-        </p>
 
-        <!-- 4Cs Metrics Grid -->
-        <div class="four-cs-grid">
-          <div class="four-c-card">
-            <span class="c-letter">C</span>
-            <span class="c-title">COLOR GRADE D</span>
-            <p class="c-desc">Purest optical water. Completely colorless with zero faint yellow hues.</p>
-          </div>
-          <div class="four-c-card">
-            <span class="c-letter">C</span>
-            <span class="c-title">CLARITY FLAWLESS</span>
-            <p class="c-desc">Zero internal inclusions or surface blemishes under 10x binocular magnification.</p>
-          </div>
-          <div class="four-c-card">
-            <span class="c-letter">C</span>
-            <span class="c-title">3X EXCELLENT CUT</span>
-            <p class="c-desc">57 optical facets sculpted to the exact Brewster angle for total internal reflection.</p>
-          </div>
-          <div class="four-c-card">
-            <span class="c-letter">C</span>
-            <span class="c-title">ETHICAL ORIGIN</span>
-            <p class="c-desc">100% Conflict-Free Kimberley Process & audited ethical mine-to-finger provenance.</p>
-          </div>
-        </div>
 
-        <!-- Interactive Carat Scale Slider Simulator with Live Diamond Visualizer -->
-        <div class="carat-interactive-box">
-          <div class="carat-sim-dual-layout">
 
-            <!-- Left: Live Diamond Silhouette & Light Refraction Preview -->
-            <div class="carat-visual-stage">
-              <div class="carat-halo-glow" id="carat-halo-glow"></div>
-              <div class="carat-diamond-render" id="carat-diamond-render">
-                <svg viewBox="0 0 100 100" class="diamond-vector-shape">
-                  <polygon points="50,5 92,30 50,95 8,30" fill="url(#caratDiamondGrad)" stroke="#FFC71F"
-                    stroke-width="1.2" />
-                  <polygon points="50,5 68,30 50,95 32,30" fill="rgba(255,255,255,0.22)" stroke="#F5E2B3"
-                    stroke-width="0.8" />
-                  <line x1="8" y1="30" x2="92" y2="30" stroke="#FFC71F" stroke-width="1" />
-                  <defs>
-                    <linearGradient id="caratDiamondGrad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.95)" />
-                      <stop offset="35%" stop-color="rgba(255, 199, 31, 0.45)" />
-                      <stop offset="70%" stop-color="rgba(0, 240, 255, 0.35)" />
-                      <stop offset="100%" stop-color="rgba(255, 255, 255, 0.9)" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
-              <div class="carat-specs-badge">
-                <span id="carat-diameter-val">⌀ 9.5 mm</span> • <span id="carat-est-val">$185,000 Est.</span>
-              </div>
-            </div>
-
-            <!-- Right: Slider Controls & Preset Pills -->
-            <div class="carat-controls-side">
-              <div class="carat-slider-header">
-                <span class="carat-label">Select Carat Weight:</span>
-                <span class="carat-value" id="carat-display-value">3.20 ct</span>
-              </div>
-              <input type="range" id="carat-slider" min="1.00" max="8.00" step="0.25" value="3.20"
-                class="gold-range-slider" aria-label="Carat weight slider">
-
-              <!-- Quick Jump Preset Pills -->
-              <div class="carat-range-labels">
-                <button type="button" class="carat-preset-pill" data-carat="1.00">1.00 ct</button>
-                <button type="button" class="carat-preset-pill" data-carat="2.50">2.50 ct</button>
-                <button type="button" class="carat-preset-pill active" data-carat="3.20">3.20 ct (Showcase)</button>
-                <button type="button" class="carat-preset-pill" data-carat="5.00">5.00 ct</button>
-                <button type="button" class="carat-preset-pill" data-carat="8.00">8.00+ ct Royal</button>
-              </div>
-
-              <div class="carat-slider-callout">
-                <span>✦ Drag slider or click presets to simulate diamond scale, diameter & light dispersion</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <!-- =========================================================================
-       6. BESPOKE ATELIER EXPERIENCE & PARIS WORKSHOP
-       ========================================================================= -->
-  <section class="section-container" id="bespoke">
-    <div class="bespoke-dual-layout">
-
-      <!-- Left: Workshop Craft Image with Golden Ambient Halo -->
-      <div class="bespoke-image-col">
-        <div class="bespoke-image-frame">
-          <img src="images/atelier_craft.jpg" alt="Master Jeweler Handcrafting Gold Ring in Paris Atelier"
-            class="bespoke-craft-img">
-          <div class="bespoke-badge-overlay">
-            <span class="atelier-stamp-icon">⚜</span>
-            <div class="atelier-stamp-text">
-              <strong>PARIS ATELIER</strong>
-              <span>Place Vendôme • Est. 1892</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: Bespoke Journey Steps -->
-      <div class="bespoke-text-col">
-        <span class="section-pretitle">HAUTE COUTURE COMMISSION</span>
-        <h2 class="section-title">The Bespoke Creation Journey</h2>
-        <div class="title-gold-divider"></div>
-        <p class="section-subtitle">
-          Collaborate directly with our Creative Director and Master Gemologists to bring your bespoke vision into
-          tangible high jewelry reality.
-        </p>
-
-        <!-- 4 Step Creation Protocol -->
-        <div class="bespoke-steps-list">
-          <div class="bespoke-step-item">
-            <div class="step-num">01</div>
-            <div class="step-content">
-              <h4>Private Consultation & Gouache Sketch</h4>
-              <p>One-on-one session in our Paris salon or encrypted 4K video suite to sculpt initial gouache
-                watercolours and silhouette ergonomics.</p>
-            </div>
-          </div>
-
-          <div class="bespoke-step-item">
-            <div class="step-num">02</div>
-            <div class="step-content">
-              <h4>Mine-to-Finger Gemstone Sourcing</h4>
-              <p>Our gemological scouts acquire rare D-Flawless solitaires and unheated Colombian emeralds tailored to
-                your exact spectral requirements.</p>
-            </div>
-          </div>
-
-          <div class="bespoke-step-item">
-            <div class="step-num">03</div>
-            <div class="step-content">
-              <h4>Master Parisian Hand-Casting & Micro-Pavé</h4>
-              <p>Hand-carved in wax and cast in 18K Royal Ethical Gold, micro-set under high-power microscopes for
-                seamless optical fluidity.</p>
-            </div>
-          </div>
-
-          <div class="bespoke-step-item">
-            <div class="step-num">04</div>
-            <div class="step-content">
-              <h4>Official Hallmarking & Armored Delivery</h4>
-              <p>Stamped with the French Eagle hallmark and accompanied by GIA dossiers, delivered globally via fully
-                insured armored transport.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bespoke-cta-row">
-          <a href="#salon" class="btn-inquire-gold" id="btn-commission-bespoke">
-            <span>INITIATE BESPOKE COMMISSION</span>
-            <span class="btn-arrow-right">→</span>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       6.5 OUR CRAFTSMANSHIP JOURNEY (5-STEP HORIZONTAL STRIPS SHOWCASE)
+       6.5 SAVOIR-FAIRE & ATELIER MASTERCLASS (CINEMATIC DUAL STAGE)
        ========================================================================= -->
   <section class="section-container craft-journey-section" id="craftsmanship-journey">
     
     <!-- Centered Section Header -->
     <div class="section-header text-center">
-      <span class="section-pretitle">THE ART OF PERFECTION</span>
-      <h2 class="section-title">Our Craftsmanship Journey</h2>
+      <span class="section-pretitle">SAVOIR-FAIRE & PLACE VENDÔME ATELIER</span>
+      <h2 class="section-title">The Art of Mastercrafting</h2>
       <div class="title-gold-divider"></div>
       <p class="section-subtitle">
-        Every piece of jewelry we create is a journey of passion, precision, and timeless artistry.
+        From rare optical earth treasures to the finished royal solitaire, journey through the exacting five-phase Haute Joaillerie protocol perfected over a century.
       </p>
     </div>
 
-    <!-- Outer Stage with Left Rail Tracker -->
-    <div class="craft-journey-layout">
+    <!-- Dual-Pane Masterclass Stage -->
+    <div class="atelier-stage-wrapper" id="atelier-stage-wrapper">
+      
+      <!-- LEFT PANE: Cinematic Atelier Visual Canvas -->
+      <div class="atelier-visual-pane" id="atelier-visual-pane">
+        
+        <!-- Ambient Gold Flare and Decorative Corners -->
+        <div class="atelier-pane-glow" aria-hidden="true"></div>
+        <div class="atelier-corner corner-tl"></div>
+        <div class="atelier-corner corner-tr"></div>
+        <div class="atelier-corner corner-bl"></div>
+        <div class="atelier-corner corner-br"></div>
 
-      <!-- Left Vertical Progress Rail -->
-      <aside class="craft-vertical-rail" aria-label="Craftsmanship Journey Steps">
-        <div class="craft-rail-diamond">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFC71F" stroke-width="1.8">
-            <polygon points="12 2 22 8.5 12 22 2 8.5 12 2"></polygon>
-            <line x1="2" y1="8.5" x2="22" y2="8.5"></line>
-            <polyline points="7 8.5 12 2 17 8.5"></polyline>
-            <polyline points="7 8.5 12 22 17 8.5"></polyline>
-          </svg>
-        </div>
-
-        <nav class="craft-rail-steps" id="craft-rail-steps">
-          <button class="rail-step-btn active" data-step="0" aria-label="Step 01: Ethically Sourced">
-            <span class="rail-step-num">01</span>
-            <span class="rail-step-dot"></span>
-          </button>
-          <div class="rail-step-line"></div>
-
-          <button class="rail-step-btn" data-step="1" aria-label="Step 02: Expert Design">
-            <span class="rail-step-num">02</span>
-            <span class="rail-step-dot"></span>
-          </button>
-          <div class="rail-step-line"></div>
-
-          <button class="rail-step-btn" data-step="2" aria-label="Step 03: Master Crafting">
-            <span class="rail-step-num">03</span>
-            <span class="rail-step-dot"></span>
-          </button>
-          <div class="rail-step-line"></div>
-
-          <button class="rail-step-btn" data-step="3" aria-label="Step 04: Quality Check">
-            <span class="rail-step-num">04</span>
-            <span class="rail-step-dot"></span>
-          </button>
-          <div class="rail-step-line"></div>
-
-          <button class="rail-step-btn" data-step="4" aria-label="Step 05: Timeless Beauty">
-            <span class="rail-step-num">05</span>
-            <span class="rail-step-dot"></span>
-          </button>
-        </nav>
-
-        <div class="craft-rail-scroll-indicator">
-          <span class="rail-scroll-text">SCROLL</span>
-          <span class="rail-scroll-arrow">↓</span>
-        </div>
-      </aside>
-
-      <!-- 5 Horizontal Stacked Parallax Strips -->
-      <div class="craft-steps-stack" id="craft-steps-stack">
-
-        <!-- Strip 01: Ethically Sourced -->
-        <article class="craft-step-strip active" data-step="0" data-hero-img="images/step1_ethically_sourced.jpg">
-          <div class="craft-strip-bg-layer">
-            <img src="images/step1_ethically_sourced.jpg" alt="Ethically Sourced Diamond in Raw Rock" class="craft-strip-photo">
-            <div class="craft-strip-fade-overlay"></div>
+        <!-- Master Viewport & Swappable Photo Layers -->
+        <div class="atelier-canvas-viewport" id="atelier-canvas-viewport">
+          
+          <!-- Slide 0: Ethically Sourced -->
+          <div class="atelier-slide active" data-step="0">
+            <img src="images/step1_ethically_sourced.jpg" alt="Ethically Sourced Diamond in Raw Kimberlite Rock" class="atelier-slide-img">
+            <div class="atelier-slide-vignette"></div>
+            <div class="atelier-tag-overlay">
+              <span class="tag-pill">✦ 100% Conflict-Free Provenance</span>
+              <span class="tag-pill sub">Kimberley Audited</span>
+            </div>
+            <div class="atelier-slide-caption">
+              <span class="caption-phase">PHASE 01 • PROVENANCE</span>
+              <h3 class="caption-title">Raw Earth Extraction</h3>
+              <p class="caption-desc">Hand-selected Type IIa optical diamonds extracted under verified ethical trade protocols.</p>
+            </div>
           </div>
-          <div class="craft-strip-text-row">
-            <div class="craft-step-circle-badge">
+
+          <!-- Slide 1: Expert Design -->
+          <div class="atelier-slide" data-step="1">
+            <img src="images/step2_expert_design.jpg" alt="Haute Joaillerie Gouache Sketching" class="atelier-slide-img">
+            <div class="atelier-slide-vignette"></div>
+            <div class="atelier-tag-overlay">
+              <span class="tag-pill">✦ 1:1 Scale Gouache Blueprint</span>
+              <span class="tag-pill sub">Paris Design Studio</span>
+            </div>
+            <div class="atelier-slide-caption">
+              <span class="caption-phase">PHASE 02 • ARCHITECTURE</span>
+              <h3 class="caption-title">Artisanal Gouache Rendering</h3>
+              <p class="caption-desc">Hand-painted in fine gouache to calculate optical reflections and gemstone seating with 0.01mm precision.</p>
+            </div>
+          </div>
+
+          <!-- Slide 2: Master Crafting -->
+          <div class="atelier-slide" data-step="2">
+            <img src="images/step3_master_crafting.jpg" alt="Master Jeweler Cold Setting Diamond" class="atelier-slide-img">
+            <div class="atelier-slide-vignette"></div>
+            <div class="atelier-tag-overlay">
+              <span class="tag-pill">✦ 18K Royal Gold Alloy</span>
+              <span class="tag-pill sub">Binocular Micro-Setting</span>
+            </div>
+            <div class="atelier-slide-caption">
+              <span class="caption-phase">PHASE 03 • METALLURGY</span>
+              <h3 class="caption-title">Master Bench Sculpting</h3>
+              <p class="caption-desc">Artisans hand-forge 18K Royal Gold and cold-press each gemstone prong under binocular microscopy.</p>
+            </div>
+          </div>
+
+          <!-- Slide 3: Quality Check -->
+          <div class="atelier-slide" data-step="3">
+            <img src="images/step4_quality_check.jpg" alt="Gemologist Dual-Lab Certification Audit" class="atelier-slide-img">
+            <div class="atelier-slide-vignette"></div>
+            <div class="atelier-tag-overlay">
+              <span class="tag-pill">✦ GIA & Gübelin Protocol</span>
+              <span class="tag-pill sub">Triple Excellent Grade</span>
+            </div>
+            <div class="atelier-slide-caption">
+              <span class="caption-phase">PHASE 04 • VERIFICATION</span>
+              <h3 class="caption-title">Gemological Optical Audit</h3>
+              <p class="caption-desc">Laser inscription verification, internal fire refractive index testing, and optical symmetry inspection.</p>
+            </div>
+          </div>
+
+          <!-- Slide 4: Timeless Beauty -->
+          <div class="atelier-slide" data-step="4">
+            <img src="images/step5_timeless_beauty.jpg" alt="Finished Haute Joaillerie Solitaire Ring" class="atelier-slide-img">
+            <div class="atelier-slide-vignette"></div>
+            <div class="atelier-tag-overlay">
+              <span class="tag-pill">✦ Maison Rosette Hallmark</span>
+              <span class="tag-pill sub">Heirloom Casket Finish</span>
+            </div>
+            <div class="atelier-slide-caption">
+              <span class="caption-phase">PHASE 05 • CORONATION</span>
+              <h3 class="caption-title">The Sacred Masterpiece</h3>
+              <p class="caption-desc">Hand-buffed mirror finish stamped with the French State hallmark and sealed in royal velvet coffret.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Visual Stage Bottom Control Suite -->
+        <div class="atelier-controls-bar">
+
+          <!-- Auto-Progress Timer Bar -->
+          <div class="atelier-progress-track" title="Auto-advances every 5 seconds (Hover to pause)">
+            <div class="atelier-progress-fill" id="atelier-progress-fill"></div>
+          </div>
+
+          <div class="atelier-nav-arrows">
+            <button class="atelier-arrow-btn" id="btn-atelier-prev" aria-label="Previous Savoir-Faire Step" title="Previous Phase">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button class="atelier-arrow-btn" id="btn-atelier-next" aria-label="Next Savoir-Faire Step" title="Next Phase">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT PANE: Interactive Milestone Dossier & Accordion -->
+      <div class="atelier-dossier-pane" id="atelier-dossier-pane">
+
+        <!-- Milestone Card 01 -->
+        <div class="milestone-card active" data-step="0">
+          <div class="milestone-card-header">
+            <div class="milestone-num-badge">
               <span>01</span>
             </div>
-            <div class="craft-step-info">
-              <h3 class="craft-step-name">ETHICALLY SOURCED</h3>
-              <p class="craft-step-desc">We handpick the finest raw materials from around the world.</p>
+            <div class="milestone-header-titles">
+              <span class="milestone-badge-sub">ORIGIN & PROVENANCE</span>
+              <h4 class="milestone-title">Ethically Sourced Diamonds</h4>
+            </div>
+            <div class="milestone-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
-        </article>
-
-        <!-- Strip 02: Expert Design -->
-        <article class="craft-step-strip" data-step="1" data-hero-img="images/step2_expert_design.jpg">
-          <div class="craft-strip-bg-layer">
-            <img src="images/step2_expert_design.jpg" alt="Expert Design Sketch Blueprint" class="craft-strip-photo">
-            <div class="craft-strip-fade-overlay"></div>
+          <div class="milestone-body">
+            <p class="milestone-text">
+              We travel to certified mines in Botswana and Canada to handpick rare Type IIa rough crystals characterized by absolute optical transparency and nitrogen-free purity.
+            </p>
+            <div class="milestone-specs-row">
+              <div class="spec-mini-pill">💎 Type IIa Optical Purity</div>
+              <div class="spec-mini-pill">🛡️ 100% Conflict-Free</div>
+              <div class="spec-mini-pill">🌍 Mine-to-Finger Trace</div>
+            </div>
           </div>
-          <div class="craft-strip-text-row">
-            <div class="craft-step-circle-badge">
+        </div>
+
+        <!-- Milestone Card 02 -->
+        <div class="milestone-card" data-step="1">
+          <div class="milestone-card-header">
+            <div class="milestone-num-badge">
               <span>02</span>
             </div>
-            <div class="craft-step-info">
-              <h3 class="craft-step-name">EXPERT DESIGN</h3>
-              <p class="craft-step-desc">Our designers sketch unique concepts that blend elegance with emotion.</p>
+            <div class="milestone-header-titles">
+              <span class="milestone-badge-sub">CONCEPTION & GOUACHE</span>
+              <h4 class="milestone-title">Haute Joaillerie Architecture</h4>
+            </div>
+            <div class="milestone-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
-        </article>
-
-        <!-- Strip 03: Master Crafting -->
-        <article class="craft-step-strip" data-step="2" data-hero-img="images/step3_master_crafting.jpg">
-          <div class="craft-strip-bg-layer">
-            <img src="images/step3_master_crafting.jpg" alt="Master Jeweler Setting Diamond with Tweezers" class="craft-strip-photo">
-            <div class="craft-strip-fade-overlay"></div>
+          <div class="milestone-body">
+            <p class="milestone-text">
+              Every creation begins with life-size gouache watercolors in our Place Vendôme studio, capturing chromatic light reflections before gold casting commences.
+            </p>
+            <div class="milestone-specs-row">
+              <div class="spec-mini-pill">🎨 1:1 Scale Gouache</div>
+              <div class="spec-mini-pill">📐 0.01mm Facet Alignment</div>
+              <div class="spec-mini-pill">🏛️ Paris Atelier Studio</div>
+            </div>
           </div>
-          <div class="craft-strip-text-row">
-            <div class="craft-step-circle-badge">
+        </div>
+
+        <!-- Milestone Card 03 -->
+        <div class="milestone-card" data-step="2">
+          <div class="milestone-card-header">
+            <div class="milestone-num-badge">
               <span>03</span>
             </div>
-            <div class="craft-step-info">
-              <h3 class="craft-step-name">MASTER CRAFTING</h3>
-              <p class="craft-step-desc">Our artisans meticulously craft every detail with precision and care.</p>
+            <div class="milestone-header-titles">
+              <span class="milestone-badge-sub">ATELIER METALLURGY</span>
+              <h4 class="milestone-title">Master Bench Crafting</h4>
+            </div>
+            <div class="milestone-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
-        </article>
-
-        <!-- Strip 04: Quality Check -->
-        <article class="craft-step-strip" data-step="3" data-hero-img="images/step4_quality_check.jpg">
-          <div class="craft-strip-bg-layer">
-            <img src="images/step4_quality_check.jpg" alt="Gemologist Quality Check with Loupe" class="craft-strip-photo">
-            <div class="craft-strip-fade-overlay"></div>
+          <div class="milestone-body">
+            <p class="milestone-text">
+              Our master jewelers hand-forge 18K Royal Gold, individually sculpting micro-baskets and cold-bending claws to secure every solitary diamond with lifelong stability.
+            </p>
+            <div class="milestone-specs-row">
+              <div class="spec-mini-pill">👑 18K Royal Ethical Gold</div>
+              <div class="spec-mini-pill">🔬 40x Optical Binocular</div>
+              <div class="spec-mini-pill">⚡ Cold-Setting Claws</div>
+            </div>
           </div>
-          <div class="craft-strip-text-row">
-            <div class="craft-step-circle-badge">
+        </div>
+
+        <!-- Milestone Card 04 -->
+        <div class="milestone-card" data-step="3">
+          <div class="milestone-card-header">
+            <div class="milestone-num-badge">
               <span>04</span>
             </div>
-            <div class="craft-step-info">
-              <h3 class="craft-step-name">QUALITY CHECK</h3>
-              <p class="craft-step-desc">Each piece undergoes rigorous quality checks to ensure perfection.</p>
+            <div class="milestone-header-titles">
+              <span class="milestone-badge-sub">GEMOLOGICAL PROTOCOL</span>
+              <h4 class="milestone-title">Independent Quality Audit</h4>
+            </div>
+            <div class="milestone-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
-        </article>
-
-        <!-- Strip 05: Timeless Beauty -->
-        <article class="craft-step-strip" data-step="4" data-hero-img="images/step5_timeless_beauty.jpg">
-          <div class="craft-strip-bg-layer">
-            <img src="images/step5_timeless_beauty.jpg" alt="Timeless Beauty Diamond Ring" class="craft-strip-photo">
-            <div class="craft-strip-fade-overlay"></div>
+          <div class="milestone-body">
+            <p class="milestone-text">
+              Every solitaire gem passes strict GIA and Gübelin certification benchmarks, receiving microscopic laser inscription and 360-degree light symmetry verification.
+            </p>
+            <div class="milestone-specs-row">
+              <div class="spec-mini-pill">🔍 GIA Triple Excellent</div>
+              <div class="spec-mini-pill">📜 Gübelin Laboratory</div>
+              <div class="spec-mini-pill">🔎 Microscopic Laser Inscription</div>
+            </div>
           </div>
-          <div class="craft-strip-text-row">
-            <div class="craft-step-circle-badge">
+        </div>
+
+        <!-- Milestone Card 05 -->
+        <div class="milestone-card" data-step="4">
+          <div class="milestone-card-header">
+            <div class="milestone-num-badge">
               <span>05</span>
             </div>
-            <div class="craft-step-info">
-              <h3 class="craft-step-name">TIMELESS BEAUTY</h3>
-              <p class="craft-step-desc">The finished piece is more than jewelry—it's a story that lasts forever.</p>
+            <div class="milestone-header-titles">
+              <span class="milestone-badge-sub">MAISON CORONATION</span>
+              <h4 class="milestone-title">Timeless Heirloom Beauty</h4>
+            </div>
+            <div class="milestone-chevron">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
-        </article>
+          <div class="milestone-body">
+            <p class="milestone-text">
+              The finished piece receives an artisan mirror polish, the official French hallmark punch, and is nestled in hand-stitched French morocco velvet for generations to come.
+            </p>
+            <div class="milestone-specs-row">
+              <div class="spec-mini-pill">✨ Mirror Buffing Finish</div>
+              <div class="spec-mini-pill">⚜️ French State Hallmark</div>
+              <div class="spec-mini-pill">📦 Bespoke Morocco Coffret</div>
+            </div>
+          </div>
+        </div>
 
       </div>
 
     </div>
+
   </section>
 
   <!-- =========================================================================
@@ -866,161 +854,302 @@
       </p>
     </div>
 
-    <!-- 4 Vertical Parallax Columns Container -->
+    <!-- Mobile Swipe Guidance Hint (Visible <= 768px) -->
+    <div class="editorial-mobile-swipe-hint" aria-hidden="true">
+      <span class="swipe-arrow">←</span>
+      <span>SWIPE TO EXPLORE SHOWCASE</span>
+      <span class="swipe-arrow">→</span>
+    </div>
+
+    <!-- 4 Vertical Infinite Moving Columns Container -->
     <div class="editorial-columns-wrapper" id="editorial-columns-wrapper">
 
-      <!-- Column 1 (Speed: Medium Down) -->
-      <div class="editorial-col col-speed-1" data-speed="0.12">
-        
-        <!-- Card 1.1: Ring on Silk with Metrics -->
-        <article class="ed-card ed-card-stat">
-          <div class="ed-card-split-row">
-            <div class="ed-card-thumb-frame">
-              <img src="images/gold_ring_silk.jpg" alt="18K Gold Diamond Ring on Draped Silk" class="ed-thumb-img">
-            </div>
-            <div class="ed-stat-box">
-              <span class="ed-stat-badge">+1</span>
-              <span class="ed-stat-label">Secret of Your Loved</span>
-            </div>
-          </div>
-          <div class="ed-metric-group">
-            <div class="ed-metric-val">2.8M</div>
-            <p class="ed-metric-desc">We assist high jewelry connoisseurs across Paris, London & Geneva.</p>
-          </div>
-          <a href="#solitaires" class="ed-learn-more-link">
-            <span>LEARN MORE</span>
-            <span class="ed-link-arrow">→</span>
-          </a>
-        </article>
+      <!-- Top and Bottom Vignette Fade Gradients -->
+      <div class="editorial-fade-top" aria-hidden="true"></div>
+      <div class="editorial-fade-bottom" aria-hidden="true"></div>
 
-        <!-- Card 1.2: Luxury Box Presentation -->
-        <article class="ed-card ed-card-visual">
-          <div class="ed-visual-img-wrap">
-            <img src="images/ring_box_luxury.jpg" alt="Imperial Velvet Presentation Case" class="ed-card-img">
-            <div class="ed-card-glamour-badge">
-              <span class="badge-gem">✦</span>
-              <span>Atelier Presentation</span>
-            </div>
-          </div>
-          <div class="ed-card-caption">
-            <h4>Bespoke Velvet Coffret</h4>
-            <p>Hand-stitched French morocco leather with satin interior.</p>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- Column 2 (Speed: Reverse Counter-Glide) -->
-      <div class="editorial-col col-speed-2" data-speed="-0.15">
-
-        <!-- Card 2.1: Find Best Diamond Dual Showcase -->
-        <article class="ed-card ed-card-dual">
-          <div class="ed-dual-header">
-            <h3>Find best <em>Diamond</em><br>for loved one's</h3>
-            <span class="ed-sparkle-stars">✦ ✧ ✦</span>
-          </div>
-          <div class="ed-dual-products-grid">
-            <div class="ed-mini-product">
-              <span class="mini-prod-label">Golden Earring</span>
-              <div class="mini-prod-img-box">
-                <img src="images/golden_earrings_pair.jpg" alt="18K Gold Filigree Earrings" class="mini-prod-img">
+      <!-- Column 1 -->
+      <div class="editorial-col col-marquee-1" data-speed="0.14">
+        <div class="editorial-col-track">
+          <!-- Card 1.1: Ring on Silk with Metrics -->
+          <article class="ed-card ed-card-stat">
+            <div class="ed-card-split-row">
+              <div class="ed-card-thumb-frame">
+                <img src="images/gold_ring_silk.jpg" alt="18K Gold Diamond Ring on Draped Silk" class="ed-thumb-img">
+              </div>
+              <div class="ed-stat-box">
+                <span class="ed-stat-badge">+1</span>
+                <span class="ed-stat-label">Secret of Your Loved</span>
               </div>
             </div>
-            <div class="ed-mini-product">
-              <span class="mini-prod-label">Diamond Ring</span>
-              <div class="mini-prod-img-box">
-                <img src="images/step5_timeless_beauty.jpg" alt="Timeless Solitaire Ring" class="mini-prod-img">
+            <div class="ed-metric-group">
+              <div class="ed-metric-val">2.8M</div>
+              <p class="ed-metric-desc">We assist high jewelry connoisseurs across Paris, London & Geneva.</p>
+            </div>
+            <a href="#craftsmanship-journey" class="ed-learn-more-link">
+              <span>LEARN MORE</span>
+              <span class="ed-link-arrow">→</span>
+            </a>
+          </article>
+
+          <!-- Card 1.2: Luxury Box Presentation -->
+          <article class="ed-card ed-card-visual">
+            <div class="ed-visual-img-wrap">
+              <img src="images/ring_box_luxury.jpg" alt="Imperial Velvet Presentation Case" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">✦</span>
+                <span>Atelier Presentation</span>
               </div>
             </div>
-          </div>
-        </article>
-
-        <!-- Card 2.2: Muzo Emerald Solitaire -->
-        <article class="ed-card ed-card-visual">
-          <div class="ed-visual-img-wrap">
-            <img src="images/gem_emerald.jpg" alt="Rare Colombian Muzo Emerald" class="ed-card-img">
-            <div class="ed-card-glamour-badge">
-              <span class="badge-gem">💎</span>
-              <span>Rare Gemstones</span>
+            <div class="ed-card-caption">
+              <h4>Bespoke Velvet Coffret</h4>
+              <p>Hand-stitched French morocco leather with satin interior.</p>
             </div>
-          </div>
-          <div class="ed-card-caption">
-            <h4>Muzo Emerald Royale</h4>
-            <p>6.40ct untreated vivid green emerald with trapezoid diamonds.</p>
-          </div>
-        </article>
+          </article>
 
+          <!-- Duplicate Set for Seamless Infinite Loop -->
+          <article class="ed-card ed-card-stat" aria-hidden="true">
+            <div class="ed-card-split-row">
+              <div class="ed-card-thumb-frame">
+                <img src="images/gold_ring_silk.jpg" alt="18K Gold Diamond Ring on Draped Silk" class="ed-thumb-img">
+              </div>
+              <div class="ed-stat-box">
+                <span class="ed-stat-badge">+1</span>
+                <span class="ed-stat-label">Secret of Your Loved</span>
+              </div>
+            </div>
+            <div class="ed-metric-group">
+              <div class="ed-metric-val">2.8M</div>
+              <p class="ed-metric-desc">We assist high jewelry connoisseurs across Paris, London & Geneva.</p>
+            </div>
+            <a href="#craftsmanship-journey" class="ed-learn-more-link">
+              <span>LEARN MORE</span>
+              <span class="ed-link-arrow">→</span>
+            </a>
+          </article>
+
+          <article class="ed-card ed-card-visual" aria-hidden="true">
+            <div class="ed-visual-img-wrap">
+              <img src="images/ring_box_luxury.jpg" alt="Imperial Velvet Presentation Case" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">✦</span>
+                <span>Atelier Presentation</span>
+              </div>
+            </div>
+            <div class="ed-card-caption">
+              <h4>Bespoke Velvet Coffret</h4>
+              <p>Hand-stitched French morocco leather with satin interior.</p>
+            </div>
+          </article>
+        </div>
       </div>
 
-      <!-- Column 3 (Speed: Fast Forward Glide) -->
-      <div class="editorial-col col-speed-3" data-speed="0.22">
-
-        <!-- Card 3.1: Model Portrait & Endorsement -->
-        <article class="ed-card ed-card-testimonial">
-          <div class="ed-model-portrait-wrap">
-            <img src="images/model_glamour_portrait.jpg" alt="Haute Joaillerie Portrait" class="ed-model-img">
-          </div>
-          <div class="ed-testimonial-content">
-            <h3>Dare to <em>dazzle</em><br>differently</h3>
-            <div class="ed-avatar-group">
-              <span class="ed-avatar-dot av-1">👑</span>
-              <span class="ed-avatar-dot av-2">✨</span>
-              <span class="ed-avatar-rating">★★★★★</span>
+      <!-- Column 2 -->
+      <div class="editorial-col col-marquee-2" data-speed="-0.14">
+        <div class="editorial-col-track">
+          <!-- Card 2.1: Find Best Diamond Dual Showcase -->
+          <article class="ed-card ed-card-dual">
+            <div class="ed-dual-header">
+              <h3>Find best <em>Diamond</em><br>for loved one's</h3>
+              <span class="ed-sparkle-stars">✦ ✧ ✦</span>
             </div>
-            <p class="ed-testi-quote">
-              "Excellent quality gold jewelry that is strongly recommended for connoisseurs."
-            </p>
-          </div>
-        </article>
-
-        <!-- Card 3.2: Imperial Necklace -->
-        <article class="ed-card ed-card-visual">
-          <div class="ed-visual-img-wrap">
-            <img src="images/necklace_fire.jpg" alt="Imperial Prismatic Diamond Collar" class="ed-card-img">
-            <div class="ed-card-glamour-badge">
-              <span class="badge-gem">⚜</span>
-              <span>Imperial Suite</span>
+            <div class="ed-dual-products-grid">
+              <div class="ed-mini-product">
+                <span class="mini-prod-label">Golden Earring</span>
+                <div class="mini-prod-img-box">
+                  <img src="images/golden_earrings_pair.jpg" alt="18K Gold Filigree Earrings" class="mini-prod-img">
+                </div>
+              </div>
+              <div class="ed-mini-product">
+                <span class="mini-prod-label">Diamond Ring</span>
+                <div class="mini-prod-img-box">
+                  <img src="images/step5_timeless_beauty.jpg" alt="Timeless Solitaire Ring" class="mini-prod-img">
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="ed-card-caption">
-            <h4>Prismatic Luminescence</h4>
-            <p>Cascading brilliant round and baguette cut diamonds in 18K gold.</p>
-          </div>
-        </article>
+          </article>
 
+          <!-- Card 2.2: Muzo Emerald Solitaire -->
+          <article class="ed-card ed-card-visual">
+            <div class="ed-visual-img-wrap">
+              <img src="images/gem_emerald.jpg" alt="Rare Colombian Muzo Emerald" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">💎</span>
+                <span>Rare Gemstones</span>
+              </div>
+            </div>
+            <div class="ed-card-caption">
+              <h4>Muzo Emerald Royale</h4>
+              <p>6.40ct untreated vivid green emerald with trapezoid diamonds.</p>
+            </div>
+          </article>
+
+          <!-- Duplicate Set for Seamless Infinite Loop -->
+          <article class="ed-card ed-card-dual" aria-hidden="true">
+            <div class="ed-dual-header">
+              <h3>Find best <em>Diamond</em><br>for loved one's</h3>
+              <span class="ed-sparkle-stars">✦ ✧ ✦</span>
+            </div>
+            <div class="ed-dual-products-grid">
+              <div class="ed-mini-product">
+                <span class="mini-prod-label">Golden Earring</span>
+                <div class="mini-prod-img-box">
+                  <img src="images/golden_earrings_pair.jpg" alt="18K Gold Filigree Earrings" class="mini-prod-img">
+                </div>
+              </div>
+              <div class="ed-mini-product">
+                <span class="mini-prod-label">Diamond Ring</span>
+                <div class="mini-prod-img-box">
+                  <img src="images/step5_timeless_beauty.jpg" alt="Timeless Solitaire Ring" class="mini-prod-img">
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="ed-card ed-card-visual" aria-hidden="true">
+            <div class="ed-visual-img-wrap">
+              <img src="images/gem_emerald.jpg" alt="Rare Colombian Muzo Emerald" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">💎</span>
+                <span>Rare Gemstones</span>
+              </div>
+            </div>
+            <div class="ed-card-caption">
+              <h4>Muzo Emerald Royale</h4>
+              <p>6.40ct untreated vivid green emerald with trapezoid diamonds.</p>
+            </div>
+          </article>
+        </div>
       </div>
 
-      <!-- Column 4 (Speed: Gentle Momentum) -->
-      <div class="editorial-col col-speed-4" data-speed="0.08">
-
-        <!-- Card 4.1: Glamour that Steals the Show & Stone Bracelet -->
-        <article class="ed-card ed-card-heroic">
-          <div class="ed-heroic-headline">
-            <h3><em>Glamour</em> that<br>steals the show</h3>
-            <p class="ed-heroic-sub">Hand-made Gold chain link bracelets —</p>
-          </div>
-          <div class="ed-heroic-media-box">
-            <img src="images/chain_bracelet_stone.jpg" alt="Hand-made Gold Chain Link Bracelet on Stone" class="ed-heroic-img">
-            <div class="ed-sparkle-float s-1">✦</div>
-            <div class="ed-sparkle-float s-2">✧</div>
-          </div>
-        </article>
-
-        <!-- Card 4.2: Master Artisan Crafting -->
-        <article class="ed-card ed-card-visual">
-          <div class="ed-visual-img-wrap">
-            <img src="images/step3_master_crafting.jpg" alt="Master Jeweler Setting Diamond" class="ed-card-img">
-            <div class="ed-card-glamour-badge">
-              <span class="badge-gem">🛠️</span>
-              <span>Paris Atelier</span>
+      <!-- Column 3 -->
+      <div class="editorial-col col-marquee-3" data-speed="0.12">
+        <div class="editorial-col-track">
+          <!-- Card 3.1: Model Portrait & Endorsement -->
+          <article class="ed-card ed-card-testimonial">
+            <div class="ed-model-portrait-wrap">
+              <img src="images/model_glamour_portrait.jpg" alt="Haute Joaillerie Portrait" class="ed-model-img">
             </div>
-          </div>
-          <div class="ed-card-caption">
-            <h4>Precision Hand-Setting</h4>
-            <p>Master artisans setting calibrated diamonds with optical microscopy.</p>
-          </div>
-        </article>
+            <div class="ed-testimonial-content">
+              <h3>Dare to <em>dazzle</em><br>differently</h3>
+              <div class="ed-avatar-group">
+                <span class="ed-avatar-dot av-1">👑</span>
+                <span class="ed-avatar-dot av-2">✨</span>
+                <span class="ed-avatar-rating">★★★★★</span>
+              </div>
+              <p class="ed-testi-quote">
+                "Excellent quality gold jewelry that is strongly recommended for connoisseurs."
+              </p>
+            </div>
+          </article>
 
+          <!-- Card 3.2: Imperial Necklace -->
+          <article class="ed-card ed-card-visual">
+            <div class="ed-visual-img-wrap">
+              <img src="images/necklace_fire.jpg" alt="Imperial Prismatic Diamond Collar" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">⚜</span>
+                <span>Imperial Suite</span>
+              </div>
+            </div>
+            <div class="ed-card-caption">
+              <h4>Prismatic Luminescence</h4>
+              <p>Cascading brilliant round and baguette cut diamonds in 18K gold.</p>
+            </div>
+          </article>
+
+          <!-- Duplicate Set for Seamless Infinite Loop -->
+          <article class="ed-card ed-card-testimonial" aria-hidden="true">
+            <div class="ed-model-portrait-wrap">
+              <img src="images/model_glamour_portrait.jpg" alt="Haute Joaillerie Portrait" class="ed-model-img">
+            </div>
+            <div class="ed-testimonial-content">
+              <h3>Dare to <em>dazzle</em><br>differently</h3>
+              <div class="ed-avatar-group">
+                <span class="ed-avatar-dot av-1">👑</span>
+                <span class="ed-avatar-dot av-2">✨</span>
+                <span class="ed-avatar-rating">★★★★★</span>
+              </div>
+              <p class="ed-testi-quote">
+                "Excellent quality gold jewelry that is strongly recommended for connoisseurs."
+              </p>
+            </div>
+          </article>
+
+          <article class="ed-card ed-card-visual" aria-hidden="true">
+            <div class="ed-visual-img-wrap">
+              <img src="images/necklace_fire.jpg" alt="Imperial Prismatic Diamond Collar" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">⚜</span>
+                <span>Imperial Suite</span>
+              </div>
+            </div>
+            <div class="ed-card-caption">
+              <h4>Prismatic Luminescence</h4>
+              <p>Cascading brilliant round and baguette cut diamonds in 18K gold.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="editorial-col col-marquee-4" data-speed="-0.16">
+        <div class="editorial-col-track">
+          <!-- Card 4.1: Glamour that Steals the Show & Stone Bracelet -->
+          <article class="ed-card ed-card-heroic">
+            <div class="ed-heroic-headline">
+              <h3><em>Glamour</em> that<br>steals the show</h3>
+              <p class="ed-heroic-sub">Hand-made Gold chain link bracelets —</p>
+            </div>
+            <div class="ed-heroic-media-box">
+              <img src="images/chain_bracelet_stone.jpg" alt="Hand-made Gold Chain Link Bracelet on Stone" class="ed-heroic-img">
+              <div class="ed-sparkle-float s-1">✦</div>
+              <div class="ed-sparkle-float s-2">✧</div>
+            </div>
+          </article>
+
+          <!-- Card 4.2: Master Artisan Crafting -->
+          <article class="ed-card ed-card-visual">
+            <div class="ed-visual-img-wrap">
+              <img src="images/step3_master_crafting.jpg" alt="Master Jeweler Setting Diamond" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">🛠️</span>
+                <span>Paris Atelier</span>
+              </div>
+            </div>
+            <div class="ed-card-caption">
+              <h4>Precision Hand-Setting</h4>
+              <p>Master artisans setting calibrated diamonds with optical microscopy.</p>
+            </div>
+          </article>
+
+          <!-- Duplicate Set for Seamless Infinite Loop -->
+          <article class="ed-card ed-card-heroic" aria-hidden="true">
+            <div class="ed-heroic-headline">
+              <h3><em>Glamour</em> that<br>steals the show</h3>
+              <p class="ed-heroic-sub">Hand-made Gold chain link bracelets —</p>
+            </div>
+            <div class="ed-heroic-media-box">
+              <img src="images/chain_bracelet_stone.jpg" alt="Hand-made Gold Chain Link Bracelet on Stone" class="ed-heroic-img">
+              <div class="ed-sparkle-float s-1">✦</div>
+              <div class="ed-sparkle-float s-2">✧</div>
+            </div>
+          </article>
+
+          <article class="ed-card ed-card-visual" aria-hidden="true">
+            <div class="ed-visual-img-wrap">
+              <img src="images/step3_master_crafting.jpg" alt="Master Jeweler Setting Diamond" class="ed-card-img">
+              <div class="ed-card-glamour-badge">
+                <span class="badge-gem">🛠️</span>
+                <span>Paris Atelier</span>
+              </div>
+            </div>
+            <div class="ed-card-caption">
+              <h4>Precision Hand-Setting</h4>
+              <p>Master artisans setting calibrated diamonds with optical microscopy.</p>
+            </div>
+          </article>
+        </div>
       </div>
 
     </div>
@@ -1272,100 +1401,112 @@
   </section>
 
   <!-- =========================================================================
-       10. GRAND MAISON FOOTER
+       10. REFINED 5-COLUMN NOIR & ROYAL GOLD FOOTER
        ========================================================================= -->
   <footer class="site-footer">
+    <div class="footer-container">
 
-    <!-- Newsletter & Vault Access Strip -->
-    <div class="footer-newsletter-row">
-      <div class="newsletter-content">
-        <span class="newsletter-pretitle">MAISON AURA VAULT ACCESS</span>
-        <h3>Receive Private High Jewelry Invitations</h3>
-        <p>Gain private preview access to newly unveiled one-of-a-kind D-Flawless solitaires and historical gemstones.
-        </p>
-      </div>
-      <form class="newsletter-form" id="newsletter-form">
-        <input type="email" class="newsletter-input" placeholder="Enter private email address" required>
-        <button type="submit" class="btn-newsletter-submit">REQUEST INVITATION</button>
-      </form>
-    </div>
+      <div class="footer-columns-grid">
 
-    <div class="footer-main-grid">
+        <!-- Column 1: CONTACT -->
+        <div class="footer-col footer-contact-col">
+          <span class="footer-col-heading">CONTACT</span>
+          <a href="mailto:concierge@aurajewels.paris" class="footer-contact-email">
+            <span class="footer-arrow-icon">↗</span>
+            <span>concierge@aurajewels.paris</span>
+          </a>
 
-      <!-- Brand & Maison Bio -->
-      <div class="footer-col brand-col">
-        <div class="footer-brand-lockup">
-          <div class="footer-rosette">⚜</div>
-          <div>
-            <span class="f-brand-title">AURA</span>
-            <span class="f-brand-sub">JEWELS • PARIS</span>
+          <a href="#salon" class="footer-pill-btn" id="btn-footer-salon">
+            <span class="footer-pill-icon">✦</span>
+            <span>Reserve Private Salon</span>
+            <span class="footer-arrow-icon">↗</span>
+          </a>
+
+          <div class="footer-social-row">
+            <a href="#" aria-label="Instagram" class="footer-social-icon" title="Instagram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="#" aria-label="X (Twitter)" class="footer-social-icon" title="X">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Pinterest" class="footer-social-icon" title="Pinterest">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.334 1.357-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="footer-social-icon" title="Facebook">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
           </div>
         </div>
-        <p class="footer-bio-text">
-          Maison de Haute Joaillerie founded on Place Vendôme in 1892. Purveyors of rare D-Flawless diamond solitaires,
-          untreated colored gemstones, and bespoke royal commissions.
-        </p>
-        <div class="footer-contact-info">
-          <p><strong>Private Concierge:</strong> +33 1 42 68 00 00</p>
-          <p><strong>Geneva Atelier:</strong> +41 22 819 30 00</p>
-          <p><strong>Encrypted Telegram/WhatsApp:</strong> VIP Concierge Active</p>
+
+        <!-- Column 2: PRODUCT / COLLECTIONS -->
+        <div class="footer-col">
+          <span class="footer-col-heading">COLLECTIONS</span>
+          <ul class="footer-col-list">
+            <li><a href="#high-jewelry">Royal Solitaires</a></li>
+            <li><a href="#high-jewelry">Prismatic Necklaces</a></li>
+            <li><a href="#high-jewelry">Haute Earrings</a></li>
+            <li><a href="#high-jewelry">Imperial Bracelets</a></li>
+            <li><a href="#high-jewelry">Rare Gemstones</a></li>
+          </ul>
         </div>
+
+        <!-- Column 3: COMPANY / MAISON -->
+        <div class="footer-col">
+          <span class="footer-col-heading">MAISON</span>
+          <ul class="footer-col-list">
+            <li><a href="#heritage">About Us</a></li>
+            <li><a href="#heritage">Place Vendôme Atelier</a></li>
+            <li><a href="#craftsmanship-journey">Savoir-Faire & Craft</a></li>
+            <li><a href="#heritage">Heritage & Archives</a></li>
+            <li><a href="#editorial-gallery">Editorial & Press</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: SERVICES -->
+        <div class="footer-col">
+          <span class="footer-col-heading">SERVICES</span>
+          <ul class="footer-col-list">
+            <li><a href="#salon">Private Salon Bookings</a></li>
+            <li><a href="#salon">Bespoke Commissions</a></li>
+            <li><a href="#craftsmanship-journey">Atelier Savoir-Faire</a></li>
+            <li><a href="#heritage">Gemological Care</a></li>
+            <li><a href="#salon">VIP Concierge</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 5: LEGAL -->
+        <div class="footer-col">
+          <span class="footer-col-heading">LEGAL</span>
+          <ul class="footer-col-list">
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Kimberley Protocol</a></li>
+            <li><a href="#">Insurance & Delivery</a></li>
+            <li><a href="#">Cookie Preferences</a></li>
+          </ul>
+        </div>
+
       </div>
 
-      <!-- Navigation Links -->
-      <div class="footer-col">
-        <h4 class="footer-heading">Haute Collections</h4>
-        <ul class="footer-links-list">
-          <li><a href="#high-jewelry">Royal Solitaires</a></li>
-          <li><a href="#high-jewelry">Prismatic Necklaces</a></li>
-          <li><a href="#high-jewelry">Haute Earrings</a></li>
-          <li><a href="#high-jewelry">Imperial Bracelets</a></li>
-          <li><a href="#high-jewelry">Rare Colombian Emeralds</a></li>
-          <li><a href="#high-jewelry">Kashmir Sapphires</a></li>
-        </ul>
-      </div>
-
-      <!-- Bespoke & Client Services -->
-      <div class="footer-col">
-        <h4 class="footer-heading">Client Services</h4>
-        <ul class="footer-links-list">
-          <li><a href="#salon">Private Salon Bookings</a></li>
-          <li><a href="#bespoke">Bespoke Commission Protocol</a></li>
-          <li><a href="#solitaires">GIA & HRD Certification</a></li>
-          <li><a href="#heritage">Kimberley Process Pledge</a></li>
-          <li><a href="#heritage">Lifetime Maison Care</a></li>
-          <li><a href="#heritage">Armored Transport Insurance</a></li>
-        </ul>
-      </div>
-
-      <!-- Global Flagships -->
-      <div class="footer-col">
-        <h4 class="footer-heading">Global Salons</h4>
-        <div class="footer-salon-addresses">
-          <p><strong>Paris:</strong> 12 Place Vendôme, 75001 Paris</p>
-          <p><strong>Geneva:</strong> Place de la Fusterie 8, 1204 Genève</p>
-          <p><strong>London:</strong> 45 New Bond Street, Mayfair London</p>
-          <p><strong>Zurich:</strong> Bahnhofstrasse 24, 8001 Zürich</p>
-          <p><strong>Dubai:</strong> Gate Village, DIFC Dubai</p>
+      <!-- Bottom Minimal Strip -->
+      <div class="footer-bottom-bar">
+        <p>© 1892–2026 Maison Aura Jewels Paris. All rights reserved. Haute Joaillerie & High Jewelry.</p>
+        <div class="footer-bottom-flagships">
+          <span>Place Vendôme, Paris</span> • <span>Geneva</span> • <span>London</span> • <span>Dubai</span>
         </div>
       </div>
 
     </div>
-
-    <!-- Bottom Copyright & Compliance Strip -->
-    <div class="footer-bottom-strip">
-      <p>© 1892–2026 Maison Aura Jewels Paris. All rights reserved. Haute Joaillerie & High Jewelry.</p>
-      <div class="footer-bottom-links">
-        <a href="#">Privacy Policy</a>
-        <span>•</span>
-        <a href="#">Ethics & Kimberley Protocol</a>
-        <span>•</span>
-        <a href="#">Terms of Haute Joaillerie</a>
-        <span>•</span>
-        <a href="#">Security & Insurance</a>
-      </div>
-    </div>
-
   </footer>
 
 
@@ -1421,6 +1562,106 @@
       </form>
 
     </div>
+  </div>
+
+  <!-- =========================================================================
+       12. MAISON AURA AI GEMOLOGICAL CONCIERGE (FLOATING CHATBOT WIDGET)
+       ========================================================================= -->
+  <div class="aura-chatbot-wrapper" id="aura-chatbot-wrapper">
+
+    <!-- Floating Trigger Button -->
+    <button class="chatbot-trigger-btn" id="chatbot-trigger-btn" aria-label="Open Maison Aura AI Concierge">
+      <span class="chatbot-trigger-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9.5 4H14.5L17 7.5L12 12L7 7.5L9.5 4Z" fill="rgba(255, 199, 31, 0.3)" stroke="#FFC71F"/>
+          <path d="M7 7.5H17" stroke="#FFC71F" stroke-width="1.2"/>
+          <path d="M9.5 4L12 7.5L14.5 4" stroke="#FFE79A" stroke-width="1.2"/>
+          <path d="M12 7.5V12" stroke="#FFE79A" stroke-width="1.2"/>
+          <circle cx="12" cy="15.5" r="6.2" stroke="#FFC71F" stroke-width="1.9"/>
+        </svg>
+      </span>
+      <span class="chatbot-trigger-pulse"></span>
+      <span class="chatbot-unread-dot" id="chatbot-unread-dot"></span>
+      <span class="chatbot-trigger-label">CONCIERGE</span>
+    </button>
+
+    <!-- Chatbot Window Frame -->
+    <div class="chatbot-window" id="chatbot-window" role="dialog" aria-modal="true" aria-labelledby="chatbot-heading">
+      
+      <!-- Chat Header -->
+      <div class="chatbot-header">
+        <div class="chatbot-header-brand">
+          <div class="chatbot-avatar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9.5 4H14.5L17 7.5L12 12L7 7.5L9.5 4Z" fill="rgba(255, 199, 31, 0.3)" stroke="#FFC71F"/>
+              <path d="M7 7.5H17" stroke="#FFC71F" stroke-width="1.2"/>
+              <path d="M9.5 4L12 7.5L14.5 4" stroke="#FFE79A" stroke-width="1.2"/>
+              <path d="M12 7.5V12" stroke="#FFE79A" stroke-width="1.2"/>
+              <circle cx="12" cy="15.5" r="6.2" stroke="#FFC71F" stroke-width="1.9"/>
+            </svg>
+            <span class="avatar-status-dot" title="Online Master Gemologist"></span>
+          </div>
+          <div class="chatbot-header-text">
+            <h3 id="chatbot-heading">AURA CONCIERGE</h3>
+            <span class="chatbot-header-subtitle">Place Vendôme • Master Gemologist AI</span>
+          </div>
+        </div>
+        <div class="chatbot-header-actions">
+          <button type="button" class="chatbot-action-btn" id="chatbot-reset-btn" title="Reset Conversation" aria-label="Reset Conversation">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+          </button>
+          <button type="button" class="chatbot-action-btn chatbot-close-btn" id="chatbot-close-btn" title="Close Concierge" aria-label="Close Concierge">
+            &times;
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Topic Chips -->
+      <div class="chatbot-chips-bar" id="chatbot-chips-bar">
+        <button type="button" class="chat-chip" data-prompt="Can you explain the 4Cs and Type IIa diamonds?">💎 4Cs & Carat Advice</button>
+        <button type="button" class="chat-chip" data-prompt="How do I commission a bespoke high jewelry piece?">⚜ Bespoke Commission</button>
+        <button type="button" class="chat-chip" data-prompt="Can I book a private salon appointment in Paris or Geneva?">📍 Book Salon</button>
+        <button type="button" class="chat-chip" data-prompt="Recommend an exceptional solitaire ring">💍 Recommend Solitaire</button>
+        <button type="button" class="chat-chip" data-prompt="Tell me about your ethical gold and Kimberley protocol">🌿 Ethical Gold & Care</button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="chatbot-messages" id="chatbot-messages">
+        <!-- Initial Welcome Message -->
+        <div class="chat-msg chat-msg-bot">
+          <div class="msg-avatar">⚜</div>
+          <div class="msg-bubble">
+            <p>Bonjour. I am your <strong>Maison Aura Gemological Concierge</strong>, live from our Place Vendôme atelier.</p>
+            <p>How may I assist your high jewelry journey today? Tap a quick inquiry above or ask any question below.</p>
+            <span class="msg-timestamp">Just now</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="chatbot-typing-indicator" id="chatbot-typing-indicator" style="display: none;">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-label">Gemologist analyzing...</span>
+      </div>
+
+      <!-- Input Form -->
+      <form class="chatbot-input-form" id="chatbot-input-form">
+        <input type="text" id="chatbot-user-input" class="chatbot-input" placeholder="Inquire about carats, bespoke, or salon..." autocomplete="off" aria-label="Chat input">
+        <button type="submit" class="chatbot-send-btn" id="chatbot-send-btn" aria-label="Send Inquiry">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+
+    </div>
+
   </div>
 
   <!-- Main JavaScript -->
